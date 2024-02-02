@@ -1,0 +1,39 @@
+.text-cusstom
+{
+  color: #ff9700;
+}
+small{
+  border: #ff9700 solid 1px;
+  /* background-color: #ff9700; */
+}
+.btn-custom{
+  color: white;
+  background-color: #ff9700;
+}
+.btn-custom1 {
+  color: white;
+  background-color: #19375c;
+}
+.service-item{
+  border: #ff9700 solid 1px;
+
+}
+.bene{
+  background-color: #19375c;
+  border-radius: 0px 100px;
+  color: white;
+}
+.grand{
+  background-color: #ff9700;
+  border-radius: 0px 120px;
+}
+
+.bene img{
+  border-radius: 20px;
+}
+.bg-custom{
+  background-color: #ff9700;
+}
+.bg-custom p{
+  color: white;
+}

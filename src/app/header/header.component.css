@@ -1,0 +1,29 @@
+.nav-bar
+{
+ background-color: #19375C;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-nav a ,.active{
+  color: #ff9700;
+}
+.btn-custom,.btn-search{
+  background-color: #ff9700;
+  color: white;
+}
+.bg-custom{
+  background-color: beige;
+}
+.dropdown-item a{
+  color: white;
+}
+
+/* Dans votre feuille de style CSS pour le menu soit reactif  */
+/* .active {
+  font-weight: bold;
+  color: white;
+} */
+

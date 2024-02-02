@@ -1,0 +1,85 @@
+<div id="main-wrapper" class="container">
+  <div class="row justify-content-center py-3">
+    <div class="col-xl-10 shadow">
+      <div class="card border-0 ">
+        <div class="card-body p-0">
+          <div class="row no-gutters">
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="mb-5">
+                  <h2 class="h4 font-weight-bold text-theme">{{this.titleFrm}}</h2>
+                </div>
+
+                <h6 class="h5 mb-0">Bienvenue</h6>
+                <p class="text-muted mt-2 mb-5">Entrer votre mot de passe et votre email pour vous connecter.</p>
+<!-- login -->
+                <form *ngIf="showForm1">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email">
+                  </div>
+                  <div class="form-group mb-5">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
+                  </div>
+                  <button type="submit" class="btn btn-theme" (click)="login()">Connexion</button>
+                </form>
+   <!-- end login -->
+   <!-- signup -->
+  <form *ngIf="!showForm1">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Nom</label>
+      <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Prenom</label>
+      <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="prenom">
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
+    </div>
+    <div class="form-group  mb-5">
+
+      <input type="hidden" class="form-control" id="role" name="role">
+    </div>
+    <button type="submit" class="btn btn-theme" (click)="register()">Inscription</button>
+
+  </form>
+
+
+   <!-- end sgnup -->
+              </div>
+            </div>
+
+            <div class="col-lg-6 d-none d-lg-inline-block">
+              <div class="account-block rounded-right">
+                <div class="overlay rounded-right"></div>
+                <div class="account-testimonial">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-muted text-center  mb-2">Pas de compte? <button (click)="toggleForm()"
+              class="text-primary ml-1 p-1">Inscrire</button>
+
+            </p>
+        </div>
+        <!-- end card-body -->
+      </div>
+      <!-- end card -->
+
+
+      <!-- end row -->
+
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- Row -->
+</div>

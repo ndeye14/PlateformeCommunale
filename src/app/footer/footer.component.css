@@ -1,0 +1,15 @@
+.btn-custom
+{
+  background-color: #ff9700;
+  color: white;
+}
+.text-cusstom{
+  color: #ff9700;
+}
+.bg-custom{
+  background-color: #19375C;
+}
+
+.border-custom{
+  border-top: #ff9700 solid 1px;
+}

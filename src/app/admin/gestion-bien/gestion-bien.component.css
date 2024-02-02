@@ -1,0 +1,20 @@
+#sidebar {
+  background-color: #19375C;
+}
+
+.logo {
+  display: block;
+  width: 30%;
+  margin: auto;
+
+}
+.btn-custom {
+  background-color: #ff9700;
+  color: white;
+}
+
+.cardTete {
+  border-top: 5px solid #19375C !important;
+  border: 1px solid #19375C;
+}
+

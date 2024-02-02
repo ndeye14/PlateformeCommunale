@@ -1,0 +1,125 @@
+.annonce img{
+  height: 300px;
+  width: 100%;
+}
+.img-fluid{
+  height: 300px;
+}
+.voirPlus{
+  background-color: #ff9700;
+  border-radius: 10px;
+  color: white;
+
+}
+.bg-custom{
+  background-color: #ff9700;
+}
+.bg-custom p{
+  color: white;
+}
+
+/* pagination */
+.pagination-outer {
+  text-align: center;
+}
+
+.pagination {
+  background: #fff;
+  display: inline-flex;
+  border-radius: 50px;
+  padding: 4px 4px;
+  overflow: hidden;
+  position: relative;
+  border: #ff9700 1px solid;
+}
+
+.pagination li a.page-link {
+  color: #19375c;
+  background: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 33px;
+  width: 45px;
+  height: 45px;
+  margin: 0 3px;
+  border-radius: 50%;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+
+.pagination li.active a.page-link,
+.pagination li a.page-link:hover,
+.pagination li.active a.page-link:hover {
+  color: #fff;
+  background: transparent;
+}
+
+.pagination li:first-child a.page-link,
+.pagination li:last-child a.page-link {
+  color: #505050;
+  font-size: 25px;
+  line-height: 30px;
+  transform: scale(1.2);
+}
+
+.pagination li:first-child a.page-link {
+  margin-right: 20px;
+}
+
+.pagination li:last-child a.page-link {
+  margin-left: 20px;
+}
+
+.pagination li:first-child a.page-link:hover,
+.pagination li:last-child a.page-link:hover {
+  color: #fff;
+}
+
+.pagination li a.page-link:before,
+.pagination li a.page-link:after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: #19375c;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.3s ease 0s;
+}
+
+.pagination li a.page-link:after {
+  background-color: transparent;
+  opacity: 1;
+  top: 0;
+  transition: all 0.3s ease 0.1s;
+}
+
+.pagination li a.page-link:hover:before,
+.pagination li.active a.page-link:before {
+  box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  top: 0;
+}
+
+.pagination li a.page-link:hover:after,
+.pagination li.active a.page-link:after {
+  transform: scale(1.5);
+  background-color: #fff;
+  opacity: 0;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 480px) {
+  .pagination {
+    display: block;
+  }
+
+  .pagination li {
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+}

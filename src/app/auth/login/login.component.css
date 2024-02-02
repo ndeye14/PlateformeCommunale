@@ -1,0 +1,43 @@
+
+
+.account-block {
+  padding: 0;
+  background-image: url("https://img.freepik.com/photos-gratuite/gros-plan-mains-empilees_23-2147664378.jpg?size=626&ext=jpg&ga=GA1.2.359486737.1694125754&semt=ais");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 85%;
+  position: relative;
+}
+
+.account-block .overlay {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.account-block .account-testimonial {
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  margin: 0 auto;
+  padding: 0 1.75rem;
+  bottom: 3rem;
+  left: 0;
+  right: 0;
+}
+
+.text-theme {
+  color: #ff9700 !important;
+}
+
+.btn-theme {
+  background-color: #ff9700;
+  border-color: #ff9700;
+  color: #fff;
+}

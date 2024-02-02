@@ -1,0 +1,330 @@
+/* css banniere avec les rond */
+/* body{margin-top:20px;}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+}
+
+.sub-info{
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    color: #004975;
+}
+
+.display-30 {
+    font-size: 0.9rem;
+} */
+/* end */
+/*  css card*/
+/* .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 0.75rem;
+  background-color: white;
+  width: 300px;
+  height: 370px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1),
+    0 2px 4px -2px rgba(0, 0, 0, .1);
+}
+.header {
+  position: relative;
+  background-clip: border-box;
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-radius: 0.75rem;
+  background-color: rgb(33 150 243);
+  box-shadow: 0 10px 15px -3px rgba(33, 150, 243, .4), 0 4px 6px -4px rgba(33, 150, 243, .4);
+  height: 14rem;
+}
+
+.info {
+  border: none;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.title {
+  color: rgb(38 50 56);
+  letter-spacing: 0;
+  line-height: 1.375;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer {
+  padding: 0.75rem;
+  border: 1px solid rgb(236 239 241);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 140, 255, 0.082);
+}
+
+.tag {
+  font-weight: 300;
+  font-size: .75rem;
+  display: block;
+}
+
+.action {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 6px -1px rgba(33, 150, 243, .4), 0 2px 4px -2px rgba(33, 150, 243, .4);
+  color: rgb(255 255 255);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: .75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: rgb(33 150 243);
+  border-radius: 0.5rem;
+} */
+
+/* css trois card */
+h1 {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.blog-card-blog {
+  margin-top: 30px;
+}
+
+.blog-card {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.blog-card .blog-card-image {
+  height: 50%;
+  position: relative;
+  overflow: hidden;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: -30px;
+  border-radius: 6px;
+  box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.blog-card .blog-card-image img {
+  width: 100%;
+  height: 250px;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.blog-card .blog-table {
+  padding: 15px 30px;
+}
+
+.blog-table {
+  margin-bottom: 0px;
+}
+
+.blog-category {
+  position: relative;
+  line-height: 0;
+  margin: 15px 0;
+}
+
+.blog-text-custom {
+  color: #ff9700 !important;
+}
+
+.blog-card-blog .blog-card-caption {
+  margin-top: 5px;
+}
+
+.blog-card-caption {
+  font-weight: 700;
+  font-family: "Roboto Slab", "Times New Roman", serif;
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.blog-card-caption,
+.blog-card-caption a {
+  color: #333;
+  text-decoration: none;
+}
+
+p {
+  color: #3C4857;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.blog-card .ftr {
+  margin-top: 15px;
+}
+
+.blog-card .ftr .author {
+  color: #888;
+}
+
+.blog-card .ftr div {
+  display: inline-block;
+}
+
+.blog-card .author .avatar {
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.blog-card .ftr .stats {
+  position: relative;
+  top: 1px;
+  font-size: 14px;
+}
+
+.blog-card .ftr .stats {
+  float: right;
+  line-height: 30px;
+}
+
+
+/* pagination */
+.pagination-outer {
+  text-align: center;
+}
+
+.pagination {
+  background: #fff;
+  display: inline-flex;
+  border-radius: 50px;
+  padding: 4px 4px;
+  overflow: hidden;
+  position: relative;
+  border: #ff9700 1px solid;
+}
+
+.pagination li a.page-link {
+  color: #19375c;
+  background: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 33px;
+  width: 45px;
+  height: 45px;
+  margin: 0 3px;
+  border-radius: 50%;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+
+.pagination li.active a.page-link,
+.pagination li a.page-link:hover,
+.pagination li.active a.page-link:hover {
+  color: #fff;
+  background: transparent;
+}
+
+.pagination li:first-child a.page-link,
+.pagination li:last-child a.page-link {
+  color: #505050;
+  font-size: 25px;
+  line-height: 30px;
+  transform: scale(1.2);
+}
+
+.pagination li:first-child a.page-link {
+  margin-right: 20px;
+}
+
+.pagination li:last-child a.page-link {
+  margin-left: 20px;
+}
+
+.pagination li:first-child a.page-link:hover,
+.pagination li:last-child a.page-link:hover {
+  color: #fff;
+}
+
+.pagination li a.page-link:before,
+.pagination li a.page-link:after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: #19375c;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.3s ease 0s;
+}
+
+.pagination li a.page-link:after {
+  background-color: transparent;
+  opacity: 1;
+  top: 0;
+  transition: all 0.3s ease 0.1s;
+}
+
+.pagination li a.page-link:hover:before,
+.pagination li.active a.page-link:before {
+  box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  top: 0;
+}
+
+.pagination li a.page-link:hover:after,
+.pagination li.active a.page-link:after {
+  transform: scale(1.5);
+  background-color: #fff;
+  opacity: 0;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 480px) {
+  .pagination {
+    display: block;
+  }
+
+  .pagination li {
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+}
+
+
+.banniere img{
+  height: 300px;
+}
+.plus{
+  background-color: #ff9700;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+}

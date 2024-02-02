@@ -1,0 +1,11 @@
+.text-cusstom
+{
+  color: #ff9700;
+}
+.border-custom{
+  border: #ff9700 1px solid;
+}
+.bg-custom{
+  background-color: #ff9700;
+  color: white;
+}
