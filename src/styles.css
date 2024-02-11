@@ -22,7 +22,7 @@ li {
   --lato: 'Lato', sans-serif;
 
   --light: #F9F9F9;
-  --blue: #3C91E6;
+  --blue: #19375c;
   --light-blue: #CFE8FF;
   --grey: #eee;
   --dark-grey: #AAAAAA;
@@ -429,18 +429,15 @@ body {
 }
 
 #content main .box-info li:nth-child(1) .bx {
-  background: var(--light-blue);
-  color: var(--blue);
+  background: #ff9700;
 }
 
 #content main .box-info li:nth-child(2) .bx {
-  background: var(--light-yellow);
-  color: var(--yellow);
+  background:#19375c;
 }
 
 #content main .box-info li:nth-child(3) .bx {
-  background: var(--light-orange);
-  color: var(--orange);
+  background:#ff9700;
 }
 
 #content main .box-info li .text h3 {
@@ -713,3 +710,8 @@ body {
 div.dataTables_wrapper div.dataTables_filter input{
   width: 150px !important;
 }
+
+/* pagination */
+
+
+

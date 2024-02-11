@@ -163,4 +163,15 @@
  .text-cusstom{
   color: #ff9700;
  }
+ .sty{
+  border: #ff9700 solid;
+  padding: 5px;
+  margin: 0 auto;
+  color: black;
+  text-align: center;
+  border-radius: 20px;
+ }
+ #activ{
+  background-color: #ff9700;
+ }
 

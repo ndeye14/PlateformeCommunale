@@ -28,6 +28,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { AuthenComponent } from './auth/authen/authen.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MessageComponent } from './admin/message/message.component';
+import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +53,9 @@ import { HttpClientModule } from '@angular/common/http';
     GestionBienComponent,
     GestionProduitComponent,
     AuthenComponent,
-    LoginComponent
+    LoginComponent,
+    MessageComponent,
+    DetailAnnonceComponent
 
   ],
   imports: [

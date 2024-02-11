@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class RessourceService {
-  constructor(private http:HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   // methode pour ajouter annonce
   ajouterRessource(ressource: any): Observable<any> {
@@ -42,8 +42,8 @@ export class RessourceService {
   }
 
   // annonce par details
-  getRessourceById(ressource: any): Observable<any> {
-    return this.http.get<any>(`${url}/${ressource.id}`);
+  getRessourceById(id: number): Observable<any> {
+    return this.http.get<any>(`${url}/ressource/details/${id}`);
   }
 
   // methode pour modifier

@@ -8,13 +8,14 @@
     <div class="col-sm-12 col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Rechercher un produit" aria-label="Rechercher"
-          aria-describedby="button-addon2">
+          aria-describedby="button-addon2" [(ngModel)]="filterValue" (keyup)="onSearch()">
         <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa-solid fa-magnifying-glass" style="color: #FF9700;"></i></button>
       </div>
 
     </div>
     <div class="col-sm-12 col-lg-4 ms-auto">
-      <button type="button" class="btn btn-custom btn-md">Ajouter un produit</button>
+      <button type="button" class="btn btn-custom btn-md" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">Ajouter un produit</button>
     </div>
   </div>
 
@@ -28,25 +29,23 @@
 
 <div class="row g-4">
 
-  <div class="col-12 col-md-6 col-lg-4">
+  <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of produitListFilter">
     <div class="card shadow">
-      <img
-        src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/374575826_6648479351855315_6466773685084557589_n.jpg?stp=c0.67.403.403a_dst-jpg_p403x403&_nc_cat=103&ccb=1-7&_nc_sid=247b10&_nc_ohc=ldrvlInR47MAX9g8pSm&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfBDt6J2pn5jFYLAsVat0P2hwwp00D-O6FwGBuSRuQ4-oA&oe=65B5712E"
-        class="card-img-top rounded-top" alt="Designer desk">
+      <img  src="http://localhost:8000/images/{{this.item.images}}" class="card-img-top rounded-top" alt="Designer desk">
       <div class="card-body">
         <div class="media d-flex align-items-center justify-content-between">
           <div class="d-flex align-items-center">
-            <span class="small">6000 fcfa</span>
+            <span class="small">{{item.prix}} fcfa</span>
           </div>
         </div>
-        <h3 class="h5 card-title mt-4">Abaya originale pour femme</h3>
-        <p class="card-text">78 3456789</p>
+        <h3 class="h5 card-title mt-4">{{item.nom_produit}}</h3>
+        <p class="card-text">{{item.contact}}</p>
 
       </div>
     </div>
   </div>
 
-  <div class="col-12 col-md-6 col-lg-4">
+  <!-- <div class="col-12 col-md-6 col-lg-4">
     <div class="card shadow">
       <img
         src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/410873422_7001659449910552_6133661999177115090_n.jpg?stp=c0.7.403.403a_dst-jpg_p403x403&_nc_cat=105&ccb=1-7&_nc_sid=247b10&_nc_ohc=HWP1lfqti8oAX_OX6FB&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfDapYLJ0zfP847g9rFAKRDHkqhun5GchysYAe3xwZtGrA&oe=65B51B52"
@@ -177,7 +176,7 @@
 
       </div>
     </div>
-  </div>
+  </div> -->
 
 
   <!-- pagination -->
@@ -218,3 +217,82 @@
 
 
 <app-footer></app-footer>
+<!-- Modal ajout-->
+ <div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajout produit</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form action="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="description">Nom</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nom"
+              placeholder="Nom"
+              name="nom_produit"
+              [(ngModel)]="nom_produit"
+            />
+
+          </div>
+          <div class="form-group">
+            <label for="date">Prix</label>
+            <input
+              type="text"
+              class="form-control"
+              id="adress"
+              placeholder="Adresse"
+              name="prix"
+              [(ngModel)]="prix"
+            />
+          </div>
+          <div class="form-group">
+            <label for="lieu">Contact</label>
+            <input
+              type="text"
+              class="form-control"
+              id="contact"
+              placeholder="Contact"
+              name="contact"
+              [(ngModel)]="contact"
+            />
+          </div>
+           <div class="form-group">
+            <label for="image">Image</label>
+            <input
+              type="file"
+              class="form-control"
+              id="image"
+              placeholder=""
+              name="image"
+              (change)="getFile($event)"
+            />
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onSubmit()">
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

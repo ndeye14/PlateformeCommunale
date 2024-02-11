@@ -49,6 +49,12 @@
         <span class="text">Gestion Produit</span>
       </a>
     </li>
+    <li>
+      <a routerLink="/message">
+      <i class="fa-solid fa-message fa-sm mx-2" style="color: #FF9700;">
+      </i><span class="text">Message</span>
+      </a>
+    </li>
   </ul>
   <ul class="side-menu">
     <li>
@@ -110,24 +116,25 @@
 
     <ul class="box-info">
       <li class="cardTete shadow">
-        <i class='bx bxs-calendar-check'></i>
+        <i class='bx'><i class="fa-solid fa-user fa-sm" style="color: #19375c;"></i></i>
         <span class="text">
-          <h3>1020</h3>
-          <p>New Order</p>
+          <h3>{{utilisateurList.length}}</h3>
+          <p>Utilisateurs</p>
         </span>
       </li>
       <li class="cardTete shadow">
-        <i class='bx bxs-group'></i>
+        <i class='bx'><i class="fa-solid fa-bullhorn fa-sm me-2 mx-2" style="color: #FF9700;"></i>
+</i>
         <span class="text">
-          <h3>2834</h3>
-          <p>Visitors</p>
+          <h3>{{annonceList.length}}</h3>
+          <p>Annonces</p>
         </span>
       </li>
-      <li class="cardTete shadow">
-        <i class='bx bxs-dollar-circle'></i>
+      <li class="cardTete  shadow">
+        <i class='bx'><i class="fa-solid fa-book-open fa-sm" style="color: #19375c;"></i></i>
         <span class="text">
-          <h3>$2543</h3>
-          <p>Total Sales</p>
+          <h3>{{ressourceList.length}}</h3>
+          <p>Ressources</p>
         </span>
       </li>
     </ul>
@@ -143,7 +150,7 @@
       <table class="table" *ngIf="produitList.length < 0">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>N</th>
           <th>Date</th>
           <th>Lieu</th>
           <th>Description</th>

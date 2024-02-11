@@ -50,28 +50,38 @@
     </div>
 </div> -->
 
-<div class="banniere py-6">
-  <img src="assets/img/res.png" alt="" class="w-100">
+<div class="banniere py-6 my-1">
+  <img src="assets/img/res.png" alt="" class="w-100 shadow">
+</div>
+<div class="container">
+    <div class="col-sm-12 col-lg-4">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Rechercher une ressource" aria-label="Rechercher" [(ngModel)]="filterValue" (keyup)="onSearch()"
+          aria-describedby="button-addon2">
+        <button   class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa-solid fa-magnifying-glass"
+            style="color: #FF9700;"></i></button>
+      </div>
+    </div>
 </div>
 
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-4" *ngFor="let item of ressourceListFilter | slice:(pageActuelle - 1) * articleParPage:(pageActuelle * articleParPage)">
         <div class="blog-card blog-card-blog">
           <div class="blog-card-image">
-            <a href="#"> <img class="img" src="https://img.freepik.com/photos-gratuite/robot-anthropomorphe-interieur_23-2150405626.jpg?size=626&ext=jpg&ga=GA1.2.359486737.1694125754&semt=sph"> </a>
+            <img class="img" src="https://media.istockphoto.com/id/1181567551/fr/photo/mot-de-ressources-dans-le-cube-en-bois.jpg?s=612x612&w=0&k=20&c=0iFZ0Mirj3ge5wLEjBKnODUlSjxGlM_otqc-hwrpZws=">
             <div class="ripple-cont"></div>
           </div>
           <div class="blog-table">
             <h6 class="blog-category blog-text-custom"><i class="far fa-newspaper"></i> Ressources</h6>
             <h4 class="blog-card-caption">
-              <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
+              <p>{{item.nom}}</p>
             </h4>
-            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            <p class="blog-card-description">{{item.nature| slice:0:50}} ...
             </p>
             <div class="ftr">
               <div class="author">
-                <a routerLink="/detailRessource" class="plus">
+                <a [routerLink]="['/detailRessource', item.id]"   class="plus">
                   voir plus
                 </a>
               </div>
@@ -80,136 +90,6 @@
         </div>
       </div>
 
-
-      <div class="col-md-4">
-        <div class="blog-card blog-card-blog">
-          <div class="blog-card-image">
-            <a href="#"> <img class="img" src="https://img.freepik.com/photos-gratuite/joli-bebe-noir-maison-ses-parents_23-2149618871.jpg?size=626&ext=jpg&ga=GA1.1.359486737.1694125754&semt=ais"> </a>
-            <div class="ripple-cont"></div>
-          </div>
-          <div class="blog-table">
-            <h6 class="blog-category blog-text-custom"><i class="fas fa-blog"></i>Ressources</h6>
-            <h4 class="blog-card-caption">
-              <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
-            </h4>
-            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
-            <div class="ftr">
-              <div class="author">
-                <a href="#" class="plus">
-                  voir plus
-                </a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="blog-card blog-card-blog">
-          <div class="blog-card-image">
-            <a href="#"> <img class="img" src="https://img.freepik.com/photos-gratuite/eau-3d-ai-generer_23-2150685276.jpg?size=626&ext=jpg&ga=GA1.1.359486737.1694125754&semt=sph"> </a>
-            <div class="ripple-cont"></div>
-          </div>
-          <div class="blog-table">
-            <h6 class="blog-category blog-text-custom"><i class="far fa-newspaper"></i>Ressources</h6>
-            <h4 class="blog-card-caption">
-              <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
-            </h4>
-            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
-            <div class="ftr">
-              <div class="author">
-                <a href="#" class="plus">
-                  voir plus
-                </a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="blog-card blog-card-blog">
-          <div class="blog-card-image">
-            <a href="#"> <img class="img"
-                src="https://img.freepik.com/photos-gratuite/afro-americain-tenant-ruban-bleu_23-2149132224.jpg?size=626&ext=jpg&ga=GA1.2.359486737.1694125754&semt=ais">
-            </a>
-            <div class="ripple-cont"></div>
-          </div>
-          <div class="blog-table">
-            <h6 class="blog-category blog-text-custom"><i class="far fa-newspaper"></i>Ressources</h6>
-            <h4 class="blog-card-caption">
-              <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
-            </h4>
-            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
-            <div class="ftr">
-              <div class="author">
-                <a href="#" class="plus">
-                  voir plus
-                </a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="blog-card blog-card-blog">
-          <div class="blog-card-image">
-            <a href="#"> <img class="img"
-                src="https://img.freepik.com/photos-gratuite/homme-faisant-agriculture-interieur_52683-91940.jpg?size=626&ext=jpg&ga=GA1.2.359486737.1694125754&semt=ais">
-            </a>
-            <div class="ripple-cont"></div>
-          </div>
-          <div class="blog-table">
-            <h6 class="blog-category blog-text-custom"><i class="far fa-newspaper"></i>Ressources</h6>
-            <h4 class="blog-card-caption">
-              <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
-            </h4>
-            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
-            <div class="ftr">
-              <div class="author">
-              <a href="#" class="plus">
-                voir plus
-              </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="blog-card blog-card-blog">
-          <div class="blog-card-image">
-            <a href="#"> <img class="img"
-                src="https://img.freepik.com/photos-gratuite/arretez-fumer-cigarettes_23-2148527426.jpg?size=626&ext=jpg&ga=GA1.2.359486737.1694125754&semt=ais">
-            </a>
-            <div class="ripple-cont"></div>
-          </div>
-          <div class="blog-table">
-            <h6 class="blog-category blog-text-custom"><i class="far fa-newspaper"></i>Ressources</h6>
-            <h4 class="blog-card-caption">
-              <a href="#">Lorem Ipsum is simply dummy text of the printing and</a>
-            </h4>
-            <p class="blog-card-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
-            <div class="ftr">
-              <div class="author">
-                <a href="#" class="plus">
-                  voir plus
-                 </a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -220,24 +100,38 @@
 <!-- pagination -->
 <div class="demo ">
   <nav class="pagination-outer" aria-label="Page navigation">
-    <ul class="pagination shadow-lg">
-      <li class="page-item">
-        <a href="#" class="page-link" aria-label="Previous">
+    <div class="pagination shadow-lg">
+        <button class="page-item page-link"  [disabled]="pageActuelle === 1" (click)="pageActuelle = pageActuelle - 1" class="page-link" aria-label="Previous" >
           <span aria-hidden="true">«</span>
-        </a>
-      </li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item "><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">4</a></li>
-      <li class="page-item"><a class="page-link" href="#">5</a></li>
-      <li class="page-item">
-        <a href="#" class="page-link" aria-label="Next">
+        </button>
+
+      <button class="page-item page-link active" *ngFor="let page of pages" (click)="pageActuelle = page" class="page-link" [style.background]="page === pageActuelle ? 'orange' : 'white'"> {{ page }}</button>
+        <button class="page-item page-link" [disabled]="pageActuelle === totalPages" (click)="pageActuelle = pageActuelle + 1" class="page-link" aria-label="Next" >
           <span aria-hidden="true">»</span>
-        </a>
-      </li>
-    </ul>
+        </button>
+    </div>
   </nav>
 </div>
 
 <app-footer></app-footer>
+
+<!-- deatails -->
+<!-- <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="h6 modal-title">Details ressource</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{ressourceSelectionner.nom}}</p>
+                <p>{{ressourceSelectionner.nature}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link text-gray ms-auto" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+

@@ -18,13 +18,13 @@
         <div class="col-md-6 col-lg-7">
           <p class="mb-4"></p>
           <form>
-            <input type="text" class="w-100 form-control p-3 mb-4 border-custom bg-white" placeholder="Votre nom">
+            <input type="text" class="w-100 form-control p-3 mb-4 border-custom bg-white" placeholder="Votre nom" name="nom" [(ngModel)]="nom">
             <input type="email" class="w-100 form-control p-3 mb-4 border-custom bg-white"
-              placeholder="Entrer votre Email">
+              placeholder="Entrer votre Email" name="email" [(ngModel)]="email">
             <textarea class="w-100 form-control mb-4 p-3 border-custom bg-white" rows="4" cols="10"
-              placeholder="Votre Message"></textarea>
+              placeholder="Votre Message" name="message" [(ngModel)]="message"></textarea>
             <button class="w-100 btn btn-primary form-control p-2 border-custom bg-custom rounded-pill"
-              type="submit">Envoyer</button>
+              type="submit" (click)=" onSubmit()">Envoyer</button>
           </form>
         </div>
         <div class="col-md-6 col-lg-5">
@@ -61,3 +61,71 @@
 <!-- Contact End -->
 
 <app-footer></app-footer>
+<!-- Modal ajout-->
+ <div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajout ressource</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form action="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="description">Nom</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nom"
+              placeholder="Nom"
+              name="nom"
+              [(ngModel)]="nom"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="Votre Email"
+              name="email"
+              [(ngModel)]="email"
+            />
+
+          </div>
+          <div class="form-group">
+            <label for="date">Message</label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="adress"
+              placeholder="nature"
+              name="nature"
+              [(ngModel)]="message"
+            ></textarea>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onSubmit()">
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -48,6 +48,12 @@
         <span class="text">Gestion Produit</span>
       </a>
     </li>
+    <li>
+      <a routerLink="/message">
+      <i class="fa-solid fa-message fa-sm mx-2" style="color: #FF9700;">
+      </i><span class="text">Message</span>
+      </a>
+    </li>
   </ul>
   <ul class="side-menu">
     <li>
@@ -111,25 +117,26 @@
     </div>
 
     <ul class="box-info">
-      <li class="shadow cardTete">
-        <i class="bx bxs-calendar-check"></i>
+      <li class="cardTete shadow">
+        <i class='bx'><i class="fa-solid fa-user fa-sm" style="color: #19375c;"></i></i>
         <span class="text">
-          <h3>1020</h3>
-          <p>New Order</p>
+          <h3>{{utilisateurList.length}}</h3>
+          <p>Utilisateurs</p>
         </span>
       </li>
-      <li class="shadow cardTete">
-        <i class="bx bxs-group"></i>
+      <li class="cardTete shadow">
+        <i class='bx'><i class="fa-solid fa-bullhorn fa-sm me-2 mx-2" style="color: #FF9700;"></i>
+</i>
         <span class="text">
-          <h3>2834</h3>
-          <p>Visitors</p>
+          <h3>{{annonceList.length}}</h3>
+          <p>Annonces</p>
         </span>
       </li>
-      <li class="shadow cardTete">
-        <i class="bx bxs-dollar-circle"></i>
+      <li class="cardTete  shadow">
+        <i class='bx'><i class="fa-solid fa-book-open fa-sm" style="color: #19375c;"></i></i>
         <span class="text">
-          <h3>$2543</h3>
-          <p>Total Sales</p>
+          <h3>{{ressourceList.length}}</h3>
+          <p>Ressources</p>
         </span>
       </li>
     </ul>
@@ -167,7 +174,7 @@
     >
       <thead>
         <tr>
-          <th>ID</th>
+          <th>N</th>
           <th>Date</th>
           <th>Lieu</th>
           <th>Description</th>
@@ -175,11 +182,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of annonceList">
-          <td>{{item.id}}</td>
+        <tr *ngFor="let item of annonceList;let index=index">
+          <td>{{index + 1}}</td>
           <td>{{ item.date_activite }}</td>
           <td>{{ item.lieu }}</td>
-          <td>{{ item.description }}</td>
+          <td>{{ item.description| slice:0:30 }} ...</td>
           <td>
             <a data-bs-toggle="modal"
       data-bs-target="#detail" (click)="getAnnonce(item)"><i class="fa-solid fa-xl fa-eye me-2 mb-2" style="color: #ff9700;"></i></a>

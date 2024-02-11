@@ -5,3 +5,6 @@
 .event-img img{
   height: 250px;
 }
+.bg-custom{
+  background-color: #ff9700 !important;
+}

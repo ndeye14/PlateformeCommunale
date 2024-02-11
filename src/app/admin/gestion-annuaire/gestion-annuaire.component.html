@@ -49,6 +49,12 @@
         <span class="text">Gestion Produit</span>
       </a>
     </li>
+    <li>
+      <a routerLink="/message">
+      <i class="fa-solid fa-message fa-sm mx-2" style="color: #FF9700;">
+      </i><span class="text">Message</span>
+      </a>
+    </li>
   </ul>
   <ul class="side-menu">
     <li>
@@ -112,25 +118,26 @@
     </div>
 
     <ul class="box-info">
-      <li class="shadow cardTete">
-        <i class='bx bxs-calendar-check'></i>
+      <li class="cardTete shadow">
+        <i class='bx'><i class="fa-solid fa-user fa-sm" style="color: #19375c;"></i></i>
         <span class="text">
-          <h3>1020</h3>
-          <p>New Order</p>
+          <h3>{{utilisateurList.length}}</h3>
+          <p>Utilisateurs</p>
         </span>
       </li>
-      <li class="shadow cardTete">
-        <i class='bx bxs-group'></i>
+      <li class="cardTete shadow">
+        <i class='bx'><i class="fa-solid fa-bullhorn fa-sm me-2 mx-2" style="color: #FF9700;"></i>
+</i>
         <span class="text">
-          <h3>2834</h3>
-          <p>Visitors</p>
+          <h3>{{annonceList.length}}</h3>
+          <p>Annonces</p>
         </span>
       </li>
-      <li class="shadow cardTete">
-        <i class='bx bxs-dollar-circle'></i>
-        <span class="text ">
-          <h3>$2543</h3>
-          <p>Total Sales</p>
+      <li class="cardTete  shadow">
+        <i class='bx'><i class="fa-solid fa-book-open fa-sm" style="color: #19375c;"></i></i>
+        <span class="text">
+          <h3>{{ressourceList.length}}</h3>
+          <p>Ressources</p>
         </span>
       </li>
     </ul>
@@ -151,7 +158,7 @@
     <table class="table" *ngIf="annuaireList.length < 0">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>N</th>
           <th>Adresse</th>
           <th>Lieu</th>
           <th>Description</th>
@@ -173,7 +180,7 @@
     >
       <thead>
         <tr>
-          <th>ID</th>
+          <th>N</th>
           <th>Nom</th>
           <th>Adresse</th>
           <th>Couriel</th>
@@ -181,8 +188,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of annuaireList">
-          <td>{{item.id}}</td>
+        <tr *ngFor="let item of annuaireList;let index=index">
+          <td>{{index + 1}}</td>
           <td>{{ item.nom }}</td>
           <td>{{ item.adress}}</td>
           <td>{{ item.couriel }}</td>
@@ -312,8 +319,8 @@
 
                 <p class="card-text mb-4">{{this.annuaireSelectionner.adress}}</p>
                 <div class="d-flex justify-content-between align-items-center">
-                  <span class="card-text small"><i class="fa-solid fa-envelope fa-lg me-2" style="color: #ff9700;"></i>{{annuaireSelectionner.couriel}}</span>
-                  <a href="#" class="small"><span class="far fa-comments me-2"></span>21</a>
+                  <span class="card-text small">
+                    <i class="fa-solid fa-envelope fa-lg me-2" style="color: #ff9700;"></i>{{annuaireSelectionner.couriel}}</span>
                 </div>
               </div>
             </div>

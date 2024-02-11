@@ -23,7 +23,7 @@ export class UserService {
   }
 
   logout() {
-    const accessToken = localStorage.getItem('userConnect');
+    const accessToken = localStorage.getItem('userConnect.token');
 
     return accessToken
       ? this.http.post<any>(
@@ -73,5 +73,5 @@ export class UserService {
         })
       : of(null);
   }
-  
+
 }

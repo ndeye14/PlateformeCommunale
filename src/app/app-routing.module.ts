@@ -21,6 +21,8 @@ import { GestionAnnuaireComponent } from './admin/gestion-annuaire/gestion-annua
 import { AuthenComponent } from './auth/authen/authen.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './services/auth.guard';
+import { MessageComponent } from './admin/message/message.component';
+import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/acceuil', pathMatch: 'full' },
@@ -63,13 +65,13 @@ const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: 'detailRessource',
+    path: 'detailRessource/:id',
     component: DetailRessourceComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'maketplace',
     component: MaketplaceComponent,
-    
   },
   {
     path: 'bien',
@@ -78,6 +80,10 @@ const routes: Routes = [
   {
     path: 'annonce',
     component: AnnonceComponent,
+  },
+  {
+    path: 'detailAnnonce/:id',
+    component: DetailAnnonceComponent,
   },
   {
     path: 'login',
@@ -113,6 +119,11 @@ const routes: Routes = [
   {
     path: 'gestion-produit',
     component: GestionProduitComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'message',
+    component: MessageComponent,
     canActivate: [AuthGuard],
   },
 ];

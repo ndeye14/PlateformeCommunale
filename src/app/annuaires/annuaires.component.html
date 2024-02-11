@@ -14,30 +14,36 @@
     </div>
   </div>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col-12  col-md-6 col-lg-2 sty  my-1" id="activ">Tout</div>
+    <div class="col-12 col-md-6 col-lg-2 sty  my-1">Divertissement</div>
+    <div class="col-12 col-md-6 col-lg-2 sty  my-1">Services</div>
+    <div class="col-12 col-md-6 col-lg-2 sty  my-1 ">Sante</div>
+  </div>
+
+</div>
 <div class="ag-format-container">
   <div class="ag-courses_box">
-    <div class="ag-courses_item">
+    <div class="ag-courses_item" *ngFor="let item of annuaireListFiler">
       <a href="#" class="ag-courses-item_link">
         <div class="ag-courses-item_bg">
-
-
         </div>
-
         <div class="ag-courses-item_title">
-          <img src="https://img.freepik.com/photos-gratuite/bonne-annee-2022-fichier-psd-transparent-rendu-3d_460848-6844.jpg?size=626&ext=jpg&ga=GA1.2.359486737.1694125754&semt=sph" alt="" style="width: 60px ;height: 60px;" class="rounded-circle">
-         BoyCott
-        </div>
-
-        <div class="ag-courses-item_date-box">
-          Rue 13 HLM
+          <img src="http://localhost:8000/images/{{this.item.images}}" alt="" style="width: 60px ;height: 60px;" class="rounded-circle">
+        {{item.nom}}
         </div>
         <div class="ag-courses-item_date-box">
-          78 123 4567
+          <i class="fa-solid fa-location-dot fa-lg me-2 " style="color: #FF9700;"></i>
+         <span class="fw-bold">{{item.adress}}</span>
+        </div>
+        <div class="ag-courses-item_date-box">
+         <i class="fa-solid fa-envelope fa-lg me-2" style="color: #ff9700;"></i> {{item.couriel}}
         </div>
       </a>
     </div>
 
-    <div class="ag-courses_item">
+    <!-- <div class="ag-courses_item">
       <a href="#" class="ag-courses-item_link">
         <div class="ag-courses-item_bg"></div>
 
@@ -143,7 +149,7 @@
           78 123 4567
         </div>
       </a>
-    </div>
+    </div> -->
 
   </div>
 </div>

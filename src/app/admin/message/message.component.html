@@ -19,7 +19,7 @@
         <span class="text">Gestion Annonces</span>
       </a>
     </li>
-    <li class="active">
+    <li >
       <a routerLink="/gestion-ressource">
          <i class="fa-solid fa-file-invoice fa-sm mb-2 mx-2 my-1" style="color: #FF9700;"></i>
         <span class="text">Gestion Ressources</span>
@@ -49,8 +49,8 @@
         <span class="text">Gestion Produit</span>
       </a>
     </li>
-    <li>
-      <a routerLink="/message">
+    <li class="active">
+      <a  routerLink="/message">
       <i class="fa-solid fa-message fa-sm mx-2" style="color: #FF9700;">
       </i><span class="text">Message</span>
       </a>
@@ -108,7 +108,7 @@
           </li>
           <li><i class='bx bx-chevron-right'></i></li>
           <li>
-            <a class="active" href="#">Ressource</a>
+            <a class="active" href="#">Message</a>
           </li>
         </ul>
       </div>
@@ -138,28 +138,28 @@
         </span>
       </li>
     </ul>
-
     <!-- corps  -->
-    <button
+    <!-- <button
       type="button"
       class="btn btn-custom text-center mb-2"
       data-bs-toggle="modal"
       data-bs-target="#exampleModal"
     >
       Ajouter ressource
-    </button>
-     <table class="table" *ngIf="ressourceList.length < 0">
+    </button> -->
+     <table class="table" *ngIf="messageList.length < 0">
       <thead>
         <tr>
           <th>N</th>
           <th>Nom</th>
-          <th>Contenue</th>
+          <th>Email</th>
+          <th>Message</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td colspan="4" class="text-center">Aucune donnees disponible</td>
+          <td colspan="5" class="text-center">Aucune donnees disponible</td>
         </tr>
         <tr></tr>
       </tbody>
@@ -168,27 +168,26 @@
       datatable
       [dtOptions]="dtOptions"
       class="row-border hover table"
-      *ngIf="ressourceList.length > 0"
+      *ngIf="messageList.length > 0"
     >
       <thead>
         <tr>
           <th>N</th>
           <th>Nom</th>
-          <th>Contenue</th>
+          <th>Emial</th>
+          <th>Message</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of ressourceList;let index=index">
-          <td>{{index+1}}</td>
+        <tr *ngFor="let item of messageList;let index = index">
+          <td>{{index +1}}</td>
           <td>{{ item.nom}}</td>
-          <td>{{ item.nature|slice :0:30}} ...</td>
+          <td>{{ item.email}}</td>
+          <td>{{ item.message |slice :0:30}} ...</td>
           <td>
             <a data-bs-toggle="modal"
-      data-bs-target="#detail" (click)="getRessource(item)"><i class="fa-solid fa-xl fa-eye me-2 mb-2" style="color: #ff9700;"></i></a>
-            <a data-bs-toggle="modal"
-      data-bs-target="#modifie"  (click)="chargerInfosTest(item)"><i class="fa-solid fa-xl fa-pen-to-square me-2 mb-2" style="color: #ff9700;"></i></a>
-            <a (click)="SupprimeRessource(item.id)"><i class="fa-solid fa-trash fa-xl me-2 mb-2"  style="color: #ff9700;"></i></a>
+      data-bs-target="#detail" (click)="getMessage(item)"><i class="fa-solid fa-xl fa-eye me-2 mb-2" style="color: #ff9700;"></i></a>
           </td>
         </tr>
       </tbody>
@@ -200,74 +199,14 @@
 <!-- CONTENT -->
 
 <!-- Button trigger modal -->
-<!-- Modal ajout-->
- <div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajout ressource</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <form action="">
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="description">Nom</label>
-            <input
-              type="text"
-              class="form-control"
-              id="nom"
-              placeholder="Nom"
-              name="nom"
-              [(ngModel)]="nom"
-            />
 
-          </div>
-          <div class="form-group">
-            <label for="date">Contenue</label>
-            <textarea name="nature" id="" cols="50" rows="8" [(ngModel)]="nature"></textarea>
-          </div>
-           <!-- <div class="form-group">
-            <label for="image">Image</label>
-            <input
-              type="file"
-              class="form-control"
-              id="image"
-              placeholder=""
-              name="image"
-              (change)="getFile($event)"
-            />
-          </div> -->
-        </div>
-      </form>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onSubmit()">
-          Ajouter
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- modal details -->
 <div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Details ressourcce</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Details message</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
     <div>
@@ -276,11 +215,11 @@
           <div class="row g-0 align-items-center">
             <div class="col-md-8">
               <div class="card-body">
-                <div>
-                    <p>Nom Ressource: {{this.ressourceSelectionner.nom}}</p>
-                </div>
-
-                <p class="card-text mb-4">{{this.ressourceSelectionner.nature}}</p>
+                <p>Nom: {{this.messageSelectionner.nom
+                  }}
+                </p>
+                <p class="card-text mb-4">{{this.messageSelectionner.email}}</p>
+                <p class="card-text mb-4">{{this.messageSelectionner.message}}</p>
               </div>
             </div>
           </div>
@@ -292,44 +231,7 @@
   </div>
 </div>
 
-<!-- //modifier produit -->
-<div class="modal fade" id="modifie" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="modifie">Ressource</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="nom_produit" class="col-form-label">Nom</label>
-              <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom">
-            </div>
-            <div class="mb-3">
-              <label for="prix" class="col-form-label">Nature</label>
-              <input type="text" class="form-control" id="nature" name="nature" [(ngModel)]="nature">
-            </div>
-           <!-- <div class="form-group">
-            <label for="image">Image</label>
-            <input
-              type="file"
-              class="form-control"
-              id="image"
-              placeholder=""
-              name="image"
-              (change)="getFile($event)"
-            />
-          </div> -->
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fermer</button>
-          <button type="button" class="btn btn-primary" (click)="modifierRessource()">Envoyer</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
 
 

@@ -1,55 +1,42 @@
-import { HttpClient } from '@angular/common/http';
-import {  Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { NewsletterService } from '../services/newsletter.service';
-import { RessourceService } from '../services/ressource.service';
-import { AnnonceService } from '../services/annonce.service';
-
-
+import { AnnonceService } from 'src/app/services/annonce.service';
+import { MessageService } from 'src/app/services/message.service';
+import { RessourceService } from 'src/app/services/ressource.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  selector: 'app-message',
+  templateUrl: './message.component.html',
+  styleUrls: ['./message.component.css'],
 })
-export class DashboardComponent implements OnInit {
-  // Déclaration des variables
+export class MessageComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
+  messageList: any[] = [];
   utilisateurList: any[] = [];
   annonceList: any[] = [];
   ressourceList: any[] = [];
-  tabNews: any[] = [];
-  loggedIn: any;
-  loggedOut: any;
-
-  constructor(
-    private http: HttpClient,
-    private userService: UserService,
-    private router: Router,
-    private newsletterService: NewsletterService,
-    private annonceService: AnnonceService,
-    private ressourceService: RessourceService
-  ) {}
-
+  messageSelectionner: any = {};
+  // variable
+  nom!: string;
+  email!: string;
+  message!: string;
   //Sidebar toggle show hide function
   status = false;
   addToggle() {
     this.status = !this.status;
   }
 
+  constructor(
+    public messageService: MessageService,
+    private userService: UserService,
+    private router: Router,
+    private annonceService: AnnonceService,
+    private ressourceService: RessourceService
+  ) {}
+
   ngOnInit(): void {
-    this.listerNews();
-
-    if (localStorage.getItem('userConnect.user.id') != null) {
-      this.loggedIn = true;
-      this.loggedOut = false;
-    } else {
-      this.loggedIn = false;
-      this.loggedOut = true;
-    }
-
+    //datatable
     this.dtOptions = {
       searching: true,
       lengthChange: false,
@@ -61,6 +48,19 @@ export class DashboardComponent implements OnInit {
       },
     };
 
+    // liste messages
+    this.messageService.getAllMessage().subscribe(
+      (message) => {
+        // Afficher la liste des messages
+        console.log(message);
+        this.messageList = message.data;
+        console.log(this.messageList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
     // liste users
     this.userService.listerUtilisateurs().subscribe(
       (user) => {
@@ -83,6 +83,26 @@ export class DashboardComponent implements OnInit {
     this.ressourceListe();
   }
 
+  // pour recuperer un message
+  getMessage(message: any) {
+    this.messageSelectionner = message;
+  }
+
+  logout(): void {
+    this.userService.logout().subscribe(
+      () => {
+        this.userService.logout().subscribe((data) => {
+          console.log(data);
+        });
+        // Supprimez le token du stockage local
+        localStorage.removeItem('userConnect');
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        console.error('Erreur lors de la déconnexion:', error);
+      }
+    );
+  }
   annonceListe() {
     // liste annonce
     this.annonceService.listerAnnonces().subscribe(
@@ -114,34 +134,6 @@ export class DashboardComponent implements OnInit {
 
       (error) => {
         // Traiter l'erreur de liste
-      }
-    );
-  }
-
-  logout(): void {
-    this.userService.logout().subscribe(
-      () => {
-        this.userService.logout().subscribe((data) => {
-          console.log(data);
-        });
-        // Supprimez le token du stockage local
-        localStorage.removeItem('userConnect');
-        this.router.navigate(['/login']);
-      },
-      (error) => {
-        console.error('Erreur lors de la déconnexion:', error);
-      }
-    );
-  }
-
-  listerNews() {
-    this.newsletterService.getAllNewsletter().subscribe(
-      (news) => {
-        this.tabNews = news.data;
-        console.log(this.tabNews);
-      },
-      (err) => {
-        console.log(err);
       }
     );
   }

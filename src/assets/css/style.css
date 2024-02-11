@@ -193,7 +193,7 @@ h4, h5, h6, .h4, .h5, .h6 {
     top: 0;
     left: 0;
     bottom: auto;
-    background: var(--bs-primary);
+    background: #ff9700;
     border-radius: 8px;
     transition: 1s;
 }

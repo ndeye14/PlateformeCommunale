@@ -34,8 +34,6 @@ export class AnnonceService {
       : of(null);
   }
 
-
-
   // methode pour supprimer une annonce
   supprimerAnnonce(id: number): Observable<any> {
     const accessToken = localStorage.getItem('userConnect');
@@ -46,12 +44,12 @@ export class AnnonceService {
       : of(null);
   }
 
-
   // annonce par details
-  getAnnonceById(annonce: any): Observable<any> {
+  getAnnonceById(id: number): Observable<any> {
     // const url = `${url}/${id}`;
-    return this.http.get<any>(`${url}/${annonce.id}`);
+    return this.http.get<any>(`${url}/annonce/details/${id}`);
   }
+
 
 
   // methode pour modifier
@@ -59,14 +57,11 @@ export class AnnonceService {
     const accessToken = localStorage.getItem('userConnect');
 
     return accessToken
-      ?
-      this.http.post<any>(`${url}/annonce/update/${id}`, annonce,{
+      ? this.http.post<any>(`${url}/annonce/update/${id}`, annonce, {
           headers: new HttpHeaders({ Authorization: `Bearer ${accessToken}` }),
         })
       : of(null);
   }
-
-
 
   // verifier champ
   verifierChamp(title: any, text: any, icon: any) {

@@ -6,6 +6,7 @@ import { url } from 'src/app/services/Apiurl';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { RessourceService } from 'src/app/services/ressource.service';
 
 
 @Component({
@@ -14,8 +15,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./gestion-annonce.component.css'],
 })
 export class GestionAnnonceComponent implements OnInit {
-
-
   listeDemandes: any[] = [];
   demandeSelectionner: any = {};
   // variable pour annonce
@@ -25,6 +24,8 @@ export class GestionAnnonceComponent implements OnInit {
   imageUp: any;
 
   annonceList: any[] = [];
+  utilisateurList: any[] = [];
+  ressourceList: any[] = [];
   dtOptions: DataTables.Settings = {};
 
   annonceRecu: any;
@@ -47,7 +48,8 @@ export class GestionAnnonceComponent implements OnInit {
     private annoncesService: AnnonceService,
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private ressouresService:RessourceService
   ) {}
 
   ngOnInit(): void {
@@ -77,6 +79,34 @@ export class GestionAnnonceComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
+    // liste user
+    this.userService.listerUtilisateurs().subscribe(
+      (user) => {
+        // Afficher la liste des annonces
+        console.log(user);
+        this.utilisateurList = user.data;
+
+        console.log(this.utilisateurList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+    // liste ressource
+    this.ressouresService.listerRessources().subscribe(
+      (ressource) => {
+        // Afficher la liste des annonces
+        console.log(ressource);
+        this.ressourceList = ressource.data;
+
+        console.log(this.ressourceList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
 
     // details article
     // this.route.params.subscribe((params) => {
@@ -97,12 +127,6 @@ export class GestionAnnonceComponent implements OnInit {
 
   // ajouter annonce
   onSubmit() {
-    // let annonce = {
-    //   description: this.description,
-    //   date_activite: this.date,
-    //   lieu: this.lieu,
-    //   images: this.image,
-    // };
     let formData = new FormData();
     formData.append('description', this.description);
     formData.append('date_activite', this.date);
@@ -130,13 +154,12 @@ export class GestionAnnonceComponent implements OnInit {
   }
   // fonction pour modifier
   modifierAnnonce() {
-     let formData = new FormData();
+    let formData = new FormData();
     formData.append('description', this.description);
     formData.append('date_activite', this.date);
     formData.append('lieu', this.lieu);
     formData.append('images', this.image);
     console.log(formData);
-
 
     Swal.fire({
       title: 'Êtes-vous sûr?',
@@ -149,26 +172,21 @@ export class GestionAnnonceComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.annoncesService
-      .updateAnnonce(this.annonceSelectionner, formData)
+          .updateAnnonce(this.annonceSelectionner, formData)
           .subscribe((response) => {
             console.log('je suis response', response);
-        this.annoncesService.verifierChamp(
-          'modifie!',
-          'annonce modifie avec succès',
-          'success'
-        );
+            this.annoncesService.verifierChamp(
+              'modifie!',
+              'annonce modifie avec succès',
+              'success'
+            );
             window.location.reload();
-
-      });
-        this.ngOnInit()
-
-      };
+          });
+        this.ngOnInit();
+      }
       console.log('je suis annonce', this.annonceSelectionner);
       console.log('je suis data', formData);
-
     });
-
-
 
     //libelle, lieu, description , date, image, categorie_id
     // const data = {
@@ -177,9 +195,6 @@ export class GestionAnnonceComponent implements OnInit {
     //   lieu: this.lieu,
     //    image: this.image,
     // };
-
-
-
   }
 
   // suppression
@@ -198,8 +213,7 @@ export class GestionAnnonceComponent implements OnInit {
           this.annoncesService.verifierChamp(
             'Supprimé!',
             'annonce supprimé avec succès',
-              'success',
-
+            'success'
           );
           // this.loadProduit();
           this.ngOnInit(); // Actualise la page
@@ -221,9 +235,6 @@ export class GestionAnnonceComponent implements OnInit {
       (error) => {
         console.error('Erreur lors de la déconnexion:', error);
       }
-    )
+    );
   }
-
-
-
 }

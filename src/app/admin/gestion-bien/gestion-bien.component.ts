@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AnnonceService } from 'src/app/services/annonce.service';
 import { BienService } from 'src/app/services/bien.service';
+import { RessourceService } from 'src/app/services/ressource.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -16,9 +18,15 @@ export class GestionBienComponent implements OnInit {
     private bienService: BienService,
     private route: ActivatedRoute,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private annonceService: AnnonceService,
+    private ressourceService: RessourceService
   ) {}
   bienList: any[] = [];
+  utilisateurList: any[] = [];
+  annonceList: any[] = [];
+  ressourceList: any[] = [];
+
   dtOptions: DataTables.Settings = {};
   bienSelectionner: any = {};
 
@@ -47,7 +55,7 @@ export class GestionBienComponent implements OnInit {
         url: 'https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json',
       },
     };
-    // liste annonce
+    // liste bien-perdu-retrouve
     this.bienService.listerBiens().subscribe(
       (biens) => {
         // Afficher la liste des annonces
@@ -61,6 +69,26 @@ export class GestionBienComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
+    // liste users
+    this.userService.listerUtilisateurs().subscribe(
+      (user) => {
+        // Afficher la liste des annonces
+        console.log(user);
+        this.utilisateurList = user.data;
+        // console.log(user.data);
+
+        console.log(this.utilisateurList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+
+    // liste annonce
+    this.annonceListe();
+    // liste ressources
+    this.ressourceListe();
   }
   //Sidebar toggle show hide function
   status = false;
@@ -94,6 +122,7 @@ export class GestionBienComponent implements OnInit {
     formData.append('image', this.image);
     formData.append('statut', this.statut);
     console.log(formData);
+    alert(this.statut);
     this.bienService.ajouterBien(formData).subscribe((response) => {
       console.log(response);
       this.ngOnInit();
@@ -132,8 +161,6 @@ export class GestionBienComponent implements OnInit {
     this.contact = bien.contact;
     this.image = bien.image;
     this.statut = bien.statut;
-
-
   }
   // fonction pour modifier
   modifierBien() {
@@ -155,7 +182,7 @@ export class GestionBienComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.bienService
-          .updateBien(this.bienSelectionner,formData)
+          .updateBien(this.bienSelectionner, formData)
           .subscribe((response) => {
             console.log(response);
             if (response.status_code == 200) {
@@ -165,8 +192,7 @@ export class GestionBienComponent implements OnInit {
                 'success'
               );
               window.location.reload();
-            }
-            else {
+            } else {
               console.log(response.status_message);
               alert(response.status_message);
             }
@@ -188,6 +214,41 @@ export class GestionBienComponent implements OnInit {
       },
       (error) => {
         console.error('Erreur lors de la déconnexion:', error);
+      }
+    );
+  }
+
+  annonceListe() {
+    // liste annonce
+    this.annonceService.listerAnnonces().subscribe(
+      (annonce) => {
+        // Afficher la liste des annonces
+        console.log(annonce);
+        this.annonceList = annonce.data;
+        // console.log(user.data);
+
+        console.log(this.annonceList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+  }
+  ressourceListe() {
+    // liste annonce
+    this.ressourceService.listerRessources().subscribe(
+      (ressource) => {
+        // Afficher la liste des annonces
+        console.log(ressource);
+        this.ressourceList = ressource.data;
+        // console.log(user.data);
+
+        console.log(this.ressourceList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
       }
     );
   }

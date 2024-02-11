@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { RessourceService } from 'src/app/services/ressource.service';
 import Swal from 'sweetalert2';
+import { AnnonceService } from 'src/app/services/annonce.service';
 
 
 @Component({
@@ -13,6 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class GestionRessourceComponent implements OnInit {
   ressourceList: any[] = [];
+  annonceList: any[] = [];
+  utilisateurList: any[] = [];
   dtOptions: DataTables.Settings = {};
   ressourceSelectionner: any = {};
   // variable
@@ -29,7 +32,8 @@ export class GestionRessourceComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private router: Router,
-    private ressourceService: RessourceService
+    private ressourceService: RessourceService,
+    private annonceService: AnnonceService,
   ) {}
   ngOnInit(): void {
     //datatable
@@ -44,7 +48,7 @@ export class GestionRessourceComponent implements OnInit {
       },
     };
 
-    // liste annonce
+    // liste ressources
     this.ressourceService.listerRessources().subscribe(
       (ressources) => {
         // Afficher la liste des annonces
@@ -58,6 +62,24 @@ export class GestionRessourceComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
+    // liste users
+    this.userService.listerUtilisateurs().subscribe(
+      (user) => {
+        // Afficher la liste des annonces
+        console.log(user);
+        this.utilisateurList = user.data;
+        // console.log(user.data);
+
+        console.log(this.utilisateurList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+
+    // liste annonce
+    this.annonceListe();
   }
 
   // pour recuperer un produit
@@ -74,8 +96,8 @@ export class GestionRessourceComponent implements OnInit {
     this.ressourceService.ajouterRessource(formData).subscribe((response) => {
       console.log(response);
       this.ressourceService.verifierChamp(
-        'ajoute!',
-        'bien ajoute avec succès',
+        '',
+        response.status_message,
         'success'
       );
       this.ngOnInit(); // Actualise la page
@@ -127,8 +149,8 @@ export class GestionRessourceComponent implements OnInit {
 
     let data = {
       nom: this.nom,
-      nature: this.nature
-    }
+      nature: this.nature,
+    };
     console.log(data);
 
     Swal.fire({
@@ -148,7 +170,7 @@ export class GestionRessourceComponent implements OnInit {
             if (response.status_code == 200) {
               this.ressourceService.verifierChamp(
                 'Modifié!',
-                'ressource modifié avec succès',
+                response.status_message,
                 'success'
               );
               window.location.reload();
@@ -174,6 +196,23 @@ export class GestionRessourceComponent implements OnInit {
       },
       (error) => {
         console.error('Erreur lors de la déconnexion:', error);
+      }
+    );
+  }
+  annonceListe() {
+    // liste annonce
+    this.annonceService.listerAnnonces().subscribe(
+      (annonce) => {
+        // Afficher la liste des annonces
+        console.log(annonce);
+        this.annonceList = annonce.data;
+        // console.log(user.data);
+
+        console.log(this.annonceList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
       }
     );
   }

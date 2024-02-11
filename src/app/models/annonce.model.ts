@@ -1,5 +1,5 @@
 export class annonce {
-  id!: string;
+  id!: number;
   description!: string;
   date_activite!: string;
   lieu!: string;

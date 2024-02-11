@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { ProduitService } from 'src/app/services/produit.service';
 import Swal from 'sweetalert2';
+import { AnnonceService } from 'src/app/services/annonce.service';
+import { RessourceService } from 'src/app/services/ressource.service';
 @Component({
   selector: 'app-gestion-produit',
   templateUrl: './gestion-produit.component.html',
@@ -12,6 +14,9 @@ import Swal from 'sweetalert2';
 })
 export class GestionProduitComponent implements OnInit {
   produitList: any[] = [];
+  utilisateurList: any[] = [];
+  annonceList: any[] = [];
+  ressourceList: any[] = [];
   dtOptions: DataTables.Settings = {};
   produitSelectionner: any = {};
   // variable
@@ -25,7 +30,9 @@ export class GestionProduitComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private router: Router,
-    private produitService: ProduitService
+    private produitService: ProduitService,
+    private annonceService: AnnonceService,
+    private ressourceService: RessourceService
   ) {}
   ngOnInit(): void {
     //datatable
@@ -39,7 +46,7 @@ export class GestionProduitComponent implements OnInit {
         url: 'https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json',
       },
     };
-    // liste annonce
+    // liste produit maketplace
     this.produitService.listerProduits().subscribe(
       (produits) => {
         // Afficher la liste des annonces
@@ -53,6 +60,26 @@ export class GestionProduitComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
+    // liste users
+    this.userService.listerUtilisateurs().subscribe(
+      (user) => {
+        // Afficher la liste des annonces
+        console.log(user);
+        this.utilisateurList = user.data;
+        // console.log(user.data);
+
+        console.log(this.utilisateurList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+
+    // liste annonce
+    this.annonceListe();
+    // liste ressources
+    this.ressourceListe();
   }
   //Sidebar toggle show hide function
   status = false;
@@ -135,7 +162,6 @@ export class GestionProduitComponent implements OnInit {
     this.prix = produit.prix;
     this.contact = produit.contact;
     this.image = produit.image;
-
   }
   // fonction pour modifier
   modifierProduit() {
@@ -174,5 +200,40 @@ export class GestionProduitComponent implements OnInit {
         this.ngOnInit(); // Actualise la page
       }
     });
+  }
+
+  annonceListe() {
+    // liste annonce
+    this.annonceService.listerAnnonces().subscribe(
+      (annonce) => {
+        // Afficher la liste des annonces
+        console.log(annonce);
+        this.annonceList = annonce.data;
+        // console.log(user.data);
+
+        console.log(this.annonceList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+  }
+  ressourceListe() {
+    // liste annonce
+    this.ressourceService.listerRessources().subscribe(
+      (ressource) => {
+        // Afficher la liste des annonces
+        console.log(ressource);
+        this.ressourceList = ressource.data;
+        // console.log(user.data);
+
+        console.log(this.ressourceList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
   }
 }
