@@ -1,0 +1,11 @@
+#trait {
+  display: flex;
+  justify-content: center;
+
+
+}
+
+#line {
+  width: 400px;
+  border: 2px solid #ff9700;
+}

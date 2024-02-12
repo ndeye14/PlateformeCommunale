@@ -23,7 +23,7 @@
   border: #ff9700 1px solid;
 }
 
-.pagination li a.page-link {
+.pagination .page-link {
   color: #19375c;
   background: #fff;
   font-size: 20px;
@@ -38,36 +38,26 @@
   transition: all 0.4s ease 0s;
 }
 
-.pagination li.active a.page-link,
-.pagination li a.page-link:hover,
-.pagination li.active a.page-link:hover {
-  color: #fff;
-  background: transparent;
+.pagination .active .page-link,
+.pagination .page-link:hover,
+.pagination .active .page-link:hover {
+  color: #ff9700;
+  background-color: #19375c;
 }
 
-.pagination li:first-child a.page-link,
-.pagination li:last-child a.page-link {
-  color: #505050;
-  font-size: 25px;
-  line-height: 30px;
-  transform: scale(1.2);
-}
 
-.pagination li:first-child a.page-link {
+.pagination .page-link {
   margin-right: 20px;
 }
 
-.pagination li:last-child a.page-link {
+.pagination .page-link {
   margin-left: 20px;
 }
 
-.pagination li:first-child a.page-link:hover,
-.pagination li:last-child a.page-link:hover {
-  color: #fff;
-}
 
-.pagination li a.page-link:before,
-.pagination li a.page-link:after {
+
+.pagination .page-link:before,
+.pagination .page-link:after {
   content: "";
   height: 100%;
   width: 100%;
@@ -81,22 +71,22 @@
   transition: all 0.3s ease 0s;
 }
 
-.pagination li a.page-link:after {
+.pagination .page-link:after {
   background-color: transparent;
   opacity: 1;
   top: 0;
   transition: all 0.3s ease 0.1s;
 }
 
-.pagination li a.page-link:hover:before,
-.pagination li.active a.page-link:before {
+.pagination .page-link:hover:before,
+.pagination .active .page-link:before {
   box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.4);
   opacity: 1;
   top: 0;
 }
 
-.pagination li a.page-link:hover:after,
-.pagination li.active a.page-link:after {
+.pagination .page-link:hover:after,
+.pagination .active .page-link:after {
   transform: scale(1.5);
   background-color: #fff;
   opacity: 0;
@@ -108,8 +98,11 @@
     display: block;
   }
 
-  .pagination li {
+  .pagination button {
     margin-bottom: 10px;
     display: inline-block;
   }
+}
+.maket{
+height: 300px;
 }

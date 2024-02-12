@@ -12,6 +12,8 @@ export class MaketplaceComponent implements OnInit {
   produitList: any[] = [];
   produitListFilter: any[] = [];
   filterValue: any;
+  articleParPage = 4;
+  pageActuelle = 1;
   // variable
   nom_produit!: string;
   prix!: string;
@@ -20,12 +22,15 @@ export class MaketplaceComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute,
     private router: Router,
     private produitService: ProduitService
   ) {}
 
   ngOnInit(): void {
+    this.getAllProduits();
+  }
+
+  getAllProduits() {
     // liste produit maketplace
     this.produitService.listerProduits().subscribe(
       (produits) => {
@@ -52,12 +57,8 @@ export class MaketplaceComponent implements OnInit {
     console.log(formData);
     this.produitService.ajouterProduit(formData).subscribe((response) => {
       console.log(response);
-      this.produitService.verifierChamp(
-        '',
-        response.status_message,
-        'success'
-      );
-      this.ngOnInit(); // Actualise la page
+      this.produitService.verifierChamp('', response.status_message, 'success');
+      this.getAllProduits(); // Actualise la page
     });
   }
 
@@ -70,8 +71,33 @@ export class MaketplaceComponent implements OnInit {
   // Methode de recherche automatique pour annonce sur
   onSearch() {
     // Recherche se fait selon le nom
-    this.produitListFilter = this.produitList.filter((elt: any) =>
-      elt?.nom_produit.toLowerCase().includes(this.filterValue.toLowerCase())
+    this.produitListFilter = this.produitList.filter(
+      (elt: any) =>
+        elt?.nom_produit
+          .toLowerCase()
+          .includes(this.filterValue.toLowerCase()) ||
+        elt?.prix.toLowerCase().includes(this.filterValue.toLowerCase())
     );
+  }
+
+  // pagination
+
+  getArticlesPage(): any[] {
+    const indexDebut = (this.pageActuelle - 1) * this.articleParPage;
+    const indexFin = indexDebut + this.articleParPage;
+    let data = this.produitList.slice(indexDebut, indexFin);
+    return data;
+  }
+  // Méthode pour générer la liste des pages
+  get pages(): number[] {
+    const totalPages = Math.ceil(this.produitList.length / this.articleParPage);
+    return Array(totalPages)
+      .fill(0)
+      .map((_, index) => index + 1);
+  }
+
+  // Méthode pour obtenir le nombre total de pages
+  get totalPages(): number {
+    return Math.ceil(this.produitList.length / this.articleParPage);
   }
 }

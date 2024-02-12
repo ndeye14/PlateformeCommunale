@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnnonceService } from '../services/annonce.service';
 import { CommentaireService } from '../services/commentaire.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-annonce',
@@ -94,8 +95,11 @@ export class AnnonceComponent implements OnInit {
   getAnnonce(annonce: any) {
     this.annonceSelectionner = annonce;
     this.idAnnonce = annonce.id;
-    console.log('tyep',typeof(this.idAnnonce));
+    console.log('tyep', this.idAnnonce);
+    localStorage.setItem('idAnnonce', JSON.stringify(this.idAnnonce));
+    this.getAllComments(); // Actualise la page
   }
+
   ajoutComment() {
     let comment = {
       description: this.description,

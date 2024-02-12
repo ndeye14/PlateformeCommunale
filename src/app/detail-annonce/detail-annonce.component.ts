@@ -16,6 +16,8 @@ export class DetailAnnonceComponent implements OnInit {
   annonceSelectionner: any = {};
   ressourceId: any;
   ressourceIdNumber: any;
+  // pour recuperer une annonce
+  idAnnonce: any;
 
   constructor(
     // private authGuard: AuthGuard,
@@ -25,12 +27,16 @@ export class DetailAnnonceComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.getAllComments();
+    this.idAnnonce = localStorage.getItem('idAnnonce');
+    console.log('type',typeof this.idAnnonce);
+
+
     // recuperer une ressource
     this.route.params.subscribe((params) => {
       const ressourceId = params['id'];
       console.log('type ressourceId', typeof ressourceId);
       const ressourceIdNumber = parseInt(ressourceId);
-      console.log('type',ressourceIdNumber);
+      console.log('type', ressourceIdNumber);
 
       this.annonceService.getAnnonceById(ressourceId).subscribe((response) => {
         this.annonce = response.data;
@@ -47,13 +53,9 @@ export class DetailAnnonceComponent implements OnInit {
         this.listCommentaire = commentaires.data;
         console.log(this.listCommentaire);
         // Filtrer les commentaires pour ne récupérer que ceux liés à l'annonce sélectionnée
-        // this.commentAnnonce = this.listCommentaire.filter(
-        //   (comment) => parseInt(comment.annonce_id) === this.ressourceId
-        // );
         this.commentAnnonce = this.listCommentaire.filter(
           (comment: any) =>
-            parseInt(comment.annonce_id) === this.ressourceIdNumber
-          
+            parseInt(comment.annonce_id) === parseInt(this.idAnnonce)
         );
 
         console.log('comments of annonce: ', this.commentAnnonce);
@@ -65,13 +67,11 @@ export class DetailAnnonceComponent implements OnInit {
     );
   }
 
-  // pour recuperer une annonce
-  idAnnonce: number = 0;
-  getAnnonce(annonce: any) {
-    this.annonceSelectionner = annonce;
-    this.idAnnonce = annonce.id;
-    console.log(this.idAnnonce);
-  }
+  // getAnnonce(annonce: any) {
+  //   this.annonceSelectionner = annonce;
+  //   this.idAnnonce = annonce.id;
+  //   console.log(this.idAnnonce);
+  // }
   ajoutComment() {
     let comment = {
       description: this.description,

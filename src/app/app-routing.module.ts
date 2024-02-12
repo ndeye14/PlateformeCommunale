@@ -23,6 +23,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './services/auth.guard';
 import { MessageComponent } from './admin/message/message.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
+import { PolitiqueComponent } from './politique/politique.component';
+import { ConditionComponent } from './condition/condition.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/acceuil', pathMatch: 'full' },
@@ -34,6 +36,14 @@ const routes: Routes = [
   {
     path: 'acceuil',
     component: AcceuilComponent,
+  },
+  {
+    path: 'politique',
+    component: PolitiqueComponent,
+  },
+  {
+    path: 'condition',
+    component: ConditionComponent,
   },
   {
     path: 'auth',

@@ -39,7 +39,7 @@
 
               <p><a  class="h5 lh-base my-auto h-100 p-3">{{ item.description | slice:0:30}} &hellip;</a>
               </p>
-              <p><a (click)="getAnnonce(item)" class="voirPlus px-3 py-1 mx-3" [routerLink]="['/detailAnnonce', item.id]">voir plus</a></p>
+              <p><a data-bs-toggle="modal" data-bs-target="#detail" (click)="getAnnonce(item)" class="voirPlus px-3 py-1 mx-3">voir plus</a></p>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@
             <div class="col-md-4">
               <img src="http://localhost:8000/images/{{annonceSelectionner.images}}" class="card-img rounded-start" alt="Artist desk"/>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-12 col-12">
               <div class="card-body">
                 <p>Lieu:{{annonceSelectionner.lieu
                   }}
@@ -94,15 +94,13 @@
                 <p class="card-text mb-4">{{annonceSelectionner.description}}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <span class="card-text small"><span class="far fa-calendar-alt me-2"></span>Date:{{annonceSelectionner.date_activite}}</span>
-                  <a data-bs-toggle="modal" data-bs-target="#modal-default" class="small"><span class="far fa-comments me-2"></span>21</a>
+                  <a data-bs-toggle="modal" data-bs-target="#modal-default" class="small"><span class="far fa-comments me-2"></span>{{commentAnnonce.length}}</a>
                 </div>
               </div>
-              <!-- <div class="card-footer"> -->
-                <div class="modal-body" *ngFor="let item of commentAnnonce">
-              <p>{{item.description}}</p>
-            </div>
-
+              <div class="card-footer" *ngFor="let item of commentAnnonce">
+                <p>{{item.description}}</p>
               </div>
+            </div>
 
             </div>
           </div>
@@ -125,7 +123,7 @@
 
             <div class="modal-footer">
               <input type="text" [(ngModel)]="description" name="description">
-                <button type="button" class="btn btn-secondary" (click)="ajoutComment()">Envoyer</button>
+                <button type="button" class="btn btn-secondary" (click)="ajoutComment()" data-bs-dismiss="modal">Envoyer</button>
                 <button type="button" class="btn btn-link text-gray ms-auto" data-bs-dismiss="modal">Close</button>
             </div>
         </div>

@@ -22,13 +22,11 @@ export class ProduitService {
 
   // methode pour liste des annonces
   listerProduits(): Observable<any> {
-    const accessToken = localStorage.getItem('userConnect');
+    // const accessToken = localStorage.getItem('userConnect');
 
-    return accessToken
-      ? this.http.get<any>(`${url}/listes_produit`, {
-          headers: new HttpHeaders({ Authorization: `Bearer ${accessToken}` }),
-        })
-      : of(null);
+    return this.http.get<any>(`${url}/listes_produit`, {})
+  
+
   }
 
   // methode pour supprimer une annonce

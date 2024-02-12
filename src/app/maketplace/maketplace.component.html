@@ -1,9 +1,9 @@
 <app-header></app-header>
-<div class="container-fluid py-6">
-  <img src="assets/img/bannerMaketplace.png" alt="" class="w-100">
+<div class="container-fluid py-6 my-4">
+  <img src="assets/img/bannerMaketplace.png" alt="" class="w-100 maket shadow">
 </div>
 
-<div class="container text-center mb-4">
+<div class="container text-center">
   <div class="row">
     <div class="col-sm-12 col-lg-4">
       <div class="input-group mb-3">
@@ -29,7 +29,7 @@
 
 <div class="row g-4">
 
-  <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of produitListFilter">
+  <div class="col-12 col-md-6 col-lg-4" *ngFor="let item of produitListFilter | slice:(pageActuelle - 1) * articleParPage:(pageActuelle * articleParPage)">
     <div class="card shadow">
       <img  src="http://localhost:8000/images/{{this.item.images}}" class="card-img-top rounded-top" alt="Designer desk">
       <div class="card-body">
@@ -45,162 +45,22 @@
     </div>
   </div>
 
-  <!-- <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <img
-        src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/410873422_7001659449910552_6133661999177115090_n.jpg?stp=c0.7.403.403a_dst-jpg_p403x403&_nc_cat=105&ccb=1-7&_nc_sid=247b10&_nc_ohc=HWP1lfqti8oAX_OX6FB&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfDapYLJ0zfP847g9rFAKRDHkqhun5GchysYAe3xwZtGrA&oe=65B51B52"
-        class="card-img-top rounded-top" alt="Designer desk">
-      <div class="card-body">
-        <div class="media d-flex align-items-center justify-content-between">
-
-          <div class="d-flex align-items-center">
-            <span class="small">2500 fcfa</span>
-          </div>
-        </div>
-        <h3 class="h5 card-title mt-4">Ensemble bonnet echarpe </h3>
-        <p class="card-text">77 6578943
-        </p>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <img
-        src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/394098098_6981110555339086_1727237914787338873_n.jpg?stp=c0.26.403.403a_dst-jpg_p403x403&_nc_cat=101&ccb=1-7&_nc_sid=247b10&_nc_ohc=x-dMnMSc1_cAX_967s8&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfBti6io_jvqjcso2HMD38YIFLdDbP_pBh707ehgaV6kcA&oe=65B43355"
-        class="card-img-top rounded-top" alt="Designer desk">
-      <div class="card-body">
-        <div class="media d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center">
-            <span class="small">14900 fcfa</span>
-          </div>
-        </div>
-        <h3 class="h5 card-title mt-4">Flybox orange</h3>
-        <p class="card-text">76 456 02 34</p>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <img src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/401973920_24320458120931246_4773069872553433539_n.jpg?stp=c0.51.403.403a_dst-jpg_p403x403&_nc_cat=105&ccb=1-7&_nc_sid=247b10&_nc_ohc=d2RmHzpwcesAX9t3zQt&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfDguZHLki_U1Kj_SEUos-dajA3cANJNZu8VRjMytvQVZA&oe=65B44DB6" class="card-img-top rounded-top" alt="Designer desk">
-      <div class="card-body">
-        <div class="media d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center">
-            <span class="small">14900 fcfa</span>
-          </div>
-        </div>
-        <h3 class="h5 card-title mt-4">Costume africain</h3>
-        <p class="card-text">70 546 0912</p>
-
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <img src="https://scontent.fdkr6-1.fna.fbcdn.net/v/t45.5328-4/418892696_7142591899122600_9222621255664553802_n.jpg?stp=c1.0.403.403a_dst-jpg_p403x403&_nc_cat=100&ccb=1-7&_nc_sid=247b10&_nc_ohc=qdrLsSUmmxUAX_7f5GS&_nc_ht=scontent.fdkr6-1.fna&oh=00_AfBCJQW439WykshJErMnI3YX8RARHUxi-NAVHFJ4L57vCg&oe=65B4D546" class="card-img-top rounded-top" alt="Designer desk">
-      <div class="card-body">
-        <div class="media d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center">
-            <span class="small">10000 fcfa</span>
-          </div>
-        </div>
-        <h3 class="h5 card-title mt-4">chaussure</h3>
-        <p class="card-text">77 1290378</p>
-
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <img src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/405891455_7742566135770324_4793001947806533001_n.jpg?stp=c0.37.403.403a_dst-jpg_p403x403&_nc_cat=110&ccb=1-7&_nc_sid=247b10&_nc_ohc=WU0iwiN5MVYAX-_8FZp&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfCMB6fvM1bRiP_OlL4nUseVfq570Hi4kaTefws79gcDtw&oe=65B46D87" class="card-img-top rounded-top" alt="Designer desk">
-      <div class="card-body">
-        <div class="media d-flex align-items-center justify-content-between">
-
-          <div class="d-flex align-items-center">
-            <span class="small">6000 fcfa</span>
-          </div>
-        </div>
-        <h3 class="h5 card-title mt-4">Horloge murale</h3>
-        <p class="card-text">76 5064278</p>
-
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <img src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/401991055_24457577153857463_2411198180025744888_n.jpg?stp=c40.0.403.403a_dst-jpg_p403x403&_nc_cat=109&ccb=1-7&_nc_sid=247b10&_nc_ohc=9ornQzE43HUAX-LbhC7&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfCSOzieIqKbu4dBBrvyUOM221qheiHXy3kHydHsAKPcrQ&oe=65B45EAA" class="card-img-top rounded-top" alt="Designer desk">
-      <div class="card-body">
-        <div class="media d-flex align-items-center justify-content-between">
-
-          <div class="d-flex align-items-center">
-            <span class="small">7500 fcfa</span>
-          </div>
-        </div>
-        <h3 class="h5 card-title mt-4">pack maquillages</h3>
-        <p class="card-text">77 8349012</p>
-
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <img src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/369661401_6588688574557680_4122901143451971395_n.jpg?stp=c0.49.403.403a_dst-jpg_p403x403&_nc_cat=106&ccb=1-7&_nc_sid=247b10&_nc_ohc=qrpOaSn5XWEAX_dahkg&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfBOjJLZ-OyQeXNLOj6jMu-f_FtDRT1kEBlb0KcPSuOUjQ&oe=65B500F2" class="card-img-top rounded-top" alt="Designer desk">
-      <div class="card-body">
-        <div class="media d-flex align-items-center justify-content-between">
-
-          <div class="d-flex align-items-center">
-            <span class="small">11000 fcfa</span>
-          </div>
-        </div>
-        <h3 class="h5 card-title mt-4">chaussure</h3>
-        <p class="card-text">33 8904567</p>
-
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-6 col-lg-4">
-    <div class="card shadow">
-      <img src="https://scontent.fdkr7-1.fna.fbcdn.net/v/t45.5328-4/418804282_6934194746630402_4332799941752820261_n.jpg?stp=c0.87.403.403a_dst-jpg_p403x403&_nc_cat=109&ccb=1-7&_nc_sid=247b10&_nc_ohc=7z9Ur0Yj2YoAX94Guye&_nc_ht=scontent.fdkr7-1.fna&oh=00_AfCVPlUWtG9uAb4F9szodtkMWzdZ5ZfxgPSj-4-hlUpRgg&oe=65B5D1E7" class="card-img-top rounded-top" alt="Designer desk">
-      <div class="card-body">
-        <div class="media d-flex align-items-center justify-content-between">
-
-          <div class="d-flex align-items-center">
-            <span class="small">120000 fcfa</span>
-          </div>
-        </div>
-        <h3 class="h5 card-title mt-4">Cuisiniere electron 4 feux</h3>
-        <p class="card-text">76 0781267</p>
-
-      </div>
-    </div>
-  </div> -->
-
 
   <!-- pagination -->
-  <div class="demo ">
-    <nav class="pagination-outer" aria-label="Page navigation">
-      <ul class="pagination shadow-lg">
-        <li class="page-item">
-          <a href="#" class="page-link" aria-label="Previous">
-            <span aria-hidden="true">«</span>
-          </a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item "><a class="page-link" href="#">3</a></li>
-        <!-- <li class="page-item"><a class="page-link" href="#">4</a></li>
-        <li class="page-item"><a class="page-link" href="#">5</a></li> -->
-        <li class="page-item">
-          <a href="#" class="page-link" aria-label="Next">
-            <span aria-hidden="true">»</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+<div class="demo ">
+  <nav class="pagination-outer" aria-label="Page navigation">
+    <div class="pagination shadow-lg">
+        <button class="page-item page-link"  [disabled]="pageActuelle === 1" (click)="pageActuelle = pageActuelle - 1" class="page-link" aria-label="Previous" >
+          <span aria-hidden="true">«</span>
+        </button>
+
+      <button class="page-item page-link active" *ngFor="let page of pages" (click)="pageActuelle = page" class="page-link" [style.background]="page === pageActuelle ? 'orange' : 'white'"> {{ page }}</button>
+        <button class="page-item page-link" [disabled]="pageActuelle === totalPages" (click)="pageActuelle = pageActuelle + 1" class="page-link" aria-label="Next" >
+          <span aria-hidden="true">»</span>
+        </button>
+    </div>
+  </nav>
+</div>
 
 
 </div>

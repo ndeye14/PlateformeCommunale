@@ -30,6 +30,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageComponent } from './admin/message/message.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
+import { PolitiqueComponent } from './politique/politique.component';
+import { ConditionComponent } from './condition/condition.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,9 @@ import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.componen
     AuthenComponent,
     LoginComponent,
     MessageComponent,
-    DetailAnnonceComponent
+    DetailAnnonceComponent,
+    PolitiqueComponent,
+    ConditionComponent
 
   ],
   imports: [

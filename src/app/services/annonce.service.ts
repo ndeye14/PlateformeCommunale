@@ -25,13 +25,12 @@ export class AnnonceService {
 
   // methode pour liste des annonces
   listerAnnonces(): Observable<any> {
-    const accessToken = localStorage.getItem('userConnect');
+    // const accessToken = localStorage.getItem('userConnect');
 
-    return accessToken
-      ? this.http.get<any>(`${url}/liste_annonce`, {
-          headers: new HttpHeaders({ Authorization: `Bearer ${accessToken}` }),
-        })
-      : of(null);
+    return this.http.get<any>(`${url}/liste_annonce`, {
+
+
+    })
   }
 
   // methode pour supprimer une annonce

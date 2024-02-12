@@ -19,6 +19,8 @@ export class BienPerduRetrouveComponent implements OnInit {
   bienList: any[] = [];
   bienListFilter: any[] = [];
   filterValue: any;
+  articleParPage = 6;
+  pageActuelle = 1;
 
   constructor(
     private http: HttpClient,
@@ -63,7 +65,6 @@ export class BienPerduRetrouveComponent implements OnInit {
 
   // ajouter annonce
   onSubmit() {
-
     // let annonce = {
     //   description: this.description,
     //   date_activite: this.date,
@@ -80,24 +81,40 @@ export class BienPerduRetrouveComponent implements OnInit {
 
     this.bienService.ajouterBien(formData).subscribe((response) => {
       if (response.status_code == 200) {
-            this.bienService.verifierChamp(
-            'ajoute',
-            'bien ajoute avec success',
-            'success'
-          );
-          console.log(response);
-          this.ngOnInit();
-      }
-      else if (response.message == 'Erreur de validation') {
+        this.bienService.verifierChamp(
+          'ajoute',
+          'bien ajoute avec success',
+          'success'
+        );
+        console.log(response);
+        this.ngOnInit();
+      } else if (response.message == 'Erreur de validation') {
         this.bienService.verifierChamp(
           'erreur',
           'veillez remplir tous les champs correctement',
           'error'
         );
-
       }
     });
+  }
+  // pagination
 
+  getArticlesPage(): any[] {
+    const indexDebut = (this.pageActuelle - 1) * this.articleParPage;
+    const indexFin = indexDebut + this.articleParPage;
+    let data = this.bienList.slice(indexDebut, indexFin);
+    return data;
+  }
+  // Méthode pour générer la liste des pages
+  get pages(): number[] {
+    const totalPages = Math.ceil(this.bienList.length / this.articleParPage);
+    return Array(totalPages)
+      .fill(0)
+      .map((_, index) => index + 1);
+  }
 
+  // Méthode pour obtenir le nombre total de pages
+  get totalPages(): number {
+    return Math.ceil(this.bienList.length / this.articleParPage);
   }
 }
