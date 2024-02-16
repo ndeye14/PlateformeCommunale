@@ -32,6 +32,8 @@ import { MessageComponent } from './admin/message/message.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
 import { PolitiqueComponent } from './politique/politique.component';
 import { ConditionComponent } from './condition/condition.component';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
+import { ProfilComponent } from './profil/profil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +61,9 @@ import { ConditionComponent } from './condition/condition.component';
     MessageComponent,
     DetailAnnonceComponent,
     PolitiqueComponent,
-    ConditionComponent
+    ConditionComponent,
+    MaintenanceComponent,
+    ProfilComponent
 
   ],
   imports: [

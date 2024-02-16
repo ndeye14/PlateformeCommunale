@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
         return true;
       } else {
         // Redirige l'utilisateur vers la page de connexion
-        alert("arrete de faire le malin !!")
+        alert("arrete de faire le malin connecte toi!!")
         this.route.navigate(['/login']);
         return false;
       }

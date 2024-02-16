@@ -12,12 +12,12 @@ export class MaketplaceComponent implements OnInit {
   produitList: any[] = [];
   produitListFilter: any[] = [];
   filterValue: any;
-  articleParPage = 4;
+  articleParPage = 6;
   pageActuelle = 1;
   // variable
   nom_produit!: string;
-  prix!: string;
-  contact!: string;
+  prix!: any;
+  contact!: any;
   image!: any;
 
   constructor(
@@ -51,14 +51,29 @@ export class MaketplaceComponent implements OnInit {
   onSubmit() {
     let formData = new FormData();
     formData.append('nom_produit', this.nom_produit);
-    formData.append('prix', this.prix);
-    formData.append('contact', this.contact);
+    if (this.prix > 0 && !isNaN(this.contact)) {
+      formData.append('prix', this.prix);
+      formData.append('contact', this.contact);
+    }
+      // formData.append('prix', this.prix);
+      // formData.append('contact', this.contact);
+
     formData.append('images', this.image);
     console.log(formData);
     this.produitService.ajouterProduit(formData).subscribe((response) => {
       console.log(response);
-      this.produitService.verifierChamp('', response.status_message, 'success');
-      this.getAllProduits(); // Actualise la page
+      this.produitService.verifierChamp('!!!!', response.status_message, 'success');
+      if (response.status_code === 200) {
+        this.viderChamp();
+        this.getAllProduits(); // Actualise la page
+      } else {
+              this.produitService.verifierChamp(
+                '!!!!',
+                response.status_message,
+                'error'
+              );
+      }
+
     });
   }
 
@@ -99,5 +114,11 @@ export class MaketplaceComponent implements OnInit {
   // Méthode pour obtenir le nombre total de pages
   get totalPages(): number {
     return Math.ceil(this.produitList.length / this.articleParPage);
+  }
+  viderChamp() {
+    this.nom_produit = ''
+    this.contact = ''
+    this.image = ''
+    this.prix = ''
   }
 }

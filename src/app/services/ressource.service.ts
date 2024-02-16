@@ -22,13 +22,12 @@ export class RessourceService {
 
   // methode pour liste des annonces
   listerRessources(): Observable<any> {
-    const accessToken = localStorage.getItem('userConnect');
+    // const accessToken = localStorage.getItem('userConnect');
 
-    return accessToken
-      ? this.http.get<any>(`${url}/liste_ressource`, {
-          headers: new HttpHeaders({ Authorization: `Bearer ${accessToken}` }),
-        })
-      : of(null);
+    return  this.http.get<any>(`${url}/liste_ressource`, {})
+      //     headers: new HttpHeaders({ Authorization: `Bearer ${accessToken}` }),
+      //   })
+      // : of(null);
   }
 
   // methode pour supprimer une annonce

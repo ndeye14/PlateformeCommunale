@@ -31,6 +31,10 @@ export class BienPerduRetrouveComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getAllBien();
+
+  }
+  getAllBien() {
     // liste bien-perdu-retrouve
     this.bienService.listerBiens().subscribe(
       (biens) => {
@@ -65,12 +69,6 @@ export class BienPerduRetrouveComponent implements OnInit {
 
   // ajouter annonce
   onSubmit() {
-    // let annonce = {
-    //   description: this.description,
-    //   date_activite: this.date,
-    //   lieu: this.lieu,
-    //   images: this.image,
-    // };
     let formData = new FormData();
     formData.append('nom', this.nom);
     formData.append('caracteristique', this.caracteristique);
@@ -80,22 +78,26 @@ export class BienPerduRetrouveComponent implements OnInit {
     console.log(formData);
 
     this.bienService.ajouterBien(formData).subscribe((response) => {
-      if (response.status_code == 200) {
+       console.log(response);
         this.bienService.verifierChamp(
-          'ajoute',
-          'bien ajoute avec success',
+          '!!!!!',
+          response.status_message,
           'success'
         );
-        console.log(response);
-        this.ngOnInit();
-      } else if (response.message == 'Erreur de validation') {
+      if (response.status_code == 200) {
+
+        this.viderChamp();
+        this.getAllBien();
+      } else {
         this.bienService.verifierChamp(
-          'erreur',
-          'veillez remplir tous les champs correctement',
+          '!!!!!',
+          response.status_message,
           'error'
         );
       }
-    });
+      });
+      this.ngOnInit();
+
   }
   // pagination
 
@@ -116,5 +118,13 @@ export class BienPerduRetrouveComponent implements OnInit {
   // Méthode pour obtenir le nombre total de pages
   get totalPages(): number {
     return Math.ceil(this.bienList.length / this.articleParPage);
+  }
+  viderChamp() {
+    this.nom='';
+  this.caracteristique='';
+  this.contact='';
+  this.image='';
+  this.statut='';
+
   }
 }

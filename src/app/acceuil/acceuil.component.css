@@ -37,3 +37,19 @@ small{
 .bg-custom p{
   color: white;
 }
+.annonce img {
+  height: 300px;
+  width: 100%;
+  /* margin-top: 10px; */
+}
+.img-fluid {
+  height: 300px;
+}
+
+.voirPlus {
+  background-color: #ff9700;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+
+}

@@ -22,13 +22,10 @@ export class BienService {
 
   // methode pour liste des annonces
   listerBiens(): Observable<any> {
-    const accessToken = localStorage.getItem('userConnect');
+    // const accessToken = localStorage.getItem('userConnect');
 
-    return accessToken
-      ? this.http.get<any>(`${url}/listes_bien`, {
-          headers: new HttpHeaders({ Authorization: `Bearer ${accessToken}` }),
-        })
-      : of(null);
+    return this.http.get<any>(`${url}/listes_bien`, {})
+
   }
 
   // methode pour supprimer une annonce

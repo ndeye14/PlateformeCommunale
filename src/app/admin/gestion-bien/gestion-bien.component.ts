@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { window } from 'rxjs';
 import { AnnonceService } from 'src/app/services/annonce.service';
 import { BienService } from 'src/app/services/bien.service';
 import { RessourceService } from 'src/app/services/ressource.service';
@@ -55,20 +56,8 @@ export class GestionBienComponent implements OnInit {
         url: 'https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json',
       },
     };
-    // liste bien-perdu-retrouve
-    this.bienService.listerBiens().subscribe(
-      (biens) => {
-        // Afficher la liste des annonces
-        console.log(biens);
-        this.bienList = biens.data;
+    this.getAllBien();
 
-        console.log(this.bienList);
-      },
-
-      (error) => {
-        // Traiter l'erreur de liste
-      }
-    );
     // liste users
     this.userService.listerUtilisateurs().subscribe(
       (user) => {
@@ -100,6 +89,22 @@ export class GestionBienComponent implements OnInit {
   getBien(bien: any) {
     this.bienSelectionner = bien;
   }
+  getAllBien() {
+    // liste bien-perdu-retrouve
+    this.bienService.listerBiens().subscribe(
+      (biens) => {
+        // Afficher la liste des annonces
+        console.log(biens);
+        this.bienList = biens.data;
+
+        console.log(this.bienList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+  }
 
   // methode pour la transformations des images
   getFile(event: any) {
@@ -122,10 +127,29 @@ export class GestionBienComponent implements OnInit {
     formData.append('image', this.image);
     formData.append('statut', this.statut);
     console.log(formData);
-    alert(this.statut);
+    // alert(this.statut);
     this.bienService.ajouterBien(formData).subscribe((response) => {
       console.log(response);
-      this.ngOnInit();
+      this.bienService.verifierChamp(
+        '!!!!!',
+        response.status_message,
+        'success'
+      );
+      if (response.status_code == 200) {
+        this.viderChamp();
+        this.getAllBien();
+        // this.ngOnInit();
+        // const modalElement: HTMLElement | null =
+        //   document.getElementById('modifie');
+        // modalElement!.style.display = 'none'
+      } else {
+        this.bienService.verifierChamp(
+          '!!!!',
+          response.status_message,
+          'error'
+        );
+      }
+      // window.location.reload();
     });
   }
 
@@ -140,17 +164,17 @@ export class GestionBienComponent implements OnInit {
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.bienService.supprimerBien(id).subscribe(() => {
+        this.bienService.supprimerBien(id).subscribe((response) => {
           this.bienService.verifierChamp(
-            'Supprimé!',
-            'annonce supprimé avec succès',
+            '!!!!',
+            response.status_message,
             'success'
           );
-          // this.loadProduit();
-          this.ngOnInit(); // Actualise la page
         });
       }
     });
+    this.ngOnInit(); // Actualise la page
+
   }
 
   chargerInfosTest(bien: any) {
@@ -185,19 +209,26 @@ export class GestionBienComponent implements OnInit {
           .updateBien(this.bienSelectionner, formData)
           .subscribe((response) => {
             console.log(response);
-            if (response.status_code == 200) {
               this.bienService.verifierChamp(
-                'Modifié!',
-                'bien modifié avec succès',
+                '!!!!',
+                response.status_message,
                 'success'
               );
-              window.location.reload();
+            if (response.status_code == 200) {
+              this.viderChamp();
+              this.getAllBien();
+              // const modalElement: HTMLElement | null =
+              //   document.getElementById('modifie');
+              // modalElement!.style.display = 'none';
             } else {
-              console.log(response.status_message);
-              alert(response.status_message);
+              this.bienService.verifierChamp(
+                '!!!!',
+                response.status_message,
+                'error'
+              );
             }
           });
-        this.ngOnInit(); // Actualise la page
+        //  window.location.reload(); // Actualise la page
       }
     });
   }
@@ -251,5 +282,13 @@ export class GestionBienComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
+  }
+
+  viderChamp() {
+    this.nom = '';
+    this.caracteristique = '';
+    this.contact = '';
+    this.image = '';
+    this.statut = '';
   }
 }

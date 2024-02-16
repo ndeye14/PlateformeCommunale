@@ -32,7 +32,7 @@ export class HeaderComponent {
         });
         // Supprimez le token du stockage local
         localStorage.removeItem('userConnect');
-        this.route.navigate(['/login']);
+        this.route.navigate(['/acceuil']);
       },
       (error) => {
         console.error('Erreur lors de la déconnexion:', error);

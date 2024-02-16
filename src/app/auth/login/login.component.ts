@@ -11,6 +11,7 @@ import { User } from 'src/app/models/User.model';
 export class LoginComponent implements OnInit {
   // Déclaration des variables
   isConnexion: boolean = true;
+  passwordMod:any;
   // isRein1: boolean = false;
   // isRein2: boolean = false;
 
@@ -112,52 +113,53 @@ export class LoginComponent implements OnInit {
         (rep) => {
           response = rep;
           console.log(response);
-          console.log(response.user.role)
-          if (response.user.role=="admin") {
+          console.log(response.user.role);
+          if (response.user.role == 'admin') {
             // console.log ("C'est bon");
             Swal.fire({
               position: 'center',
               icon: 'success',
               title: '',
-              text: response.message,
+              text: 'connexion reussi',
               showConfirmButton: true,
+              timer:1500,
             });
 
             this.route.navigate(['/dash']); // Redirection vers le dashbord concerné
-            this.authService.isAuthenticated = true; // Définit la variable isAuthicated à true pour la guard
+            // this.authService.isAuthenticated = true; // Définit la variable isAuthicated à true pour la guard
 
             // On stocke les info de la requete dans notre localstorage
             localStorage.setItem('userConnect', response.token);
 
             // this.iscorrectValues = true; //Les données fournies sont correctes
-          }
-          else if (response.user.role == 'user') {
+          } else if (response.user.role == 'user') {
             // console.log ("C'est bon");
             Swal.fire({
               position: 'center',
               icon: 'success',
               title: '',
-              text: response.message,
+              text: 'connexion reussi',
               showConfirmButton: true,
+              timer:1500,
             });
 
-            this.route.navigate(['/acceuil']); // Redirection vers le dashbord concerné
-            this.authService.isAuthenticated = true; // Définit la variable isAuthicated à true pour la guard
+            this.route.navigate(['/acceuil']); // Redirection vers l accueil
+            // this.authService.isAuthenticated = true; // Définit la variable isAuthicated à true pour la guard
 
             // On stocke les info de la requete dans notre localstorage
             localStorage.setItem('userConnect', response.token);
 
             // this.iscorrectValues = true; //Les données fournies sont correctes
           } else {
-             console.log("L'adresse email est incorrecte");
-             Swal.fire({
-               position: 'center',
-               icon: 'error',
-               title: '',
-               text: 'Veillez saissir un email valide',
-               showConfirmButton: true,
-             });
-           }
+            console.log("L'adresse email est incorrecte");
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '',
+              text: 'Veillez saissir un email valide',
+              showConfirmButton: true,
+            });
+          }
         },
         (error) => {
           // this.iscorrectValues = false;
@@ -195,7 +197,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  moficPassword() {
+    // this.authService.modifPassword().subscribe((rep) => {});
 
+  }
 }
 
 

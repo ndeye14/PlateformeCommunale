@@ -6,46 +6,46 @@
     <img src="assets/img/logo.png" alt="" style="width: 100px;height: 100px;">
   </div>
 
-  <ul class="side-menu top">
+ <ul class="side-menu top">
     <li>
       <a routerLink="/dash">
-        <i class='bx bxs-dashboard'></i>
+        <i class='bx bxs-dashboard' style="color: #FF9700;"></i>
         <span class="text">Dashboard</span>
       </a>
     </li>
     <li>
       <a routerLink="/gestion-annonce">
-        <i class='bx bxs-shopping-bag-alt'></i>
+        <i class="fa-solid fa-bullhorn fa-sm me-2 mx-2" style="color: #FF9700;"></i>
         <span class="text">Gestion Annonces</span>
       </a>
     </li>
-    <li >
+    <li>
       <a routerLink="/gestion-ressource">
-        <i class='bx bxs-doughnut-chart'></i>
+       <i class="fa-solid fa-file-invoice fa-sm mb-2 mx-2 my-1" style="color: #FF9700;"></i>
         <span class="text">Gestion Ressources</span>
       </a>
     </li>
     <li class="active">
       <a routerLink="/gestion-commentaire">
-        <i class='bx bxs-message-dots'></i>
+                <i class="bx bxs-message-dots bxs-sm  " style="color: #FF9700;"></i>
         <span class="text">Gestion Commentaires</span>
       </a>
     </li>
     <li>
       <a routerLink="/gestion-annuaire">
-        <i class='bx bxs-group'></i>
+              <i class="fa-solid fa-book-open fa-sm me-2 mx-2" style="color: #FF9700;"></i>
         <span class="text">Gestion Annuaires</span>
       </a>
     </li>
-    <li>
+    <li >
       <a routerLink="/gestion-bien">
-        <i class='bx bxs-group'></i>
+                <i class="bi bi-arrow-down-left-square-fill mx-2"  style="color: #FF9700;"></i>
         <span class="text">Gestion Bien</span>
       </a>
     </li>
     <li>
       <a routerLink="/gestion-produit">
-        <i class='bx bxs-group'></i>
+         <i class="fa-solid fa-shop fa-sm mx-2" style="color: #FF9700;"></i>
         <span class="text">Gestion Produit</span>
       </a>
     </li>
@@ -58,7 +58,7 @@
   </ul>
   <ul class="side-menu">
     <li>
-      <a href="#">
+      <a >
         <i class='bx bxs-cog'></i>
         <span class="text">Profil</span>
       </a>
@@ -68,11 +68,6 @@
         <i class='bx bxs-log-out-circle'></i>
         <span class="text">Deconnexion</span>
       </a>
-    </li>
-    <li>
-      <button type="button" class="btn btn-primary text-center" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-      </button>
     </li>
   </ul>
 </section>
@@ -109,40 +104,86 @@
         <h1>Dashboard</h1>
         <ul class="breadcrumb">
           <li>
-            <a href="#">Dashboard</a>
+            <a routerLink="/dash">Dashboard</a>
           </li>
           <li><i class='bx bx-chevron-right'></i></li>
           <li>
-            <a class="active" href="#">Commentaire</a>
+            <a class="active" routerLink="/commentaire">Commentaire</a>
           </li>
         </ul>
       </div>
     </div>
 
-    <ul class="box-info">
-      <li>
-        <i class='bx bxs-calendar-check'></i>
+     <ul class="box-info">
+      <li class="cardTete shadow">
+        <i class='bx'><i class="fa-solid fa-user fa-sm" style="color: #19375c;"></i></i>
         <span class="text">
-          <h3>1020</h3>
-          <p>New Order</p>
+          <h3>{{utilisateurList.length}}</h3>
+          <p>Utilisateurs</p>
         </span>
       </li>
-      <li>
-        <i class='bx bxs-group'></i>
+      <li class="cardTete shadow">
+        <i class='bx'><i class="fa-solid fa-bullhorn fa-sm me-2 mx-2" style="color: #FF9700;"></i>
+</i>
         <span class="text">
-          <h3>2834</h3>
-          <p>Visitors</p>
+          <h3>{{annonceList.length}}</h3>
+          <p>Annonces</p>
         </span>
       </li>
-      <li>
-        <i class='bx bxs-dollar-circle'></i>
+      <li class="cardTete  shadow">
+        <i class='bx'><i class="fa-solid fa-book-open fa-sm" style="color: #19375c;"></i></i>
         <span class="text">
-          <h3>$2543</h3>
-          <p>Total Sales</p>
+          <h3>{{ressourceList.length}}</h3>
+          <p>Ressources</p>
         </span>
       </li>
     </ul>
-    <!-- corps  -->
+    <!-- corps  liste des annonces -->
+    <table class="table" *ngIf="listCommentaire.length < 0">
+      <thead>
+        <tr>
+          <th>N</th>
+          <th>Description</th>
+
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="3" class="text-center">Aucune donnees disponible</td>
+        </tr>
+        <tr></tr>
+      </tbody>
+    </table>
+    <table
+      datatable
+      [dtOptions]="dtOptions"
+      class="row-border hover table"
+      *ngIf="listCommentaire.length > 0"
+    >
+      <thead>
+        <tr>
+          <th>N</th>
+          <th>Description</th>
+
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listCommentaire;let index=index">
+          <td>{{index+1}}</td>
+          <td>{{ item.description}}</td>
+
+          <td>
+            <a data-bs-toggle="modal"
+      data-bs-target="#detail" (click)="getCommentaire(item)"><i class="fa-solid fa-xl fa-eye me-2 mb-2" style="color: #ff9700;"></i></a>
+            <!-- <a data-bs-toggle="modal"
+      data-bs-target="#modifie"  (click)="chargerInfosTest(item)"><i class="fa-solid fa-xl fa-pen-to-square me-2 mb-2" style="color: #ff9700;"></i></a>
+            <a (click)="SupprimeBien(item.id)"><i class="fa-solid fa-trash fa-xl me-2 mb-2"  style="color: #ff9700;"></i></a> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </main>
   <!-- MAIN -->
 </section>
@@ -150,23 +191,43 @@
 
 <!-- Button trigger modal -->
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- modal details -->
+<div class="modal fade container" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Details Commentaire</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        ...
+    <div>
+      <div class="col-12 col-md-12" >
+        <div class="card shadow">
+          <div class="row g-0 align-items-center">
+            <!-- <div class="col-md-5">
+              <img src="http://localhost:8000/images/{{this.bienSelectionner.images}}" class="card-img rounded-start" alt="Donner l image"/>
+            </div> -->
+            <div class="col-md-7">
+              <div class="card-body">
+                <p><span class="fw-bold"></span>{{this.commentaireSelectionner.description
+                  }}
+                </p>
+                <!-- <p>{{this.bienSelectionner.caracteristique
+                  }}
+                </p>
+                <p class="fw-bold" style="color: #ff9700;"> Contact:{{this.bienSelectionner.contact
+                  }}
+                </p> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+    </div>
+
     </div>
   </div>
 </div>
+
+
 

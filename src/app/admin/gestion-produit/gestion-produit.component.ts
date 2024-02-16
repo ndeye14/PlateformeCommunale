@@ -21,8 +21,8 @@ export class GestionProduitComponent implements OnInit {
   produitSelectionner: any = {};
   // variable
   nom_produit!: string;
-  prix!: string;
-  contact!: string;
+  prix!: any;
+  contact!: any;
   image!: any;
 
   constructor(
@@ -46,20 +46,8 @@ export class GestionProduitComponent implements OnInit {
         url: 'https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json',
       },
     };
-    // liste produit maketplace
-    this.produitService.listerProduits().subscribe(
-      (produits) => {
-        // Afficher la liste des annonces
-        console.log(produits);
-        this.produitList = produits.data;
-
-        console.log(this.produitList);
-      },
-
-      (error) => {
-        // Traiter l'erreur de liste
-      }
-    );
+    // liste produit
+    this.getAllProduit();
     // liste users
     this.userService.listerUtilisateurs().subscribe(
       (user) => {
@@ -81,6 +69,22 @@ export class GestionProduitComponent implements OnInit {
     // liste ressources
     this.ressourceListe();
   }
+  getAllProduit() {
+    // liste produit maketplace
+    this.produitService.listerProduits().subscribe(
+      (produits) => {
+        // Afficher la liste des annonces
+        console.log(produits);
+        this.produitList = produits.data;
+
+        console.log(this.produitList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+  }
   //Sidebar toggle show hide function
   status = false;
   addToggle() {
@@ -91,18 +95,35 @@ export class GestionProduitComponent implements OnInit {
   onSubmit() {
     let formData = new FormData();
     formData.append('nom_produit', this.nom_produit);
-    formData.append('prix', this.prix);
-    formData.append('contact', this.contact);
+    if (this.prix > 0 && !isNaN(this.contact)) {
+      formData.append('prix', this.prix);
+      formData.append('contact', this.contact);
+    }
     formData.append('images', this.image);
     console.log(formData);
     this.produitService.ajouterProduit(formData).subscribe((response) => {
       console.log(response);
       this.produitService.verifierChamp(
-        'ajoute!',
-        'bien ajoute avec succès',
+        '!!!!',
+        response.status_message,
         'success'
       );
-      this.ngOnInit(); // Actualise la page
+       if (response.status_code == 200) {
+         this.viderChamp();
+         this.getAllProduit();
+          window.location.reload();
+         // this.ngOnInit();
+         // const modalElement: HTMLElement | null =
+         //   document.getElementById('modifie');
+         // modalElement!.style.display = 'none'
+       } else {
+         this.produitService.verifierChamp(
+           '!!!!',
+           response.status_message,
+           'error'
+         );
+       }
+      //  window.location.reload();
     });
   }
 
@@ -137,14 +158,15 @@ export class GestionProduitComponent implements OnInit {
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.produitService.supprimerProduit(id).subscribe(() => {
+        this.produitService.supprimerProduit(id).subscribe((response) => {
           this.produitService.verifierChamp(
             'Supprimé!',
-            'annonce supprimé avec succès',
+            response.status_message,
             'success'
           );
-          // this.loadProduit();
-          this.ngOnInit(); // Actualise la page
+          // this.getAllProduit();
+          window.location.reload();
+          // Actualise la page
         });
       }
     });
@@ -185,19 +207,28 @@ export class GestionProduitComponent implements OnInit {
           .updateProduit(this.produitSelectionner, formData)
           .subscribe((response) => {
             console.log(response);
-            if (response.status_code == 200) {
+
               this.produitService.verifierChamp(
-                'Modifié!',
-                'produit modifié avec succès',
+                '!!!!',
+                response.status_message,
                 'success'
               );
-              window.location.reload();
-            } else {
-              console.log(response.status_message);
-              alert(response.status_message);
-            }
+                if (response.status_code == 200) {
+                  this.viderChamp();
+                  this.getAllProduit();
+                  // this.ngOnInit();
+                  // const modalElement: HTMLElement | null =
+                  //   document.getElementById('modifie');
+                  // modalElement!.style.display = 'none'
+                } else {
+                  this.produitService.verifierChamp(
+                    '!!!!',
+                    response.status_message,
+                    'error'
+                  );
+                }
           });
-        this.ngOnInit(); // Actualise la page
+        // this.ngOnInit(); // Actualise la page
       }
     });
   }
@@ -235,5 +266,13 @@ export class GestionProduitComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
+  }
+  viderChamp() {
+    this.nom_produit = ''
+    this.prix = ''
+    this.contact = ''
+    this.image=''
+
+
   }
 }

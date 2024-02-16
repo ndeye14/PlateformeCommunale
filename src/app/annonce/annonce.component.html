@@ -37,9 +37,10 @@
             </div>
             <div>
 
-              <p><a  class="h5 lh-base my-auto h-100 p-3">{{ item.description | slice:0:30}} &hellip;</a>
+              <p><a  class="h5 lh-base my-auto h-100 p-3">{{ item.description | slice:0:25}} &hellip;</a>
               </p>
-              <p><a data-bs-toggle="modal" data-bs-target="#detail" (click)="getAnnonce(item)" class="voirPlus px-3 py-1 mx-3">voir plus</a></p>
+              <p><a  [routerLink]="['/detailAnnonce', item.id]" (click)="getAnnonce(item)" class="voirPlus px-3 py-1 mx-3">voir plus</a></p>
+                <!-- data-bs-toggle="modal" data-bs-target="#detail" -->
             </div>
           </div>
         </div>

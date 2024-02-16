@@ -25,6 +25,8 @@ import { MessageComponent } from './admin/message/message.component';
 import { DetailAnnonceComponent } from './detail-annonce/detail-annonce.component';
 import { PolitiqueComponent } from './politique/politique.component';
 import { ConditionComponent } from './condition/condition.component';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/acceuil', pathMatch: 'full' },
@@ -76,6 +78,7 @@ const routes: Routes = [
   },
   {
     path: 'detailRessource/:id',
+
     component: DetailRessourceComponent,
     canActivate: [AuthGuard],
   },
@@ -94,6 +97,7 @@ const routes: Routes = [
   {
     path: 'detailAnnonce/:id',
     component: DetailAnnonceComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
@@ -135,6 +139,15 @@ const routes: Routes = [
     path: 'message',
     component: MessageComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'profil',
+    component: ProfilComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    component: MaintenanceComponent,
   },
 ];
 

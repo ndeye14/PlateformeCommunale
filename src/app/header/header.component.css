@@ -13,6 +13,7 @@
 .btn-custom,.btn-search{
   background-color: #ff9700;
   color: white;
+  width: auto;
 }
 .bg-custom{
   background-color: beige;
@@ -26,4 +27,6 @@
   font-weight: bold;
   color: white;
 } */
-
+.btn-custom{
+  width: 10rem;
+}

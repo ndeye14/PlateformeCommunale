@@ -104,11 +104,11 @@
         <h1>Dashboard</h1>
         <ul class="breadcrumb">
           <li>
-            <a href="#">Dashboard</a>
+            <a routerLink="/dash">Dashboard</a>
           </li>
           <li><i class='bx bx-chevron-right'></i></li>
           <li>
-            <a class="active" href="#">Annuaire</a>
+            <a class="active" routerLink="/annuaire">Annuaire</a>
           </li>
         </ul>
       </div>
@@ -362,7 +362,7 @@
             </div>
              <div class="form-group me-4">
             <label for="date">Status</label>
-            <select [(ngModel)]="statut"  class="w-100">
+            <select [(ngModel)]="statut"  class="w-100" name="status">
               <option value="perdu">perdu</option>
               <option value="retrouver">retrouver</option>
             </select>

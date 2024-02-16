@@ -138,7 +138,7 @@
             <label for="date">Status</label>
             <select [(ngModel)]="statut" name="statut" class="w-100">
               <option value="perdu">perdu</option>
-              <option value="trouve">retrouve</option>
+              <option value="retrouver">retrouver</option>
             </select>
           </div>
         </div>
@@ -147,7 +147,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()" data-bs-dismiss="modal">
+        <button type="button" class="btn btn-primary" (click)="onSubmit()" >
           Ajouter
         </button>
       </div>

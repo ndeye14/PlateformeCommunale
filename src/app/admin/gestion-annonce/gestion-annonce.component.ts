@@ -64,21 +64,10 @@ export class GestionAnnonceComponent implements OnInit {
         url: 'https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json',
       },
     };
+    // liste
+    this.getAllAnnonce();
 
-    // liste annonce
-    this.annoncesService.listerAnnonces().subscribe(
-      (annonces) => {
-        // Afficher la liste des annonces
-        console.log(annonces);
-        this.annonceList = annonces.data;
 
-        console.log(this.annonceList);
-      },
-
-      (error) => {
-        // Traiter l'erreur de liste
-      }
-    );
     // liste user
     this.userService.listerUtilisateurs().subscribe(
       (user) => {
@@ -108,16 +97,7 @@ export class GestionAnnonceComponent implements OnInit {
       }
     );
 
-    // details article
-    // this.route.params.subscribe((params) => {
-    //   const annonceId = params['id'];
-    //   console.log(annonceId);
 
-    //   this.annoncesService.getAnnonceById(annonceId).subscribe((data: any) => {
-    //     this.annonceRecu = data;
-    //     console.log(this.annonceRecu); // Afficher l'annonce récupérée
-    //   });
-    // });
   }
   // methode pour la transformations des images
   getFile(event: any) {
@@ -135,7 +115,32 @@ export class GestionAnnonceComponent implements OnInit {
     console.log(formData);
     this.annoncesService.ajouterAnnonce(formData).subscribe((response) => {
       console.log(response);
+      this.annoncesService.verifierChamp(
+        '!',
+        response.status_message,
+        'success'
+      );
+        if (response.status_code == 200) {
+          this.viderChamp();
+          this.getAllAnnonce();
+          this.ngOnInit();
+          // const modalElement: HTMLElement | null =
+          //   document.getElementById('modifie');
+          // modalElement!.style.display = 'none';
+
+          this.getAllAnnonce();
+        } else {
+          this.annoncesService.verifierChamp(
+            '!!!!',
+            response.status_message,
+            'success'
+          );
+        }
+
+
+      // this.getAllAnnonce();
     });
+    this.ngOnInit();
   }
 
   // pour recuperer une annonce
@@ -176,25 +181,34 @@ export class GestionAnnonceComponent implements OnInit {
           .subscribe((response) => {
             console.log('je suis response', response);
             this.annoncesService.verifierChamp(
-              'modifie!',
-              'annonce modifie avec succès',
+              '!!!!',
+              response.status_message,
               'success'
             );
-            window.location.reload();
-          });
-        this.ngOnInit();
+              if (response.status_code == 200) {
+                this.viderChamp();
+                this.getAllAnnonce();
+                this.ngOnInit();
+                // const modalElement: HTMLElement | null =
+                //   document.getElementById('modifie');
+                // modalElement!.style.display = 'none';
+              } else {
+                this.annoncesService.verifierChamp(
+                  '!!!!',
+                  response.status_message,
+                  'success'
+                );
+              }
+              // this.getAllAnnonce();
+            });
+            this.ngOnInit();
+            // window.location.reload();
       }
       console.log('je suis annonce', this.annonceSelectionner);
       console.log('je suis data', formData);
     });
 
-    //libelle, lieu, description , date, image, categorie_id
-    // const data = {
-    //   description: this.description,
-    //   date_activite: this.date,
-    //   lieu: this.lieu,
-    //    image: this.image,
-    // };
+
   }
 
   // suppression
@@ -209,14 +223,13 @@ export class GestionAnnonceComponent implements OnInit {
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.annoncesService.supprimerAnnonce(id).subscribe(() => {
+        this.annoncesService.supprimerAnnonce(id).subscribe((response) => {
           this.annoncesService.verifierChamp(
-            'Supprimé!',
-            'annonce supprimé avec succès',
+            '!!!!',
+             response.status_message,
             'success'
           );
-          // this.loadProduit();
-          this.ngOnInit(); // Actualise la page
+          this.getAllAnnonce(); // Actualise la page
         });
       }
     });
@@ -236,5 +249,28 @@ export class GestionAnnonceComponent implements OnInit {
         console.error('Erreur lors de la déconnexion:', error);
       }
     );
+  }
+  getAllAnnonce() {
+    // liste annonce
+    this.annoncesService.listerAnnonces().subscribe(
+      (annonces) => {
+        // Afficher la liste des annonces
+        console.log(annonces);
+        this.annonceList = annonces.data;
+
+        console.log(this.annonceList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+  }
+  viderChamp() {
+    this.description = '';
+    this.date = '';
+    this.lieu = '';
+    this.image = '';
+
   }
 }

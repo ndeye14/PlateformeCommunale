@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { window } from 'rxjs';
 import { annuaire } from 'src/app/models/annuaire.model';
 import { AnnonceService } from 'src/app/services/annonce.service';
 import { AnnuaireService } from 'src/app/services/annuaire.service';
@@ -55,20 +56,8 @@ export class GestionAnnuaireComponent implements OnInit {
         url: 'https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json',
       },
     };
-    // liste annuaire
-    this.annuaireService.listerAnnuaires().subscribe(
-      (annuaires) => {
-        // Afficher la liste des annonces
-        console.log(annuaires);
-        this.annuaireList = annuaires.data;
+    this.getAllAnnuaire();
 
-        console.log(this.annuaireList);
-      },
-
-      (error) => {
-        // Traiter l'erreur de liste
-      }
-    );
     // liste users
     this.userService.listerUtilisateurs().subscribe(
       (user) => {
@@ -90,6 +79,22 @@ export class GestionAnnuaireComponent implements OnInit {
     // liste ressources
     this.ressourceListe();
   }
+  getAllAnnuaire() {
+    // liste annuaire
+    this.annuaireService.listerAnnuaires().subscribe(
+      (annuaires) => {
+        // Afficher la liste des annonces
+        console.log(annuaires);
+        this.annuaireList = annuaires.data;
+
+        console.log(this.annuaireList);
+      },
+
+      (error) => {
+        // Traiter l'erreur de liste
+      }
+    );
+  }
 
   //Sidebar toggle show hide function
   status = false;
@@ -110,21 +115,42 @@ export class GestionAnnuaireComponent implements OnInit {
 
   // ajouter annonce
   onSubmit() {
-    // let annonce = {
-    //   description: this.description,
-    //   date_activite: this.date,
-    //   lieu: this.lieu,
-    //   images: this.image,
-    // };
+
     let formData = new FormData();
     formData.append('nom', this.nom);
     formData.append('adress', this.adress);
-    formData.append('couriel', this.couriel);
+    if (this.couriel.includes('@') && this.couriel.includes('.')) {
+      formData.append('couriel', this.couriel);
+    }
     formData.append('image', this.image);
     console.log(formData);
+
     this.annuaireService.ajouterAnnuaire(formData).subscribe((response) => {
       console.log(response);
+      this.annuaireService.verifierChamp(
+        '!!!!',
+        response.status_message,
+        'success'
+      );
+       if (response.status_code == 200) {
+         this.viderChamps();
+         this.getAllAnnuaire();
+         this.ngOnInit();
+         // const modalElement: HTMLElement | null =
+         //   document.getElementById('modifie');
+         // modalElement!.style.display = 'none';
+
+         this.getAllAnnuaire();
+       } else {
+         this.annuaireService.verifierChamp(
+           '!!!!',
+           response.status_message,
+           'success'
+         );
+       }
     });
+
+    this.ngOnInit();
   }
 
   chargerInfosTest(annuaire: any) {
@@ -137,17 +163,13 @@ export class GestionAnnuaireComponent implements OnInit {
   }
   // fonction pour modifier
   modifierAnnuaire() {
-    //libelle, lieu, description , date, image, categorie_id
-    // const data = {
-    //   nom: this.nomUp,
-    //   adress: this.adressUp,
-    //   couriel: this.courielUp,
-    //   image: this.image,
-    // };
+
     let formData = new FormData();
     formData.append('nom', this.nomUp);
     formData.append('adress', this.adressUp);
-    formData.append('couriel', this.courielUp);
+    if (this.courielUp.includes('@') && this.courielUp.includes('.')) {
+      formData.append('couriel', this.courielUp);
+    }
     formData.append('image', this.image);
     console.log('je suis annonce', this.annuaireSelectionner);
     console.log('je suis data', formData);
@@ -165,15 +187,32 @@ export class GestionAnnuaireComponent implements OnInit {
           .updateAnnuaire(this.annuaireSelectionner, formData)
           .subscribe((response) => {
             this.annuaireService.verifierChamp(
-              'Modifié!',
-              'annuaire modifié avec succès',
+              '!!!!',
+              response.status_message,
               'success'
             );
             console.log('je suis response', response);
+            if (response.status_code==200) {
+
+              this.viderChampsUp();
+
+              // const modalElement: HTMLElement | null =
+              //   document.getElementById('modifie');
+              // modalElement!.style.display = 'none';
+
+              this.getAllAnnuaire();
+            } else {
+               this.annuaireService.verifierChamp(
+                 '!!!!',
+                 response.status_message,
+                 'success'
+               );
+
+            }
           });
-        this.ngOnInit(); // Actualise la page
-      }
+        }
     });
+      this.ngOnInit(); // Actualise la page
   }
 
   SupprimeAnnuaire(id: number) {
@@ -187,13 +226,13 @@ export class GestionAnnuaireComponent implements OnInit {
       confirmButtonText: 'Oui, supprimer!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.annuaireService.supprimerAnnuaire(id).subscribe(() => {
+        this.annuaireService.supprimerAnnuaire(id).subscribe((response) => {
           this.annuaireService.verifierChamp(
             'Supprimé!',
-            'annonce supprimé avec succès',
+              response.status_message,
             'success'
           );
-          // this.loadProduit();
+          this.getAllAnnuaire();
           this.ngOnInit(); // Actualise la page
         });
       }
@@ -249,5 +288,18 @@ export class GestionAnnuaireComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
+  }
+
+  viderChamps() {
+    this.nom = '';
+    this.adress = '';
+    this.couriel = '';
+    this.image = '';
+  }
+  viderChampsUp() {
+    this.nomUp = '';
+    this.adressUp = '';
+    this.courielUp = '';
+    this.imageUp = '';
   }
 }

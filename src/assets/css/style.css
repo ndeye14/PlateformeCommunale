@@ -143,7 +143,7 @@ h4, h5, h6, .h4, .h5, .h6 {
 }
 
 .dropdown .dropdown-menu a:hover {
-    background: var(--bs-primary);
+    background: #19375c;
     color: var(--bs-white);
 }
 
@@ -465,7 +465,7 @@ h4, h5, h6, .h4, .h5, .h6 {
 
 /*** Footer Start ***/
 .footer .footer-item a.text-body:hover {
-    color: var(--bs-primary) !important;
+    color: #ff9700 !important;
 }
 /*** Footer End ***/
 

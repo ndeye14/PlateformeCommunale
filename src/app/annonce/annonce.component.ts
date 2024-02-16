@@ -16,8 +16,8 @@ export class AnnonceComponent implements OnInit {
   annonceSelectionner: any = {};
   description: any;
   listCommentaire: any[] = [];
-  commentAnnonce: any;
-  articleParPage = 3;
+  commentAnnonce: any[]=[];
+  articleParPage = 5;
   pageActuelle = 1;
 
 
@@ -97,6 +97,10 @@ export class AnnonceComponent implements OnInit {
     this.idAnnonce = annonce.id;
     console.log('tyep', this.idAnnonce);
     localStorage.setItem('idAnnonce', JSON.stringify(this.idAnnonce));
+    localStorage.setItem(
+      'annonceSelectionner',
+      JSON.stringify(this.annonceSelectionner)
+    );
     this.getAllComments(); // Actualise la page
   }
 

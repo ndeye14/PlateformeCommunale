@@ -11,9 +11,9 @@
             sur communeconnect</small>
           <h1 class="display-1 mb-4 animated bounceInDown">Commune<span class="text-cusstom">Connect</span> tout pour
             votre commune</h1>
-          <a href="" class="btn btn-custom border-0 rounded-pill py-2 px-4 px-md-5 me-4 animated bounceInLeft">Contact
+          <a routerLink="/contact" class="btn btn-custom border-0 rounded-pill py-2 px-4 px-md-5 me-4 mb-2 animated bounceInLeft">Contact
             </a>
-          <a href="" class="btn btn-custom border-0 rounded-pill py-2 px-4 px-md-5 animated bounceInLeft">En savoir plus</a>
+          <a href="/acceuil#about" class="btn btn-custom border-0 rounded-pill py-2 px-4 px-md-5 animated bounceInLeft">En savoir plus</a>
         </div>
         <div class="col-lg-5 col-md-12">
           <img src="assets/img/banner.png" class="img-fluid rounded animated zoomIn" alt="">
@@ -25,9 +25,9 @@
 
 
   <!-- About Satrt -->
-  <div class="container-fluid py-2">
-    <div class="container">
-      <div class="row g-5 align-items-center">
+  <div class="container-fluid py-2" >
+    <div class="container" >
+      <div class="row g-5 align-items-center" id="about">
         <div class="col-lg-5 ">
           <img src="assets/img/about.jpg" class="img-fluid rounded" alt="" style="width: 600px;height: 400px;">
         </div>
@@ -73,21 +73,23 @@
             <div class="col-sm-4 wow bounceInLeft" data-wow-delay="0.0s">
               <div class="faqt-item bg-custom rounded p-4 text-center">
                 <i class="fas fa-users fa-4x mb-4 text-white"></i>
-                <h1 class="display-4 fw-bold" data-toggle="counter-up">54</h1>
+                <h1 class="display-4 fw-bold" data-toggle="counter-up">
+
+  {{ressourceList.length}}</h1>
                 <p class="text-dark text-uppercase fw-bold mb-0">Ressources</p>
               </div>
             </div>
             <div class="col-sm-4 wow bounceInDown" data-wow-delay="0.0s">
               <div class="faqt-item bg-custom rounded p-4 text-center">
                 <img src="assets/img/megaphone.png" alt="">
-                <h1 class="display-4 fw-bold" data-toggle="counter-up">87</h1>
+                <h1 class="display-4 fw-bold" data-toggle="counter-up">{{annonceList.length}}</h1>
                 <p class="text-dark text-uppercase fw-bold mb-0">Annonces</p>
               </div>
             </div>
             <div class="col-sm-4 wow bounceInRight" data-wow-delay="0.0s">
               <div class="faqt-item bg-custom rounded p-4 text-center">
                 <i class="fas fa-check fa-4x mb-4 text-white"></i>
-                <h1 class="display-4 fw-bold" data-toggle="counter-up">103</h1>
+                <h1 class="display-4 fw-bold" data-toggle="counter-up">{{bienList.length}}</h1>
                 <p class="text-dark text-uppercase fw-bold mb-0">Bien Perdu/Retrouve</p>
               </div>
             </div>
@@ -115,8 +117,9 @@
         <div class="modal-body">
           <!-- 16:9 aspect ratio -->
           <div class="ratio ratio-16x9">
-            <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
-              allow="autoplay"></iframe>
+            <iframe width="656" height="369" src="https://www.youtube.com/embed/gFvz-OCia_w" title="Stratégie de développement communautaire" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <!-- <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always"
+              allow="autoplay"></iframe> -->
           </div>
         </div>
       </div>
@@ -134,58 +137,34 @@
         <h1 class="display-5 mb-5">Soyez le premier informe des nouvelles</h1>
       </div>
       <div class="row gx-4 justify-content-center">
-        <div class="col-md-6 col-lg-4 wow bounceInDown" data-wow-delay="0.0s">
+        <div class="col-md-6 col-lg-4 wow bounceInDown" data-wow-delay="0.0s" *ngFor="let item of lastThreePublications">
           <div class="blog-item">
-            <div class="overflow-hidden rounded">
-              <img src="assets/img/acti4.jpg" class="img-fluid w-100" alt="" style="height: 400px;">
-            </div>
-            <div class="blog-content mx-4 d-flex rounded bg-light">
-              <div class="text-dark bg-custom rounded-start">
-                <div class="h-100 p-3 d-flex flex-column justify-content-center text-center">
-                  <p class="fw-bold mb-0">16</p>
-                  <p class="fw-bold mb-0">Sep</p>
-                </div>
+          <div class="overflow-hidden rounded">
+            <img src="http://localhost:8000/images/{{item.images}}" class="img-fluid w-100" alt="">
+          </div>
+          <div class="blog-content mx-4 d-flex rounded bg-light">
+            <div class="text-dark bg-custom rounded-start">
+              <div class="h-100 p-3 d-flex flex-column justify-content-center text-center">
+
+                <p class="fw-bold mb-0">{{item.date_activite }}</p>
+                <p class="fw-bold mb-0">Lieu:{{ item.lieu }}</p>
+
               </div>
-              <a href="#" class="h5 lh-base my-auto h-100 p-3">How to get more test in your food from</a>
+            </div>
+            <div>
+
+              <p><a  class="h5 lh-base my-auto h-100 p-3">{{ item.description | slice:0:30}} &hellip;</a>
+              </p>
+              <p><a [routerLink]="['/detailAnnonce', item.id]" (click)="getAnnonce(item)" class="voirPlus px-3 py-1 mx-3">voir plus</a></p>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4 wow bounceInLeft" data-wow-delay="0.0s">
-          <div class="blog-item">
-            <div class="overflow-hidden rounded">
-              <img src="assets/img/acti3.jpg" class="img-fluid w-100" alt=""style="height: 400px;">
-            </div>
-            <div class="blog-content mx-4 d-flex rounded bg-light">
-              <div class="text-dark bg-custom rounded-start">
-                <div class="h-100 p-3 d-flex flex-column justify-content-center text-center">
-                  <p class="fw-bold mb-0">16</p>
-                  <p class="fw-bold mb-0">Sep</p>
-                </div>
-              </div>
-              <a href="#" class="h5 lh-base my-auto h-100 p-3">How to get more test in your food from</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.0s">
-          <div class="blog-item">
-            <div class="overflow-hidden rounded">
-              <img src="assets/img/acti2.jpg" class="img-fluid w-100" alt="" style="height: 400px;">
-            </div>
-            <div class="blog-content mx-4 d-flex rounded bg-light">
-              <div class="text-dark bg-custom rounded-start">
-                <div class="h-100 p-3 d-flex flex-column justify-content-center text-center">
-                  <p class="fw-bold mb-0">16</p>
-                  <p class="fw-bold mb-0">Sep</p>
-                </div>
-              </div>
-              <a href="#" class="h5 lh-base my-auto h-100 p-3">How to get more test in your food from</a>
-            </div>
-          </div>
         </div>
       </div>
     </div>
+
     <div class="text-center wow bounceInUp" data-wow-delay="0.0s">
-      <a href="" class="text-center btn btn-custom border-0 rounded-pill py-2 px-4 px-md-5 animated bounceInLeft">En decouvrir plus<i class="bi bi-arrow-right bi-lg"></i></a>
+      <a routerLink="/annonce" class="text-center btn btn-custom border-0 rounded-pill py-2 px-4 px-md-5 animated bounceInLeft">Decouvrir plus<i class="bi bi-arrow-right bi-lg"></i></a>
     </div>
   </div>
   <!-- annonces End -->

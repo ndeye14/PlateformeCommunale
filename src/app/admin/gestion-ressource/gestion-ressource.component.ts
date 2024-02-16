@@ -100,7 +100,19 @@ export class GestionRessourceComponent implements OnInit {
         response.status_message,
         'success'
       );
-      this.ngOnInit(); // Actualise la page
+      if (response.status_code === 200) {
+        this.viderChamp();
+
+        this.ngOnInit(); // Actualise la page
+      }
+      else {
+        this.ressourceService.verifierChamp(
+          '',
+          response.status_message,
+          'error'
+        );
+
+      }
     });
   }
 
@@ -142,10 +154,6 @@ export class GestionRessourceComponent implements OnInit {
   }
   // fonction pour modifier
   modifierRessource() {
-    // let formData = new FormData();
-    // formData.append('nom', this.nom);
-    // formData.append('nature', this.nature);
-    //   console.log(formData);
 
     let data = {
       nom: this.nom,
@@ -215,6 +223,10 @@ export class GestionRessourceComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
+  }
+  viderChamp() {
+    this.nom = ''
+    this.nature=''
   }
 }
 

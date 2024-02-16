@@ -15,7 +15,7 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router) {}
 
   // Variable superglobale pour l'authentification
-  isAuthenticated = false;
+  // isAuthenticated = false;
 
   login(user: any) {
     return this.http.post(`${url}/userlog`, user);
@@ -23,7 +23,7 @@ export class UserService {
   }
 
   logout() {
-    const accessToken = localStorage.getItem('userConnect.token');
+    const accessToken = localStorage.getItem('userConnect');
 
     return accessToken
       ? this.http.post<any>(
@@ -73,5 +73,11 @@ export class UserService {
         })
       : of(null);
   }
+
+  modifPassword(email:any,id:number) {
+     return this.http.post(`${url}/resetPassword/${id}`, email);
+
+  }
+
 
 }
