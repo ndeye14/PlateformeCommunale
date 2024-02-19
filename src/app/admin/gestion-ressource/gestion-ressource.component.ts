@@ -18,9 +18,19 @@ export class GestionRessourceComponent implements OnInit {
   utilisateurList: any[] = [];
   dtOptions: DataTables.Settings = {};
   ressourceSelectionner: any = {};
+
   // variable
-  nom!: string;
+  nom!: any;
   nature!: string;
+
+  // verif
+  verifNom!: string;
+  verifNature!: string;
+
+  // exact
+  exactNom: boolean = false;
+  exactNature: boolean = false;
+
   //Sidebar toggle show hide function
   status = false;
   addToggle() {
@@ -33,8 +43,36 @@ export class GestionRessourceComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private ressourceService: RessourceService,
-    private annonceService: AnnonceService,
+    private annonceService: AnnonceService
   ) {}
+  verifNatureFonction() {
+    this.exactNature = false;
+    if (this.nature == '') {
+      this.verifNature = 'Veuillez renseigner le contenu';
+    } else if (this.nature.length < 10) {
+      this.verifNature = 'Le contenu est trop court';
+    } else {
+      this.verifNature = '';
+      this.exactNature = true;
+    }
+  }
+
+  verifNomFonction() {
+    this.exactNom = false;
+    if (this.nom == '') {
+      this.verifNom = 'Veuillez renseigner le contenu';
+    }
+    // else if (this.nom.length < 5) {
+    //   this.verifNom = 'Le contenu est trop court';
+    // }
+    else if (!isNaN(this.nom)) {
+      this.verifNom = 'Le contenu doit etre un text';
+    } else {
+      this.verifNom = '';
+      this.exactNom = true;
+    }
+  }
+
   ngOnInit(): void {
     //datatable
     this.dtOptions = {
@@ -104,14 +142,12 @@ export class GestionRessourceComponent implements OnInit {
         this.viderChamp();
 
         this.ngOnInit(); // Actualise la page
-      }
-      else {
+      } else {
         this.ressourceService.verifierChamp(
           '',
           response.status_message,
           'error'
         );
-
       }
     });
   }
@@ -154,7 +190,6 @@ export class GestionRessourceComponent implements OnInit {
   }
   // fonction pour modifier
   modifierRessource() {
-
     let data = {
       nom: this.nom,
       nature: this.nature,
@@ -225,8 +260,8 @@ export class GestionRessourceComponent implements OnInit {
     );
   }
   viderChamp() {
-    this.nom = ''
-    this.nature=''
+    this.nom = '';
+    this.nature = '';
   }
 }
 

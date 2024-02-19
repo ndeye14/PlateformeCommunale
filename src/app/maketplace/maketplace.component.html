@@ -106,8 +106,10 @@
               id="nom"
               placeholder=""
               name="nom_produit"
-              [(ngModel)]="nom_produit"
+              [(ngModel)]="nom_produit" (input)="verifNom_produitFonction()"
             />
+             <p class="text-danger" *ngIf="!exactNom_produit">{{verifNom_produit}}</p>
+                <p class="text-success" *ngIf="exactNom_produit"><i class="bi bi-check2-all"></i> Exact !</p>
 
           </div>
           <div class="form-group">
@@ -118,8 +120,11 @@
               id="adress"
               placeholder=""
               name="prix"
-              [(ngModel)]="prix"
+              [(ngModel)]="prix"  (input)="verifPrixFonction()"
             />
+            <p class="text-danger" *ngIf="!exactPrix">{{verifPrix}}</p>
+                <p class="text-success" *ngIf="exactPrix"><i class="bi bi-check2-all"></i> Exact !</p>
+
           </div>
           <div class="form-group">
             <label for="lieu">Contact</label>
@@ -129,8 +134,11 @@
               id="contact"
               placeholder="Contact"
               name="contact"
-              [(ngModel)]="contact"
+              [(ngModel)]="contact"  (input)="verifContactFonction()"
             />
+            <p class="text-danger" *ngIf="!exactContact">{{verifContact}}</p>
+                <p class="text-success" *ngIf="exactContact"><i class="bi bi-check2-all"></i> Exact !</p>
+
           </div>
            <div class="form-group">
             <label for="image">Image</label>
@@ -140,16 +148,22 @@
               id="image"
               placeholder=""
               name="image"
-              (change)="getFile($event)"
+              (change)="getFile($event)" (input)="verifImageFonction()"
             />
           </div>
+          <p class="text-danger" *ngIf="!exactImage">{{verifImage}}</p>
+                <p class="text-success" *ngIf="exactImage"><i class="bi bi-check2-all"></i> Exact !</p>
+
         </div>
       </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary"  (click)="onSubmit()">
+        <button type="button" class="btn btn-primary" *ngIf="exactContact == false || exactNom_produit == false || exactPrix == false || exactImage == false" disabled >
+          Ajouter
+        </button>
+        <button type="button" class="btn btn-primary" *ngIf="exactContact === true && exactNom_produit === true && exactPrix === true && exactImage === true"  (click)="onSubmit()" data-bs-dismiss="modal">
           Ajouter
         </button>
       </div>

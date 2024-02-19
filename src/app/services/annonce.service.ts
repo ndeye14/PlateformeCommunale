@@ -68,6 +68,7 @@ export class AnnonceService {
       title: title,
       text: text,
       icon: icon,
+      timer: 1000,
     });
   }
 }

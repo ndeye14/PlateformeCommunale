@@ -25,7 +25,7 @@ export class ProduitService {
     // const accessToken = localStorage.getItem('userConnect');
 
     return this.http.get<any>(`${url}/listes_produit`, {})
-  
+
 
   }
 
@@ -61,6 +61,7 @@ export class ProduitService {
       title: title,
       text: text,
       icon: icon,
+      timer:1000
     });
   }
 }

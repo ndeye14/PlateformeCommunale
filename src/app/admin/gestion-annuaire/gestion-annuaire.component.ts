@@ -28,6 +28,17 @@ export class GestionAnnuaireComponent implements OnInit {
   adress!: string;
   couriel!: string;
   image: any;
+  // verif
+  verifNom!: string;
+  verifAdress!: string;
+  verifCouriel!: string;
+  verifImage: any;
+  // exact
+  exactNom: boolean = false;
+  exactAdress: boolean = false;
+  exactCouriel: boolean = false;
+  exactImage: boolean = false;
+
   // varibles pour modifier
   nomUp!: string;
   adressUp!: string;
@@ -56,6 +67,7 @@ export class GestionAnnuaireComponent implements OnInit {
         url: 'https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json',
       },
     };
+
     this.getAllAnnuaire();
 
     // liste users
@@ -79,6 +91,19 @@ export class GestionAnnuaireComponent implements OnInit {
     // liste ressources
     this.ressourceListe();
   }
+
+  verifNomFonction() {
+    this.exactNom = false;
+    if (this.nom == '') {
+      this.verifNom = 'Veuillez renseigner le Nom';
+    } else if (this.nom.length < 2) {
+      this.verifNom = 'Le Nom de l annuaire est trop court';
+    } else {
+      this.verifNom = '';
+      this.exactNom = true;
+    }
+  }
+  
   getAllAnnuaire() {
     // liste annuaire
     this.annuaireService.listerAnnuaires().subscribe(
@@ -115,7 +140,6 @@ export class GestionAnnuaireComponent implements OnInit {
 
   // ajouter annonce
   onSubmit() {
-
     let formData = new FormData();
     formData.append('nom', this.nom);
     formData.append('adress', this.adress);
@@ -132,22 +156,22 @@ export class GestionAnnuaireComponent implements OnInit {
         response.status_message,
         'success'
       );
-       if (response.status_code == 200) {
-         this.viderChamps();
-         this.getAllAnnuaire();
-         this.ngOnInit();
-         // const modalElement: HTMLElement | null =
-         //   document.getElementById('modifie');
-         // modalElement!.style.display = 'none';
+      if (response.status_code == 200) {
+        this.viderChamps();
+        this.getAllAnnuaire();
+        this.ngOnInit();
+        // const modalElement: HTMLElement | null =
+        //   document.getElementById('modifie');
+        // modalElement!.style.display = 'none';
 
-         this.getAllAnnuaire();
-       } else {
-         this.annuaireService.verifierChamp(
-           '!!!!',
-           response.status_message,
-           'success'
-         );
-       }
+        this.getAllAnnuaire();
+      } else {
+        this.annuaireService.verifierChamp(
+          '!!!!',
+          response.status_message,
+          'success'
+        );
+      }
     });
 
     this.ngOnInit();
@@ -163,7 +187,6 @@ export class GestionAnnuaireComponent implements OnInit {
   }
   // fonction pour modifier
   modifierAnnuaire() {
-
     let formData = new FormData();
     formData.append('nom', this.nomUp);
     formData.append('adress', this.adressUp);
@@ -192,8 +215,7 @@ export class GestionAnnuaireComponent implements OnInit {
               'success'
             );
             console.log('je suis response', response);
-            if (response.status_code==200) {
-
+            if (response.status_code == 200) {
               this.viderChampsUp();
 
               // const modalElement: HTMLElement | null =
@@ -202,17 +224,16 @@ export class GestionAnnuaireComponent implements OnInit {
 
               this.getAllAnnuaire();
             } else {
-               this.annuaireService.verifierChamp(
-                 '!!!!',
-                 response.status_message,
-                 'success'
-               );
-
+              this.annuaireService.verifierChamp(
+                '!!!!',
+                response.status_message,
+                'success'
+              );
             }
           });
-        }
+      }
     });
-      this.ngOnInit(); // Actualise la page
+    this.ngOnInit(); // Actualise la page
   }
 
   SupprimeAnnuaire(id: number) {
@@ -229,7 +250,7 @@ export class GestionAnnuaireComponent implements OnInit {
         this.annuaireService.supprimerAnnuaire(id).subscribe((response) => {
           this.annuaireService.verifierChamp(
             'Supprimé!',
-              response.status_message,
+            response.status_message,
             'success'
           );
           this.getAllAnnuaire();

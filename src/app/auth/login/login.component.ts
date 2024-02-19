@@ -11,19 +11,42 @@ import { User } from 'src/app/models/User.model';
 export class LoginComponent implements OnInit {
   // Déclaration des variables
   isConnexion: boolean = true;
-  passwordMod:any;
-  // isRein1: boolean = false;
-  // isRein2: boolean = false;
+  passwordMod: any;
 
   showForm1: boolean = true; // Affiche le premier formulaire par défaut
   titleFrm: string = 'Connectez-Vous';
-  // Variable pour les inputs
+  // Variable pour les inputs inscription
   email: string = '';
   password: string = '';
   nom: string = '';
   prenom: string = '';
   role: string = 'user';
   errorMessage: any;
+  passwordConf: string = '';
+  // pour la connexion
+  emailCon: string = '';
+  passwordCon: string = '';
+
+  // Variables pour faire la vÃ©rifications
+  verifNom: String = '';
+  verifPrenom: String = '';
+  verifEmail: String = '';
+  verifPassword: String = '';
+  verifPasswordConf: String = '';
+  // Variables si les champs sont exacts
+  exactNom: boolean = false;
+  exactPrenom: boolean = false;
+  exactEmail: boolean = false;
+  exactPassword: boolean = false;
+  exactPasswordConf: boolean = false;
+
+  // Pour vÃ©rifier les champs pour la connexion
+  verifEmailCon: String = '';
+  verifPasswordCon: String = '';
+
+  // Variables Si les valeurs sont exactes
+  exactEmailCon: boolean = false;
+  exactPasswordCon: boolean = false;
 
   constructor(private authService: UserService, private route: Router) {}
   ngOnInit(): void {}
@@ -39,53 +62,106 @@ export class LoginComponent implements OnInit {
       : (this.titleFrm = 'Connectez-Vous');
   }
 
-  // onSubmit() {
-  //    let user = {
-  //      email: this.email,
-  //      password: this.password,
-  //    };
-  // //   // Envoyer les données du formulaire au serveur
-  //    let response: any;
-  //     this.authService.login(user).subscribe(
-  //       (rep) => {
-  //         response = rep;
-  //         console.log(response);
-  //         if (response.status) {
-  //           // console.log ("C'est bon");
+  // Fonction de Verification du password pour la fonctionnalitÃ© connexion
+  verifPasswordConFonction() {
+    this.exactPasswordCon = false;
+    if (this.passwordCon == '') {
+      this.verifPasswordCon = 'Veuillez renseigner votre mot de passe';
+    } else if (this.passwordCon.length < 5) {
+      this.verifPasswordCon =
+        'Mot de passe doit Ãªtre supÃ©rieur ou Ã©gal Ã  5';
+    } else {
+      this.verifPasswordCon = '';
+      this.exactPasswordCon = true;
+    }
+  }
+  // Fonction de Verification de l'email pour la fonctionnalitÃ© connexion
+  verifEmailConFonction() {
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$/;
+    this.exactEmailCon = false;
 
-  //           this.route.navigate(['acceuil']); // Redirection vers le dashbord concerné
-  //           // this.authService.isAuthenticated = true; // Définit la variable isAuthicated à true pour la guard
+    if (this.emailCon == '') {
+      this.verifEmailCon = 'Veuillez renseigner votre email';
+    } else if (
+      (!this.emailCon.match(emailPattern) || this.emailCon.endsWith('@')) ||
+      !this.emailCon.includes('.')
+    ) {
+      this.verifEmailCon = 'Veuillez donner un email valide';
+    } else {
+      this.verifEmailCon = '';
+      this.exactEmailCon = true;
+    }
+  }
+  // Verification du nom
+  verifNomFonction() {
+    this.exactNom = false;
+    if (this.nom == '') {
+      this.verifNom = 'Veuillez renseigner votre nom';
+    } else if (this.nom.length < 2) {
+      this.verifNom = 'Le nom est trop court';
+    } else {
+      this.verifNom = '';
+      this.exactNom = true;
+    }
+  }
 
-  //           // On stocke les info de la requete dans notre localstorage
-  //           // localStorage.setItem('userConnect', JSON.stringify(response));
+  // Verification du prenom
+  verifPrenomFonction() {
+    this.exactPrenom = false;
+    if (this.prenom == '') {
+      this.verifPrenom = 'Veuillez renseigner votre prenom';
+    } else if (this.prenom.length < 3) {
+      this.verifPrenom = 'Le prenom est trop court';
+    } else {
+      this.verifPrenom = '';
+      this.exactPrenom = true;
+    }
+  }
 
-  //           // this.iscorrectValues = true; //Les données fournies sont correctes
-  //         }
-  //       },
+  // Verification de  l'email
+  verifEmailFonction() {
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$/;
+    this.exactEmail = false;
 
-  //     );
-  // //   this.authService.login(this.email, this.password).subscribe({
-  // //     next: (resp) => {
-  // //       console.log('Connexion réussie !', resp);
-  // //       // Redirection vers la page d'accueil
-  // //       // this.route.navigate(['acceuil']);
-  // //     },
-  // //     error: (error) => {
-  // //       // Gestion des erreurs
-  // //       this.errorMessage = error.message;
-  // //       if (error.status === 200) {
-  // //         this.errorMessage = 'Identifiants incorrects.';
-  // //       } else {
-  // //         this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
-  // //       }
-  // //     },
-  // //   });
-  // }
+    if (this.email == '') {
+      this.verifEmail = 'Veuillez renseigner votre email';
+    } else if (!this.email.match(emailPattern)) {
+      this.verifEmail = 'Veuillez donner un email valide';
+    } else {
+      this.verifEmail = '';
+      this.exactEmail = true;
+    }
+  }
+  // Verification du mot de passe
+  verifPasswordFonction() {
+    this.exactPassword = false;
+    if (this.password == '') {
+      this.verifPassword = 'Veuillez renseigner votre mot de passe';
+    } else if (this.password.length < 5) {
+      this.verifPassword = 'Mot de passe doit Ãªtre supÃ©rieur ou Ã©gal Ã  5';
+    } else {
+      this.verifPassword = '';
+      this.exactPassword = true;
+    }
+  }
 
-  // Methode de connexion
+  // Verification du mot de passe confirmÃ©
+  verifPasswordConfFonction() {
+    this.exactPasswordConf = false;
+    if (this.passwordConf == '') {
+      this.verifPasswordConf =
+        'Veuillez renseigner Ã  nouveau votre mot de passe';
+    } else if (this.password != this.passwordConf) {
+      this.verifPasswordConf = 'Les deux mots de passe ne sont pas conformes';
+    } else {
+      this.verifPasswordConf = '';
+      this.exactPasswordConf = true;
+    }
+  }
+
   login() {
-    console.log(this.email, this.password);
-    if (this.email == '' || this.password == '') {
+    console.log(this.emailCon, this.passwordCon);
+    if (this.emailCon == '' || this.passwordCon == '') {
       Swal.fire({
         position: 'center',
         icon: 'error',
@@ -93,7 +169,7 @@ export class LoginComponent implements OnInit {
         text: 'Veillez remplir les champs',
         showConfirmButton: true,
       });
-    } else if (this.email.endsWith('@') || !this.email.includes('.')) {
+    } else if (this.emailCon.endsWith('@') || !this.emailCon.includes('.')) {
       // Vérifie si l'email se termine juste par @
       Swal.fire({
         position: 'center',
@@ -104,8 +180,8 @@ export class LoginComponent implements OnInit {
       });
     } else {
       let user = {
-        email: this.email,
-        password: this.password,
+        email: this.emailCon,
+        password: this.passwordCon,
       };
 
       let response: any;
@@ -122,25 +198,22 @@ export class LoginComponent implements OnInit {
               title: '',
               text: 'connexion reussi',
               showConfirmButton: true,
-              timer:1500,
+              timer: 1500,
             });
 
             this.route.navigate(['/dash']); // Redirection vers le dashbord concerné
-            // this.authService.isAuthenticated = true; // Définit la variable isAuthicated à true pour la guard
 
             // On stocke les info de la requete dans notre localstorage
             localStorage.setItem('userConnect', response.token);
 
-            // this.iscorrectValues = true; //Les données fournies sont correctes
           } else if (response.user.role == 'user') {
-            // console.log ("C'est bon");
             Swal.fire({
               position: 'center',
               icon: 'success',
               title: '',
               text: 'connexion reussi',
-              showConfirmButton: true,
-              timer:1500,
+              showConfirmButton: false,
+              timer: 1500,
             });
 
             this.route.navigate(['/acceuil']); // Redirection vers l accueil
@@ -177,6 +250,12 @@ export class LoginComponent implements OnInit {
   }
 
   register() {
+    // On fait appel au mÃ©thode qui permettent de vÃ©rifier les champs
+    this.verifEmailFonction();
+    this.verifNomFonction();
+    this.verifPrenomFonction();
+    this.verifPasswordFonction();
+    this.verifPasswordConfFonction();
     console.log(this.nom, this.prenom, this.email, this.password, this.role);
     let user = {
       nom: this.nom,
@@ -191,6 +270,14 @@ export class LoginComponent implements OnInit {
       console.log(respons);
       if (respons.status_code == 200) {
         this.showForm1 = true;
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: '',
+          text: 'deconnexion reussi',
+          showConfirmButton: false,
+          timer: 1500,
+        });
         // alert("gfrthyu")
         // this.route.navigate(['/login']);
       }
@@ -199,7 +286,6 @@ export class LoginComponent implements OnInit {
 
   moficPassword() {
     // this.authService.modifPassword().subscribe((rep) => {});
-
   }
 }
 

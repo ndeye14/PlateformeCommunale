@@ -60,6 +60,7 @@ export class BienService {
       title: title,
       text: text,
       icon: icon,
+      timer: 1500,
     });
   }
 }

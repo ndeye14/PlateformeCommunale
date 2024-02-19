@@ -24,6 +24,16 @@ export class GestionProduitComponent implements OnInit {
   prix!: any;
   contact!: any;
   image!: any;
+  // pour verifier
+  verifNom_produit!: string;
+  verifPrix!: any;
+  verifContact!: any;
+  verifImage!: any;
+  // pour exacte
+  exactNom_produit: boolean = false;
+  exactPrix: boolean = false;
+  exactContact: boolean = false;
+  exactImage: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -69,6 +79,50 @@ export class GestionProduitComponent implements OnInit {
     // liste ressources
     this.ressourceListe();
   }
+
+  verifNom_produitFonction() {
+    this.exactNom_produit = false;
+    if (this.nom_produit == '') {
+      this.verifNom_produit = 'Veuillez renseigner le du Nom_produit';
+    } else if (this.nom_produit.length < 2) {
+      this.verifNom_produit = 'Le Nom du produit est trop court';
+    } else {
+      this.verifNom_produit = '';
+      this.exactNom_produit = true;
+    }
+  }
+  verifPrixFonction() {
+    this.exactPrix = false;
+    if (this.prix == '') {
+      this.verifPrix = 'Veuillez donner un Prix';
+    } else if (this.prix <= 0 || isNaN(this.prix)) {
+      this.verifPrix = 'Le prix doit etre positif';
+    } else {
+      this.verifPrix = '';
+      this.exactPrix = true;
+    }
+  }
+
+  verifContactFonction() {
+    this.exactContact = false;
+    if (this.contact == '') {
+      this.verifContact = 'Veuillez donner un Contact';
+    } else if (isNaN(this.contact)) {
+      this.verifContact = 'Le Contact doit etre numerique';
+    } else {
+      this.verifContact = '';
+      this.exactContact = true;
+    }
+  }
+  verifImageFonction() {
+    this.exactImage = false;
+    if (this.image == '') {
+      this.verifImage = 'Veuillez donner une Image';
+    } else {
+      this.verifImage = '';
+      this.exactImage = true;
+    }
+  }
   getAllProduit() {
     // liste produit maketplace
     this.produitService.listerProduits().subscribe(
@@ -108,21 +162,21 @@ export class GestionProduitComponent implements OnInit {
         response.status_message,
         'success'
       );
-       if (response.status_code == 200) {
-         this.viderChamp();
-         this.getAllProduit();
-          window.location.reload();
-         // this.ngOnInit();
-         // const modalElement: HTMLElement | null =
-         //   document.getElementById('modifie');
-         // modalElement!.style.display = 'none'
-       } else {
-         this.produitService.verifierChamp(
-           '!!!!',
-           response.status_message,
-           'error'
-         );
-       }
+      if (response.status_code == 200) {
+        this.viderChamp();
+        this.getAllProduit();
+        window.location.reload();
+        // this.ngOnInit();
+        // const modalElement: HTMLElement | null =
+        //   document.getElementById('modifie');
+        // modalElement!.style.display = 'none'
+      } else {
+        this.produitService.verifierChamp(
+          '!!!!',
+          response.status_message,
+          'error'
+        );
+      }
       //  window.location.reload();
     });
   }
@@ -208,25 +262,25 @@ export class GestionProduitComponent implements OnInit {
           .subscribe((response) => {
             console.log(response);
 
+            this.produitService.verifierChamp(
+              '!!!!',
+              response.status_message,
+              'success'
+            );
+            if (response.status_code == 200) {
+              this.viderChamp();
+              this.getAllProduit();
+              // this.ngOnInit();
+              // const modalElement: HTMLElement | null =
+              //   document.getElementById('modifie');
+              // modalElement!.style.display = 'none'
+            } else {
               this.produitService.verifierChamp(
                 '!!!!',
                 response.status_message,
-                'success'
+                'error'
               );
-                if (response.status_code == 200) {
-                  this.viderChamp();
-                  this.getAllProduit();
-                  // this.ngOnInit();
-                  // const modalElement: HTMLElement | null =
-                  //   document.getElementById('modifie');
-                  // modalElement!.style.display = 'none'
-                } else {
-                  this.produitService.verifierChamp(
-                    '!!!!',
-                    response.status_message,
-                    'error'
-                  );
-                }
+            }
           });
         // this.ngOnInit(); // Actualise la page
       }
@@ -268,11 +322,9 @@ export class GestionProduitComponent implements OnInit {
     );
   }
   viderChamp() {
-    this.nom_produit = ''
-    this.prix = ''
-    this.contact = ''
-    this.image=''
-
-
+    this.nom_produit = '';
+    this.prix = '';
+    this.contact = '';
+    this.image = '';
   }
 }

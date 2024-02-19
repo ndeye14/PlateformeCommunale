@@ -34,15 +34,21 @@ export class GestionBienComponent implements OnInit {
   // varaiables
   nom!: string;
   caracteristique!: string;
-  contact!: string;
+  contact!: any;
   image!: any;
   statut!: string;
-  // variable pour modifier
-  // nomUp!: string;
-  // caracteristiqueUp!: string;
-  // contactUp!: string;
-  // imageUp!: any;
-  // statutUp!: string;
+  // verifier
+  verifNom!: string;
+  verifCaracteristique!: string;
+  verifContact!: string;
+  verifImage!: any;
+  verifStatut!: string;
+  // exact
+  exactNom: boolean = false;
+  exactCaracteristique: boolean = false;
+  exactContact: boolean = false;
+  exactImage: boolean = false;
+  exactStatut: boolean = false;
 
   ngOnInit(): void {
     //datatable
@@ -78,6 +84,57 @@ export class GestionBienComponent implements OnInit {
     this.annonceListe();
     // liste ressources
     this.ressourceListe();
+  }
+  verifNomFonction() {
+    this.exactNom = false;
+    if (this.nom == '') {
+      this.verifNom = 'Veuillez renseigner le Nom';
+    } else if (this.nom.length < 2) {
+      this.verifNom = 'Le Nom du produit est trop court';
+    } else {
+      this.verifNom = '';
+      this.exactNom = true;
+    }
+  }
+  verifCarateristiqueFonction() {
+    this.exactCaracteristique = false;
+    if (this.caracteristique == '') {
+      this.verifCaracteristique = 'Veuillez renseigner le Caracteristique';
+    } else if (this.caracteristique.length < 5) {
+      this.verifCaracteristique = 'Le Carateristique du produit est trop court';
+    } else {
+      this.verifCaracteristique = '';
+      this.exactCaracteristique = true;
+    }
+  }
+  verifContactFonction() {
+    this.exactContact = false;
+    if (this.contact == '') {
+      this.verifContact = 'Veuillez renseigner le Contact';
+    } else if (isNaN(this.contact)) {
+      this.verifContact = 'Le contact est doit etre un numerique';
+    } else {
+      this.verifContact = '';
+      this.exactContact = true;
+    }
+  }
+  verifImageFonction() {
+    this.exactImage = false;
+    if (this.image == '') {
+      this.verifImage = 'Veuillez mettre une Image';
+    } else {
+      this.verifImage = '';
+      this.exactImage = true;
+    }
+  }
+  verifStatutFonction() {
+    this.exactStatut = false;
+    if (this.statut == '') {
+      this.verifStatut = 'Veuillez selectionner une Statut';
+    } else {
+      this.verifStatut = '';
+      this.exactStatut = true;
+    }
   }
   //Sidebar toggle show hide function
   status = false;
@@ -174,7 +231,6 @@ export class GestionBienComponent implements OnInit {
       }
     });
     this.ngOnInit(); // Actualise la page
-
   }
 
   chargerInfosTest(bien: any) {
@@ -209,11 +265,11 @@ export class GestionBienComponent implements OnInit {
           .updateBien(this.bienSelectionner, formData)
           .subscribe((response) => {
             console.log(response);
-              this.bienService.verifierChamp(
-                '!!!!',
-                response.status_message,
-                'success'
-              );
+            this.bienService.verifierChamp(
+              '!!!!',
+              response.status_message,
+              'success'
+            );
             if (response.status_code == 200) {
               this.viderChamp();
               this.getAllBien();

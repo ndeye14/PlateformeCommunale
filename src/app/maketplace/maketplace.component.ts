@@ -19,12 +19,66 @@ export class MaketplaceComponent implements OnInit {
   prix!: any;
   contact!: any;
   image!: any;
+  // pour verifier
+  verifNom_produit!: string;
+  verifPrix!: any;
+  verifContact!: any;
+  verifImage!: any;
+  // pour exacte
+  exactNom_produit: boolean = false;
+  exactPrix: boolean = false;
+  exactContact: boolean = false;
+  exactImage: boolean = false;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private produitService: ProduitService
   ) {}
+  verifNom_produitFonction() {
+    this.exactNom_produit = false;
+    if (this.nom_produit == '') {
+      this.verifNom_produit = 'Veuillez renseigner le du Nom_produit';
+    } else if (this.nom_produit.length < 2) {
+      this.verifNom_produit = 'Le Nom du produit est trop court';
+    } else {
+      this.verifNom_produit = '';
+      this.exactNom_produit = true;
+    }
+  }
+  verifPrixFonction() {
+    this.exactPrix = false;
+    if (this.prix == '') {
+      this.verifPrix = 'Veuillez donner un Prix';
+    } else if (this.prix <= 0 || isNaN(this.prix)) {
+      this.verifPrix = 'Le prix doit etre positif';
+    } else {
+      this.verifPrix = '';
+      this.exactPrix = true;
+    }
+  }
+
+
+  verifContactFonction() {
+    this.exactContact = false;
+    if (this.contact == '') {
+      this.verifContact = 'Veuillez donner un Contact';
+    } else if (isNaN(this.contact) ) {
+      this.verifContact = 'Le Contact doit etre numerique';
+    } else {
+      this.verifContact = '';
+      this.exactContact = true;
+    }
+  }
+  verifImageFonction() {
+    this.exactImage = false;
+    if (this.image == '') {
+      this.verifImage = 'Veuillez donner une Image';
+    } else {
+      this.verifImage = '';
+      this.exactImage = true;
+    }
+  }
 
   ngOnInit(): void {
     this.getAllProduits();
@@ -55,25 +109,30 @@ export class MaketplaceComponent implements OnInit {
       formData.append('prix', this.prix);
       formData.append('contact', this.contact);
     }
-      // formData.append('prix', this.prix);
-      // formData.append('contact', this.contact);
+    // formData.append('prix', this.prix);
+    // formData.append('contact', this.contact);
 
     formData.append('images', this.image);
     console.log(formData);
     this.produitService.ajouterProduit(formData).subscribe((response) => {
       console.log(response);
-      this.produitService.verifierChamp('!!!!', response.status_message, 'success');
+      this.produitService.verifierChamp(
+        '!!!!',
+        response.status_message,
+        'success'
+      );
+
       if (response.status_code === 200) {
         this.viderChamp();
-        this.getAllProduits(); // Actualise la page
+        this.getAllProduits();
+        this.ngOnInit();// Actualise la page
       } else {
-              this.produitService.verifierChamp(
-                '!!!!',
-                response.status_message,
-                'error'
-              );
+        this.produitService.verifierChamp(
+          '!!!!',
+          response.status_message,
+          'error',
+        );
       }
-
     });
   }
 
@@ -116,9 +175,9 @@ export class MaketplaceComponent implements OnInit {
     return Math.ceil(this.produitList.length / this.articleParPage);
   }
   viderChamp() {
-    this.nom_produit = ''
-    this.contact = ''
-    this.image = ''
-    this.prix = ''
+    this.nom_produit = '';
+    this.contact = '';
+    this.image = '';
+    this.prix = '';
   }
 }

@@ -22,6 +22,16 @@ export class GestionAnnonceComponent implements OnInit {
   dateUp!: string;
   lieuUp!: string;
   imageUp: any;
+  // variable pour verifier
+  verifDescription!: string;
+  verifDate!: string;
+  verifLieu!: string;
+  verifImage: any;
+  // variable pour si c exact
+  exactDescription: boolean = false;
+  exactDate: boolean = false;
+  exactLieu: boolean = false;
+  exactImage: any;
 
   annonceList: any[] = [];
   utilisateurList: any[] = [];
@@ -37,6 +47,8 @@ export class GestionAnnonceComponent implements OnInit {
   date!: string;
   lieu!: string;
   image: any;
+  
+
   //Sidebar toggle show hide function
   status = false;
   addToggle() {
@@ -49,9 +61,53 @@ export class GestionAnnonceComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private router: Router,
-    private ressouresService:RessourceService
+    private ressouresService: RessourceService
   ) {}
 
+  verifDescriptionFonction() {
+    this.exactDescription = false;
+    if (this.description == '') {
+      this.verifDescription = 'Veuillez renseigner votre description';
+    } else if (this.description.length < 10) {
+      this.verifDescription = 'Le description est trop court';
+    } else {
+      this.verifDescription = '';
+      this.exactDescription = true;
+    }
+  }
+  verifLieuFonction() {
+    this.exactLieu = false;
+    if (this.lieu == '') {
+      this.verifLieu = 'Veuillez renseigner le Lieu';
+    } else if (this.lieu.length < 3) {
+      this.verifLieu = 'Le Lieu est trop court';
+    } else {
+      this.verifLieu = '';
+      this.exactLieu = true;
+    }
+  }
+  tomorrow: any = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+  verifDateFonction() {
+    this.exactDate = false;
+    if (this.date == '') {
+      this.verifDate = 'Veuillez renseigner la date';
+    } else if (this.date < this.tomorrow) {
+      this.verifDate = 'Donner une date valide';
+    } else {
+      this.verifDate = '';
+      this.exactDate = true;
+    }
+  }
+  verifImageFonction() {
+    this.exactImage = false;
+    if (this.image == '') {
+      this.verifImage = 'Veuillez donner une Image';
+    } else {
+      this.verifImage = '';
+      this.exactImage = true;
+    }
+  }
   ngOnInit(): void {
     //datatable
     this.dtOptions = {
@@ -66,7 +122,6 @@ export class GestionAnnonceComponent implements OnInit {
     };
     // liste
     this.getAllAnnonce();
-
 
     // liste user
     this.userService.listerUtilisateurs().subscribe(
@@ -96,8 +151,6 @@ export class GestionAnnonceComponent implements OnInit {
         // Traiter l'erreur de liste
       }
     );
-
-
   }
   // methode pour la transformations des images
   getFile(event: any) {
@@ -120,23 +173,22 @@ export class GestionAnnonceComponent implements OnInit {
         response.status_message,
         'success'
       );
-        if (response.status_code == 200) {
-          this.viderChamp();
-          this.getAllAnnonce();
-          this.ngOnInit();
-          // const modalElement: HTMLElement | null =
-          //   document.getElementById('modifie');
-          // modalElement!.style.display = 'none';
+      if (response.status_code == 200) {
+        this.viderChamp();
+        this.getAllAnnonce();
+        this.ngOnInit();
+        // const modalElement: HTMLElement | null =
+        //   document.getElementById('modifie');
+        // modalElement!.style.display = 'none';
 
-          this.getAllAnnonce();
-        } else {
-          this.annoncesService.verifierChamp(
-            '!!!!',
-            response.status_message,
-            'success'
-          );
-        }
-
+        this.getAllAnnonce();
+      } else {
+        this.annoncesService.verifierChamp(
+          '!!!!',
+          response.status_message,
+          'success'
+        );
+      }
 
       // this.getAllAnnonce();
     });
@@ -185,30 +237,28 @@ export class GestionAnnonceComponent implements OnInit {
               response.status_message,
               'success'
             );
-              if (response.status_code == 200) {
-                this.viderChamp();
-                this.getAllAnnonce();
-                this.ngOnInit();
-                // const modalElement: HTMLElement | null =
-                //   document.getElementById('modifie');
-                // modalElement!.style.display = 'none';
-              } else {
-                this.annoncesService.verifierChamp(
-                  '!!!!',
-                  response.status_message,
-                  'success'
-                );
-              }
-              // this.getAllAnnonce();
-            });
-            this.ngOnInit();
-            // window.location.reload();
+            if (response.status_code == 200) {
+              this.viderChamp();
+              this.getAllAnnonce();
+              this.ngOnInit();
+              // const modalElement: HTMLElement | null =
+              //   document.getElementById('modifie');
+              // modalElement!.style.display = 'none';
+            } else {
+              this.annoncesService.verifierChamp(
+                '!!!!',
+                response.status_message,
+                'success'
+              );
+            }
+            // this.getAllAnnonce();
+          });
+        this.ngOnInit();
+        // window.location.reload();
       }
       console.log('je suis annonce', this.annonceSelectionner);
       console.log('je suis data', formData);
     });
-
-
   }
 
   // suppression
@@ -226,7 +276,7 @@ export class GestionAnnonceComponent implements OnInit {
         this.annoncesService.supprimerAnnonce(id).subscribe((response) => {
           this.annoncesService.verifierChamp(
             '!!!!',
-             response.status_message,
+            response.status_message,
             'success'
           );
           this.getAllAnnonce(); // Actualise la page
@@ -271,6 +321,5 @@ export class GestionAnnonceComponent implements OnInit {
     this.date = '';
     this.lieu = '';
     this.image = '';
-
   }
 }

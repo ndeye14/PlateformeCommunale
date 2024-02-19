@@ -42,17 +42,17 @@
     	<div class="row">
             <div class="col-sm-12">
 
-                <h3>{{commentAnnonce.length}} comments</h3>
+                <h3>{{this.commentAnnonce.length}} comments</h3>
 
                 <!-- COMMENT 1 - START -->
                 <div class="media "  *ngFor="let item of commentAnnonce ">
-                    <a class="pull-left" ><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
+                    <a class="pull-left" ><img class="media-object rounded-circle" style="width: 50px;height: 50px;" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
                     <div class="media-body border ">
                         <h4 class="media-heading">John Doe</h4>
                         <p>{{item.description}}</p>
-                        <ul class="list-unstyled list-inline media-detail pull-left">
-                            <li><i class="fa fa-calendar"></i>{{item.created_at | date:"MMM dd, yyyy"}}</li>
-                        </ul>
+                        <!-- <ul class="list-unstyled list-inline media-detail pull-left"> -->
+                            <p><i class="fa fa-calendar mx-2"></i>{{item.created_at | date:"MMM dd, yyyy"}}</p>
+                        <!-- </ul> -->
 
                     </div>
                 </div>

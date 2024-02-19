@@ -25,19 +25,22 @@ export class HeaderComponent {
 
   }
   logout(): void {
-    this.authService.logout().subscribe(
-      () => {
+
         this.authService.logout().subscribe((data) => {
           console.log(data);
         });
         // Supprimez le token du stockage local
         localStorage.removeItem('userConnect');
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: '',
+          text: 'deconnexion reussi',
+          timer: 1500,
+        });
+        this.ngOnInit();
+
         this.route.navigate(['/acceuil']);
-      },
-      (error) => {
-        console.error('Erreur lors de la déconnexion:', error);
-      }
-    );
   }
 
   redirect() {

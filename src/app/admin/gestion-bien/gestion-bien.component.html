@@ -58,7 +58,7 @@
   </ul>
   <ul class="side-menu">
     <li>
-      <a href="#">
+      <a routerLink="/profil">
         <i class='bx bxs-cog'></i>
         <span class="text">Profil</span>
       </a>
@@ -240,8 +240,11 @@
               id="nom"
               placeholder="Nom"
               name="nom"
-              [(ngModel)]="nom"
+              [(ngModel)]="nom" (input)="verifNomFonction()"
             />
+            <p class="text-danger" *ngIf="!exactNom">{{verifNom}}</p>
+                <p class="text-success" *ngIf="exactNom"><i class="bi bi-check2-all"></i> Exact !</p>
+
 
           </div>
           <div class="form-group">
@@ -252,8 +255,11 @@
               id="caracteristique"
               placeholder="Caracteristique"
               name="caracteristique"
-              [(ngModel)]="caracteristique"
+              [(ngModel)]="caracteristique" (input)="verifCarateristiqueFonction()"
             />
+             <p class="text-danger" *ngIf="!exactCaracteristique">{{verifCaracteristique}}</p>
+                <p class="text-success" *ngIf="exactCaracteristique"><i class="bi bi-check2-all"></i> Exact !</p>
+
           </div>
           <div class="form-group">
             <label for="contact">Contact</label>
@@ -263,8 +269,11 @@
               id="contact"
               placeholder="Contact"
               name="contact"
-              [(ngModel)]="contact"
+              [(ngModel)]="contact" (input)="verifContactFonction()"
             />
+             <p class="text-danger" *ngIf="!exactContact">{{verifContact}}</p>
+                <p class="text-success" *ngIf="exactContact"><i class="bi bi-check2-all"></i> Exact !</p>
+
           </div>
            <div class="form-group mb-2">
             <label for="image">Image</label>
@@ -274,15 +283,21 @@
               id="image"
               placeholder=""
               name="image"
-              (change)="getFile($event)"
+              (change)="getFile($event)" (input)="verifImageFonction()"
             />
+            <p class="text-danger" *ngIf="!exactImage">{{verifImage}}</p>
+                <p class="text-success" *ngIf="exactImage"><i class="bi bi-check2-all"></i> Exact !</p>
+
           </div>
           <div class="form-group me-4">
             <label for="date">Status</label>
-            <select [(ngModel)]="statut" name="statut" class="w-100">
+            <select [(ngModel)]="statut" name="statut" class="w-100" (input)="verifStatutFonction()">
               <option value="perdu">perdu</option>
               <option value="retrouver">retrouver</option>
             </select>
+            <p class="text-danger" *ngIf="!exactStatut">{{verifStatut}}</p>
+                <p class="text-success" *ngIf="exactStatut"><i class="bi bi-check2-all"></i> Exact !</p>
+
           </div>
         </div>
       </form>
@@ -290,7 +305,10 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()">
+       <button type="button" class="btn btn-primary" *ngIf="exactNom == false || exactCaracteristique == false || exactContact == false || exactImage == false || exactStatut == false" disabled >
+          Ajouter
+        </button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()" *ngIf="exactNom === true && exactCaracteristique === true && exactContact === true && exactImage === true  && exactStatut === true" data-bs-dismiss="modal" >
           Ajouter
         </button>
       </div>

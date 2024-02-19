@@ -13,9 +13,22 @@ export class BienPerduRetrouveComponent implements OnInit {
   // varaiables
   nom!: string;
   caracteristique!: string;
-  contact!: string;
+  contact!: any;
   image!: any;
   statut!: string;
+  // verifier
+  verifNom!: string;
+  verifCaracteristique!: string;
+  verifContact!: string;
+  verifImage!: any;
+  verifStatut!: string;
+  // exact
+  exactNom: boolean = false;
+  exactCaracteristique: boolean = false;
+  exactContact: boolean = false;
+  exactImage: boolean = false;
+  exactStatut: boolean = false;
+  // liste des tab
   bienList: any[] = [];
   bienListFilter: any[] = [];
   filterValue: any;
@@ -30,9 +43,60 @@ export class BienPerduRetrouveComponent implements OnInit {
     private router: Router
   ) {}
 
+  verifNomFonction() {
+    this.exactNom = false;
+    if (this.nom == '') {
+      this.verifNom = 'Veuillez renseigner le Nom';
+    } else if (this.nom.length < 2) {
+      this.verifNom = 'Le Nom du produit est trop court';
+    } else {
+      this.verifNom = '';
+      this.exactNom = true;
+    }
+  }
+  verifCarateristiqueFonction() {
+    this.exactCaracteristique = false;
+    if (this.caracteristique == '') {
+      this.verifCaracteristique = 'Veuillez renseigner le Caracteristique';
+    } else if (this.caracteristique.length < 5) {
+      this.verifCaracteristique = 'Le Carateristique du produit est trop court';
+    } else {
+      this.verifCaracteristique = '';
+      this.exactCaracteristique = true;
+    }
+  }
+  verifContactFonction() {
+    this.exactContact = false;
+    if (this.contact == '') {
+      this.verifContact = 'Veuillez renseigner le Contact';
+    } else if (isNaN(this.contact)) {
+      this.verifContact = 'Le contact est doit etre un numerique';
+    } else {
+      this.verifContact = '';
+      this.exactContact = true;
+    }
+  }
+  verifImageFonction() {
+    this.exactImage = false;
+    if (this.image == '') {
+      this.verifImage = 'Veuillez mettre une Image';
+    } else {
+      this.verifImage = '';
+      this.exactImage = true;
+    }
+  }
+  verifStatutFonction() {
+    this.exactStatut = false;
+    if (this.statut == '') {
+      this.verifStatut = 'Veuillez selectionner une Statut';
+    } else {
+      this.verifStatut = '';
+      this.exactStatut = true;
+    }
+  }
+
   ngOnInit(): void {
     this.getAllBien();
-
   }
   getAllBien() {
     // liste bien-perdu-retrouve
@@ -78,14 +142,13 @@ export class BienPerduRetrouveComponent implements OnInit {
     console.log(formData);
 
     this.bienService.ajouterBien(formData).subscribe((response) => {
-       console.log(response);
-        this.bienService.verifierChamp(
-          '!!!!!',
-          response.status_message,
-          'success'
-        );
+      console.log(response);
+      this.bienService.verifierChamp(
+        '!!!!!',
+        response.status_message,
+        'success'
+      );
       if (response.status_code == 200) {
-
         this.viderChamp();
         this.getAllBien();
       } else {
@@ -95,9 +158,8 @@ export class BienPerduRetrouveComponent implements OnInit {
           'error'
         );
       }
-      });
-      this.ngOnInit();
-
+    });
+    this.ngOnInit();
   }
   // pagination
 
@@ -120,11 +182,10 @@ export class BienPerduRetrouveComponent implements OnInit {
     return Math.ceil(this.bienList.length / this.articleParPage);
   }
   viderChamp() {
-    this.nom='';
-  this.caracteristique='';
-  this.contact='';
-  this.image='';
-  this.statut='';
-
+    this.nom = '';
+    this.caracteristique = '';
+    this.contact = '';
+    this.image = '';
+    this.statut = '';
   }
 }

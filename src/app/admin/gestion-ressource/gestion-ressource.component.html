@@ -58,7 +58,7 @@
   </ul>
   <ul class="side-menu">
     <li>
-      <a href="#">
+      <a routerLink="/profil">
         <i class='bx bxs-cog'></i>
         <span class="text">Profil</span>
       </a>
@@ -229,13 +229,19 @@
               id="nom"
               placeholder="Nom"
               name="nom"
-              [(ngModel)]="nom"
+              [(ngModel)]="nom" (input)="verifNomFonction()"
             />
+            <p class="text-danger" *ngIf="!exactNom">{{verifNom}}</p>
+                <p class="text-success" *ngIf="exactNom"><i class="bi bi-check2-all"></i> Exact !</p>
+
 
           </div>
           <div class="form-group">
             <label for="date">Contenue</label>
-            <textarea name="nature" id="" cols="50" rows="8" [(ngModel)]="nature"></textarea>
+            <textarea name="nature" id="" cols="50" rows="8" [(ngModel)]="nature" (input)="verifNatureFonction()"></textarea>
+            <p class="text-danger" *ngIf="!exactNature">{{verifNature}}</p>
+                <p class="text-success" *ngIf="exactNature"><i class="bi bi-check2-all"></i> Exact !</p>
+
           </div>
            <!-- <div class="form-group">
             <label for="image">Image</label>
@@ -254,7 +260,10 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary"  (click)="onSubmit()">
+        <button type="button" class="btn btn-primary"  *ngIf="exactNature === false || exactNom === false " (click)="onSubmit()" disabled>
+          Ajouter
+        </button>
+        <button type="button" class="btn btn-primary"  *ngIf="exactNature === true && exactNom === true " (click)="onSubmit()">
           Ajouter
         </button>
       </div>
