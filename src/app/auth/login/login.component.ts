@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   // Variable pour les inputs inscription
   email: string = '';
   password: string = '';
-  nom: string = '';
-  prenom: string = '';
+  nom: any = '';
+  prenom: any = '';
   role: string = 'user';
   errorMessage: any;
   passwordConf: string = '';
@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   verifEmail: String = '';
   verifPassword: String = '';
   verifPasswordConf: String = '';
+
   // Variables si les champs sont exacts
   exactNom: boolean = false;
   exactPrenom: boolean = false;
@@ -66,10 +67,10 @@ export class LoginComponent implements OnInit {
   verifPasswordConFonction() {
     this.exactPasswordCon = false;
     if (this.passwordCon == '') {
-      this.verifPasswordCon = 'Veuillez renseigner votre mot de passe';
+      this.verifPasswordCon = '';
+      // this.verifPasswordCon = 'Veuillez renseigner votre mot de passe';
     } else if (this.passwordCon.length < 5) {
-      this.verifPasswordCon =
-        'Mot de passe doit Ãªtre supÃ©rieur ou Ã©gal Ã  5';
+      this.verifPasswordCon = 'Mot de passe doit etre superieur a 5 caracteres';
     } else {
       this.verifPasswordCon = '';
       this.exactPasswordCon = true;
@@ -81,9 +82,11 @@ export class LoginComponent implements OnInit {
     this.exactEmailCon = false;
 
     if (this.emailCon == '') {
-      this.verifEmailCon = 'Veuillez renseigner votre email';
+      // this.verifEmailCon = 'Veuillez renseigner votre email';
+      this.verifEmailCon = '';
     } else if (
-      (!this.emailCon.match(emailPattern) || this.emailCon.endsWith('@')) ||
+      !this.emailCon.match(emailPattern) ||
+      this.emailCon.endsWith('@') ||
       !this.emailCon.includes('.')
     ) {
       this.verifEmailCon = 'Veuillez donner un email valide';
@@ -93,12 +96,18 @@ export class LoginComponent implements OnInit {
     }
   }
   // Verification du nom
+  NomPattern1 = /^[a-zA-Z ]+$/;
   verifNomFonction() {
     this.exactNom = false;
     if (this.nom == '') {
-      this.verifNom = 'Veuillez renseigner votre nom';
+      this.verifNom = '';
+      // this.verifNom = 'Veuillez renseigner votre nom';
+    } else if (!isNaN(this.nom)) {
+      this.verifNom = 'Le nom ne doit pas etre des numeriques';
     } else if (this.nom.length < 2) {
       this.verifNom = 'Le nom est trop court';
+    } else if (!this.nom.match(this.NomPattern1)) {
+      this.verifNom = 'Donner un nom valide';
     } else {
       this.verifNom = '';
       this.exactNom = true;
@@ -109,9 +118,14 @@ export class LoginComponent implements OnInit {
   verifPrenomFonction() {
     this.exactPrenom = false;
     if (this.prenom == '') {
-      this.verifPrenom = 'Veuillez renseigner votre prenom';
+      this.verifPrenom = '';
+      // this.verifPrenom = 'Veuillez renseigner votre prenom';
+    } else if (!isNaN(this.prenom)) {
+      this.verifPrenom = 'Le prenom ne doit pas etre des numeriques';
     } else if (this.prenom.length < 3) {
       this.verifPrenom = 'Le prenom est trop court';
+    } else if (!this.prenom.match(this.NomPattern1)) {
+      this.verifPrenom = 'Donner un prenom valide';
     } else {
       this.verifPrenom = '';
       this.exactPrenom = true;
@@ -124,7 +138,8 @@ export class LoginComponent implements OnInit {
     this.exactEmail = false;
 
     if (this.email == '') {
-      this.verifEmail = 'Veuillez renseigner votre email';
+      this.verifEmail = '';
+      // this.verifEmail = 'Veuillez renseigner votre email';
     } else if (!this.email.match(emailPattern)) {
       this.verifEmail = 'Veuillez donner un email valide';
     } else {
@@ -136,7 +151,8 @@ export class LoginComponent implements OnInit {
   verifPasswordFonction() {
     this.exactPassword = false;
     if (this.password == '') {
-      this.verifPassword = 'Veuillez renseigner votre mot de passe';
+      this.verifPassword = '';
+      // this.verifPassword = 'Veuillez renseigner votre mot de passe';
     } else if (this.password.length < 5) {
       this.verifPassword = 'Mot de passe doit Ãªtre supÃ©rieur ou Ã©gal Ã  5';
     } else {
@@ -149,8 +165,9 @@ export class LoginComponent implements OnInit {
   verifPasswordConfFonction() {
     this.exactPasswordConf = false;
     if (this.passwordConf == '') {
-      this.verifPasswordConf =
-        'Veuillez renseigner Ã  nouveau votre mot de passe';
+      this.verifPasswordConf = '';
+      // this.verifPasswordConf =
+      // 'Veuillez renseigner a  nouveau votre mot de passe';
     } else if (this.password != this.passwordConf) {
       this.verifPasswordConf = 'Les deux mots de passe ne sont pas conformes';
     } else {
@@ -205,7 +222,6 @@ export class LoginComponent implements OnInit {
 
             // On stocke les info de la requete dans notre localstorage
             localStorage.setItem('userConnect', response.token);
-
           } else if (response.user.role == 'user') {
             Swal.fire({
               position: 'center',

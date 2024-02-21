@@ -142,18 +142,19 @@
           <div class="overflow-hidden rounded">
             <img src="http://localhost:8000/images/{{item.images}}" class="img-fluid w-100" alt="">
           </div>
-          <div class="blog-content mx-4 d-flex rounded bg-light">
+          <div class="blog-content mx-3 d-flex rounded bg-light">
             <div class="text-dark bg-custom rounded-start">
               <div class="h-100 p-3 d-flex flex-column justify-content-center text-center">
 
-                <p class="fw-bold mb-0">{{item.date_activite }}</p>
-                <p class="fw-bold mb-0">Lieu:{{ item.lieu }}</p>
+                <!-- <p class="fw-bold mb-0">{{item.date_activite }}</p> -->
+                <p >{{item.date_activite}}</p>
+                <p class="fw-bold mb-0 ">Lieu:{{ item.lieu }}</p>
 
               </div>
             </div>
             <div>
 
-              <p><a  class="h5 lh-base my-auto h-100 p-3">{{ item.description | slice:0:30}} &hellip;</a>
+              <p><a  class="h5 lh-base my-auto h-100 p-3">{{ item.description | slice:0:25}} &hellip;</a>
               </p>
               <p><a [routerLink]="['/detailAnnonce', item.id]" (click)="getAnnonce(item)" class="voirPlus px-3 py-1 mx-3">voir plus</a></p>
             </div>

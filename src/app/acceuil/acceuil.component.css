@@ -36,6 +36,8 @@ small{
 }
 .bg-custom p{
   color: white;
+  /* width: auto !important; */
+  /* border: 2px solid black !important; */
 }
 .annonce img {
   height: 300px;

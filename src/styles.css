@@ -713,5 +713,12 @@ div.dataTables_wrapper div.dataTables_filter input{
 
 /* pagination */
 
+label{
+  color: black !important;
+  font-size: larger !important;
+}
 
+button{
+  cursor:pointer !important;
+}
 

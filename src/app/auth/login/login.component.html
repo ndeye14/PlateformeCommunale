@@ -15,19 +15,19 @@
 <!-- login -->
                 <form *ngIf="showForm1">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
+                    <label for="exampleInputEmail1">Adresse Email</label>
                     <input type="email" class="form-control" id="email" name="emailCon" [(ngModel)]="emailCon" (input)="verifEmailConFonction()">
                     <p class="text-danger" *ngIf="!exactEmailCon">{{verifEmailCon}}</p>
                    <p class="text-success" *ngIf="exactEmailCon"><i class="bi bi-check2-all"></i> Exact !</p>
                   </div>
-                  <div class="form-group mb-5">
-                    <label for="exampleInputPassword1">Password</label>
+                  <div class="form-group mb-4">
+                    <label for="exampleInputPassword1">Mot de passe</label>
                     <input type="password" class="form-control" id="password" name="passwordCon" [(ngModel)]="passwordCon" (input)="verifPasswordConFonction()">
                     <p class="text-danger" *ngIf="!exactPasswordCon">{{verifPasswordCon}}</p>
                   <p class="text-success" *ngIf="exactPasswordCon"><i class="bi bi-check2-all"></i> Exact !</p>
                   </div>
-                  <button type="submit" class="btn btn-theme"  *ngIf="exactEmailCon === true && exactPasswordCon === true" (click)="login()">Connexion</button>
-                  <button type="submit" class="btn btn-theme"  *ngIf="exactEmailCon == false || exactPasswordCon == false"
+                  <button type="submit" class="btn btn-theme w-100"  *ngIf="exactEmailCon === true && exactPasswordCon === true" (click)="login()">Connexion</button>
+                  <button type="submit" class="btn btn-th w-100"  *ngIf="exactEmailCon == false || exactPasswordCon == false"
               disabled (click)="login()">Connexion</button>
                 </form>
    <!-- end login -->
@@ -47,34 +47,40 @@
     </div>
 
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
+      <label for="exampleInputEmail1">Adresse Email </label>
       <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" (input)="verifEmailFonction()">
        <p class="text-danger" *ngIf="!exactEmail">{{verifEmail}}</p>
                 <p class="text-success" *ngIf="exactEmail"><i class="bi bi-check2-all"></i> Exact !</p>
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
+      <label for="exampleInputPassword1">Mot de Passe</label>
       <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" (input)="verifPasswordFonction()">
       <p class="text-danger" *ngIf="!exactPassword">{{verifPassword}}</p>
                 <p class="text-success" *ngIf="exactPassword"><i class="bi bi-check2-all"></i> Exact !</p>
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Confirme Password</label>
+      <label for="exampleInputPassword1">Confirme Mot de Passe</label>
       <input type="password" class="form-control" id="passwordConf" name="passwordConf" [(ngModel)]="passwordConf" (input)="verifPasswordConfFonction()">
       <p class="text-danger" *ngIf="!exactPasswordConf">{{verifPasswordConf}}</p>
                 <p class="text-success" *ngIf="exactPasswordConf"><i class="bi bi-check2-all"></i> Exact !</p>
     </div>
-    <div class="form-group  mb-5">
-
+    <div class="form-group ">
       <input type="hidden" class="form-control" id="role" name="role">
     </div>
-    <button type="submit" class="btn btn-theme" (click)="register()">Inscription</button>
+    <button type="submit" class="btn btn-theme w-100" *ngIf="exactEmail == true && exactPassword == true && exactNom == true && exactPrenom == true  && exactPasswordConf===true " (click)="register()">Inscription</button>
+    <button type="submit" class="btn btn-th w-100"  *ngIf="exactEmail == false || exactPassword == false || exactNom == false || exactPrenom == false || exactPasswordConf==false"
+              disabled (click)="register()">Connexion</button>
 
   </form>
 
-
    <!-- end sgnup -->
               </div>
+              <p class="text-center  mb-5">Pas de compte? <button (click)="toggleForm()"
+             class="text-primary ml-1 px-3 oublie ">S'inscrire</button>
+           </p>
+
+
+
             </div>
 
             <div class="col-lg-6 d-none d-lg-inline-block">
@@ -86,11 +92,7 @@
             </div>
           </div>
 
-          <p class="text-muted text-center  mb-2">Pas de compte? <button (click)="toggleForm()"
-              class="text-primary ml-1 p-1">Inscrire</button>
 
-              <!-- <a  class="mx-3 oublie" data-bs-toggle="modal" data-bs-target="#modal-default">mot de pas oublie</a> -->
-            </p>
         </div>
         <!-- end card-body -->
       </div>

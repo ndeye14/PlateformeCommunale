@@ -40,7 +40,19 @@
   background-color: #ff9700;
   border-color: #ff9700;
   color: #fff;
+  font-size: larger;
+  cursor: pointer;
 }
+.btn-th {
+  background-color: #c7c1b6;
+  border-color: #ff9700;
+  color: #ff9700;
+  font-size: larger;
+  cursor: pointer;
+}
+
 .oublie{
   cursor: pointer;
+  border: 1px solid #ff9700;
+  border-radius: 5px;
 }

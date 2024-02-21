@@ -41,6 +41,8 @@ export class HeaderComponent {
         this.ngOnInit();
 
         this.route.navigate(['/acceuil']);
+
+     
   }
 
   redirect() {

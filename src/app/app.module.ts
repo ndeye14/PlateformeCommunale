@@ -34,6 +34,7 @@ import { PolitiqueComponent } from './politique/politique.component';
 import { ConditionComponent } from './condition/condition.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { ProfilComponent } from './profil/profil.component';
+import { EspacePersoComponent } from './utilisateur/espace-perso/espace-perso.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,8 @@ import { ProfilComponent } from './profil/profil.component';
     PolitiqueComponent,
     ConditionComponent,
     MaintenanceComponent,
-    ProfilComponent
+    ProfilComponent,
+    EspacePersoComponent
 
   ],
   imports: [

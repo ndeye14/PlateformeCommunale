@@ -27,6 +27,7 @@ import { PolitiqueComponent } from './politique/politique.component';
 import { ConditionComponent } from './condition/condition.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { ProfilComponent } from './profil/profil.component';
+import { EspacePersoComponent } from './utilisateur/espace-perso/espace-perso.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/acceuil', pathMatch: 'full' },
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthenComponent,
+  },
+  {
+    path: 'espacePerso',
+    component: EspacePersoComponent,
   },
   {
     path: 'ressource',

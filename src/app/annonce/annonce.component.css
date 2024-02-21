@@ -116,3 +116,11 @@
     display: inline-block;
   }
 }
+
+
+.h-100 {
+  height: 100% !important;
+  width: ms-auto !important;
+}
+
+
