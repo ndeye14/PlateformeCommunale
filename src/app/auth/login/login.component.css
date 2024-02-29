@@ -2,10 +2,10 @@
 
 .account-block {
   padding: 0;
-  background-image: url("https://img.freepik.com/photos-gratuite/gros-plan-mains-empilees_23-2147664378.jpg?size=626&ext=jpg&ga=GA1.2.359486737.1694125754&semt=ais");
+  background-image: url("https://img.freepik.com/vecteurs-premium/portrait-type-souriant-sympathique-noir-illustration-vectorielle-image-papier-peint-bampw-1c_985204-20370.jpg?size=626&ext=jpg&ga=GA1.2.1687175742.1704798003&semt=ais");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 85%;
+  height: 100%;
   position: relative;
 }
 
@@ -18,7 +18,9 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(255,
+    151,
+    0, 0.1);
 }
 
 .account-block .account-testimonial {

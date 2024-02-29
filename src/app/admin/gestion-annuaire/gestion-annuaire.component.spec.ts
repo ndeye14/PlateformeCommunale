@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GestionAnnuaireComponent } from './gestion-annuaire.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('GestionAnnuaireComponent', () => {
   let component: GestionAnnuaireComponent;
@@ -8,7 +9,8 @@ describe('GestionAnnuaireComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [GestionAnnuaireComponent]
+      declarations: [GestionAnnuaireComponent],
+      imports: [HttpClientModule, HttpClient],
     });
     fixture = TestBed.createComponent(GestionAnnuaireComponent);
     component = fixture.componentInstance;

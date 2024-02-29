@@ -9,6 +9,8 @@ import { User } from 'src/app/models/User.model';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  //
+  isPasswordVisible: boolean = false;
   // Déclaration des variables
   isConnexion: boolean = true;
   passwordMod: any;
@@ -63,14 +65,23 @@ export class LoginComponent implements OnInit {
       : (this.titleFrm = 'Connectez-Vous');
   }
 
+  // validateEmail(email: string): boolean {
+  //   const emailRegex =
+  //     /^[A-Za-z]+[A-Za-z0-9\._%+-]+@[A-Za-z][A-Za-z0-9\.-]+\.[A-Za-z]{2,}$/;
+  //   return emailRegex.test(email);
+  // }
+
   // Fonction de Verification du password pour la fonctionnalitÃ© connexion
   verifPasswordConFonction() {
+    const regex = /\s+/;
     this.exactPasswordCon = false;
     if (this.passwordCon == '') {
       this.verifPasswordCon = '';
       // this.verifPasswordCon = 'Veuillez renseigner votre mot de passe';
+    } else if (this.passwordCon.match(regex)) {
+      this.verifPasswordCon = "Mot de passe ne doit pas  contenir d'espace ";
     } else if (this.passwordCon.length < 5) {
-      this.verifPasswordCon = 'Mot de passe doit etre superieur a 5 caracteres';
+      this.verifPasswordCon = 'Mot de passe doit etre superieur à 5 caracteres';
     } else {
       this.verifPasswordCon = '';
       this.exactPasswordCon = true;
@@ -149,12 +160,16 @@ export class LoginComponent implements OnInit {
   }
   // Verification du mot de passe
   verifPasswordFonction() {
+    const regex = /\s+/;
     this.exactPassword = false;
     if (this.password == '') {
       this.verifPassword = '';
       // this.verifPassword = 'Veuillez renseigner votre mot de passe';
+    } else if (this.password.match(regex)) {
+      this.verifPassword = 'Mot de passe ne doit pas  contenir d espace ';
     } else if (this.password.length < 5) {
-      this.verifPassword = 'Mot de passe doit Ãªtre supÃ©rieur ou Ã©gal Ã  5';
+      this.verifPassword =
+        'Mot de passe doit superierur ou egal a  5 caracteres';
     } else {
       this.verifPassword = '';
       this.exactPassword = true;
@@ -285,7 +300,7 @@ export class LoginComponent implements OnInit {
       respons = rep;
       console.log(respons);
       if (respons.status_code == 200) {
-        this.showForm1 = true;
+        this.showForm1 = true; //redirige directement vers la connexion apres inscription
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -302,6 +317,23 @@ export class LoginComponent implements OnInit {
 
   moficPassword() {
     // this.authService.modifPassword().subscribe((rep) => {});
+  }
+
+  // afficherMotDePasse(
+  //   passwordInput: HTMLInputElement,
+  //   toggleButton: HTMLButtonElement
+  // ) {
+  //   if (passwordInput.type === 'password') {
+  //     passwordInput.type = 'text';
+  //     toggleButton.textContent = 'Masquer';
+  //   } else {
+  //     passwordInput.type = 'password';
+  //     toggleButton.textContent = 'Afficher';
+  //   }
+  // }
+
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
   }
 }
 

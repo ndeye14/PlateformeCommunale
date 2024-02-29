@@ -46,7 +46,7 @@ export class BienPerduRetrouveComponent implements OnInit {
   verifNomFonction() {
     this.exactNom = false;
     if (this.nom == '') {
-      this.verifNom = 'Veuillez renseigner le Nom';
+      this.verifNom = '';
     } else if (this.nom.length < 2) {
       this.verifNom = 'Le Nom du produit est trop court';
     } else {
@@ -68,9 +68,14 @@ export class BienPerduRetrouveComponent implements OnInit {
   verifContactFonction() {
     this.exactContact = false;
     if (this.contact == '') {
-      this.verifContact = 'Veuillez renseigner le Contact';
+      this.verifContact = '';
     } else if (isNaN(this.contact)) {
       this.verifContact = 'Le contact est doit etre un numerique';
+    }
+    // Vérifie si le numéro de téléphone commence par 77, 78, 76 ou 70
+    else if (!/^(77|78|76|70)\d{7}$/.test(this.contact)) {
+      // this.verifTelephone = 'Le numéro doit commencer par 77, 78, 76 ou 70 ';
+      this.verifContact = 'Le numéro doit commencer par 77, 78, 76 ou 70';
     } else {
       this.verifContact = '';
       this.exactContact = true;

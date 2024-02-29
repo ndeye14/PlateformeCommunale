@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BienPerduRetrouveComponent } from './bien-perdu-retrouve.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 describe('BienPerduRetrouveComponent', () => {
   let component: BienPerduRetrouveComponent;
@@ -8,7 +9,8 @@ describe('BienPerduRetrouveComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BienPerduRetrouveComponent]
+      declarations: [BienPerduRetrouveComponent],
+      imports: [HttpClientModule, HttpClient],
     });
     fixture = TestBed.createComponent(BienPerduRetrouveComponent);
     component = fixture.componentInstance;

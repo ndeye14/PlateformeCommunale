@@ -1,128 +1,304 @@
 <div id="main-wrapper" class="container">
   <div class="row justify-content-center py-3">
     <div class="col-xl-10 shadow">
-      <div class="card border-0 ">
+      <div class="card border-0">
         <div class="card-body p-0">
           <div class="row no-gutters">
             <div class="col-lg-6">
               <div class="p-5">
                 <div class="mb-5">
-                  <h2 class="h4 font-weight-bold text-theme">{{this.titleFrm}}</h2>
+                  <h2 class="h4 font-weight-bold text-theme">
+                    {{ this.titleFrm }}
+                  </h2>
                 </div>
 
                 <h6 class="h5 mb-0">Bienvenue</h6>
-                <p class="text-muted mt-2 mb-5">Entrer votre mot de passe et votre email pour vous connecter.</p>
-<!-- login -->
+                <p class="text-muted mt-2 mb-5">
+                  Entrer votre mot de passe et votre email pour vous connecter.
+                </p>
+                <!-- login -->
                 <form *ngIf="showForm1">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Adresse Email</label>
-                    <input type="email" class="form-control" id="email" name="emailCon" [(ngModel)]="emailCon" (input)="verifEmailConFonction()">
-                    <p class="text-danger" *ngIf="!exactEmailCon">{{verifEmailCon}}</p>
-                   <p class="text-success" *ngIf="exactEmailCon"><i class="bi bi-check2-all"></i> Exact !</p>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="emailCon"
+                      [(ngModel)]="emailCon"
+                      (input)="verifEmailConFonction()"
+                    />
+                    <p class="text-danger" *ngIf="!exactEmailCon">
+                      {{ verifEmailCon }}
+                    </p>
+                    <p class="text-success" *ngIf="exactEmailCon">
+                      <i class="bi bi-check2-all"></i> Exact !
+                    </p>
                   </div>
-                  <div class="form-group mb-4">
+
+<div class="input-group form-group mb-4">
+<label for="exampleInputPassword1">Mot de passe</label>
+  <input type="{{ isPasswordVisible ? 'text' : 'password' }}"
+                      class="form-control"
+                      id="password"
+                      name="passwordCon"
+                      [(ngModel)]="passwordCon"
+                      (input)="verifPasswordConFonction()"
+                    />
+  <span class="input-group-text"> <i
+                      class="bi bi-eye-slash"
+                      [ngClass]="{
+                        'bi-eye': isPasswordVisible,
+                        'bi-eye-slash': !isPasswordVisible
+                      }"
+                      (click)="togglePasswordVisibility()"
+                    ></i></span>
+
+</div>
+                  <!-- <div class="form-group mb-4">
                     <label for="exampleInputPassword1">Mot de passe</label>
-                    <input type="password" class="form-control" id="password" name="passwordCon" [(ngModel)]="passwordCon" (input)="verifPasswordConFonction()">
-                    <p class="text-danger" *ngIf="!exactPasswordCon">{{verifPasswordCon}}</p>
-                  <p class="text-success" *ngIf="exactPasswordCon"><i class="bi bi-check2-all"></i> Exact !</p>
-                  </div>
-                  <button type="submit" class="btn btn-theme w-100"  *ngIf="exactEmailCon === true && exactPasswordCon === true" (click)="login()">Connexion</button>
-                  <button type="submit" class="btn btn-th w-100"  *ngIf="exactEmailCon == false || exactPasswordCon == false"
-              disabled (click)="login()">Connexion</button>
+
+                    <input
+                      type="{{ isPasswordVisible ? 'text' : 'password' }}"
+                      class="form-control"
+                      id="password"
+                      name="passwordCon"
+                      [(ngModel)]="passwordCon"
+                      (input)="verifPasswordConFonction()"
+                    />
+                    <i
+                      class="bi bi-eye-slash"
+                      [ngClass]="{
+                        'bi-eye': isPasswordVisible,
+                        'bi-eye-slash': !isPasswordVisible
+                      }"
+                      (click)="togglePasswordVisibility()"
+                    ></i>
+
+                    <p class="text-danger" *ngIf="!exactPasswordCon">
+                      {{ verifPasswordCon }}
+                    </p>
+                    <p class="text-success" *ngIf="exactPasswordCon">
+                      <i class="bi bi-check2-all"></i> Exact !
+                    </p>
+                  </div> -->
+                  <button
+                    type="submit"
+                    class="btn btn-theme w-100"
+                    *ngIf="exactEmailCon === true && exactPasswordCon === true"
+                    (click)="login()"
+                  >
+                    Connexion
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-th w-100"
+                    *ngIf="exactEmailCon == false || exactPasswordCon == false"
+                    disabled
+                    (click)="login()"
+                  >
+                    Connexion
+                  </button>
                 </form>
-   <!-- end login -->
-   <!-- signup -->
-  <form *ngIf="!showForm1">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Nom</label>
-      <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom" (input)="verifNomFonction()">
-       <p class="text-danger" *ngIf="!exactNom">{{verifNom}}</p>
-                <p class="text-success" *ngIf="exactNom"><i class="bi bi-check2-all"></i> Exact !</p>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Prenom</label>
-      <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="prenom" (input)="verifPrenomFonction()">
-      <p class="text-danger" *ngIf="!exactPrenom">{{verifPrenom}}</p>
-                <p class="text-success" *ngIf="exactPrenom"><i class="bi bi-check2-all"></i> Exact !</p>
-    </div>
+                <!-- end login -->
+                <!-- signup -->
+                <form *ngIf="!showForm1">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nom</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nom"
+                      name="nom"
+                      [(ngModel)]="nom"
+                      (input)="verifNomFonction()"
+                    />
+                    <p class="text-danger" *ngIf="!exactNom">{{ verifNom }}</p>
+                    <p class="text-success" *ngIf="exactNom">
+                      <i class="bi bi-check2-all"></i> Exact !
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Prenom</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="prenom"
+                      name="prenom"
+                      [(ngModel)]="prenom"
+                      (input)="verifPrenomFonction()"
+                    />
+                    <p class="text-danger" *ngIf="!exactPrenom">
+                      {{ verifPrenom }}
+                    </p>
+                    <p class="text-success" *ngIf="exactPrenom">
+                      <i class="bi bi-check2-all"></i> Exact !
+                    </p>
+                  </div>
 
-    <div class="form-group">
-      <label for="exampleInputEmail1">Adresse Email </label>
-      <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" (input)="verifEmailFonction()">
-       <p class="text-danger" *ngIf="!exactEmail">{{verifEmail}}</p>
-                <p class="text-success" *ngIf="exactEmail"><i class="bi bi-check2-all"></i> Exact !</p>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Mot de Passe</label>
-      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" (input)="verifPasswordFonction()">
-      <p class="text-danger" *ngIf="!exactPassword">{{verifPassword}}</p>
-                <p class="text-success" *ngIf="exactPassword"><i class="bi bi-check2-all"></i> Exact !</p>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Confirme Mot de Passe</label>
-      <input type="password" class="form-control" id="passwordConf" name="passwordConf" [(ngModel)]="passwordConf" (input)="verifPasswordConfFonction()">
-      <p class="text-danger" *ngIf="!exactPasswordConf">{{verifPasswordConf}}</p>
-                <p class="text-success" *ngIf="exactPasswordConf"><i class="bi bi-check2-all"></i> Exact !</p>
-    </div>
-    <div class="form-group ">
-      <input type="hidden" class="form-control" id="role" name="role">
-    </div>
-    <button type="submit" class="btn btn-theme w-100" *ngIf="exactEmail == true && exactPassword == true && exactNom == true && exactPrenom == true  && exactPasswordConf===true " (click)="register()">Inscription</button>
-    <button type="submit" class="btn btn-th w-100"  *ngIf="exactEmail == false || exactPassword == false || exactNom == false || exactPrenom == false || exactPasswordConf==false"
-              disabled (click)="register()">Connexion</button>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Adresse Email </label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      [(ngModel)]="email"
+                      (input)="verifEmailFonction()"
+                    />
+                    <p class="text-danger" *ngIf="!exactEmail">
+                      {{ verifEmail }}
+                    </p>
+                    <p class="text-success" *ngIf="exactEmail">
+                      <i class="bi bi-check2-all"></i> Exact !
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Mot de Passe</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      [(ngModel)]="password"
+                      (input)="verifPasswordFonction()"
+                      pattern="\s+"
+                    />
+                    <p class="text-danger" *ngIf="!exactPassword">
+                      {{ verifPassword }}
+                    </p>
+                    <p class="text-success" *ngIf="exactPassword">
+                      <i class="bi bi-check2-all"></i> Exact !
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1"
+                      >Confirme Mot de Passe</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="passwordConf"
+                      name="passwordConf"
+                      [(ngModel)]="passwordConf"
+                      (input)="verifPasswordConfFonction()"
+                    />
+                    <p class="text-danger" *ngIf="!exactPasswordConf">
+                      {{ verifPasswordConf }}
+                    </p>
+                    <p class="text-success" *ngIf="exactPasswordConf">
+                      <i class="bi bi-check2-all"></i> Exact !
+                    </p>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="hidden"
+                      class="form-control"
+                      id="role"
+                      name="role"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    class="btn btn-theme w-100"
+                    *ngIf="
+                      exactEmail == true &&
+                      exactPassword == true &&
+                      exactNom == true &&
+                      exactPrenom == true &&
+                      exactPasswordConf === true
+                    "
+                    (click)="register()"
+                  >
+                    Inscription
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-th w-100"
+                    *ngIf="
+                      exactEmail == false ||
+                      exactPassword == false ||
+                      exactNom == false ||
+                      exactPrenom == false ||
+                      exactPasswordConf == false
+                    "
+                    disabled
+                    (click)="register()"
+                  >
+                    Valider
+                  </button>
+                </form>
 
-  </form>
-
-   <!-- end sgnup -->
+                <!-- end sgnup -->
               </div>
-              <p class="text-center  mb-5">Pas de compte? <button (click)="toggleForm()"
-             class="text-primary ml-1 px-3 oublie ">S'inscrire</button>
-           </p>
-
-
-
+              <p class="text-center mb-5">
+                Pas de compte?
+                <button
+                  (click)="toggleForm()"
+                  class="text-primary ml-1 px-3 oublie"
+                >
+                  S'inscrire
+                </button>
+              </p>
             </div>
 
             <div class="col-lg-6 d-none d-lg-inline-block">
               <div class="account-block rounded-right">
                 <div class="overlay rounded-right"></div>
-                <div class="account-testimonial">
-                </div>
+                <div class="account-testimonial"></div>
               </div>
             </div>
           </div>
-
-
         </div>
         <!-- end card-body -->
       </div>
       <!-- end card -->
 
-
       <!-- end row -->
-
     </div>
     <!-- end col -->
   </div>
   <!-- Row -->
 </div>
 
-
-<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="h6 modal-title">Mot de passe oublie</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p>Donner votre nouveau mot de passe</p>
-              <input type="password" name="passwordMod" id="password" [(ngModel)]="passwordMod">
-                </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary">Accept</button>
-                <button type="button" class="btn btn-link text-gray ms-auto" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
+<div
+  class="modal fade"
+  id="modal-default"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modal-default"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="h6 modal-title">Mot de passe oublie</h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>Donner votre nouveau mot de passe</p>
+        <input
+          type="password"
+          name="passwordMod"
+          id="password"
+          [(ngModel)]="passwordMod"
+        />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary">Accept</button>
+        <button
+          type="button"
+          class="btn btn-link text-gray ms-auto"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+      </div>
     </div>
+  </div>
 </div>

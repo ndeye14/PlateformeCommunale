@@ -58,14 +58,22 @@ export class MaketplaceComponent implements OnInit {
     }
   }
 
-
   verifContactFonction() {
+    // const indiaRegex = /^\+221\d{9}$/;
     this.exactContact = false;
     if (this.contact == '') {
       this.verifContact = 'Veuillez donner un Contact';
-    } else if (isNaN(this.contact) ) {
+    } else if (isNaN(this.contact)) {
       this.verifContact = 'Le Contact doit etre numerique';
-    } else {
+    }
+    // Vérifie si le numéro de téléphone commence par 77, 78, 76 ou 70
+    else if (!/^(77|78|76|70)\d{7}$/.test(this.contact)) {
+      this.verifContact = 'Le numéro doit commencer par 77, 78, 76 ou 70';
+    }
+    // else if (!this.contact.match(indiaRegex)) {
+    //   this.verifContact = 'Le format n est pas bon';
+    // }
+    else {
       this.verifContact = '';
       this.exactContact = true;
     }

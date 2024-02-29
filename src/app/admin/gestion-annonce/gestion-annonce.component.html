@@ -285,7 +285,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary" *ngIf="exactDescription === true && exactLieu === true && exactDate === true && exactImage === true" (click)="onSubmit()">
+        <button type="button" class="btn btn-custom" *ngIf="exactDescription === true && exactLieu === true && exactDate === true && exactImage === true" (click)="onSubmit()"   data-bs-dismiss="modal">
           Ajouter
         </button>
          <button type="button"  class="btn btn-primary" *ngIf="exactDescription === false || exactLieu === false || exactDate === false || exactImage === false" (click)="onSubmit()" disabled>
@@ -362,7 +362,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fermer</button>
-          <button type="button" class="btn btn-primary"  (click)="modifierAnnonce()">Envoyer</button>
+          <button type="button" class="btn btn-custom"  (click)="modifierAnnonce()" data-bs-dismiss="modal">Envoyer</button>
         </div>
       </div>
     </div>
