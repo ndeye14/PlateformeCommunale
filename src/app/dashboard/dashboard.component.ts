@@ -166,12 +166,12 @@ export class DashboardComponent implements OnInit {
     const now = Date.now();
 
     // Define your inactivity threshold in milliseconds (e.g., 30 minutes)
-    const inactivityThreshold = 30 * 60 * 1000;
+    const inactivityThreshold = 3600000;
 
     return now - storedTimestamp < inactivityThreshold;
   }
 
- 
+
 
 
 }
