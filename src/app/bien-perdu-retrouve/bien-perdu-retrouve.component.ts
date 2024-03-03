@@ -11,11 +11,12 @@ import { UserService } from '../services/user.service';
 })
 export class BienPerduRetrouveComponent implements OnInit {
   // varaiables
-  nom!: string;
-  caracteristique!: string;
+  nom!: any;
+  caracteristique!: any;
   contact!: any;
   image!: any;
   statut!: string;
+
   // verifier
   verifNom!: string;
   verifCaracteristique!: string;
@@ -43,12 +44,17 @@ export class BienPerduRetrouveComponent implements OnInit {
     private router: Router
   ) {}
 
+  NomPattern1 = /^[a-zA-Z ]+$/;
   verifNomFonction() {
     this.exactNom = false;
     if (this.nom == '') {
       this.verifNom = '';
     } else if (this.nom.length < 2) {
       this.verifNom = 'Le Nom du produit est trop court';
+    } else if (!isNaN(this.nom)) {
+      this.verifNom = 'Le nom ne doit pas etre des numeriques';
+    } else if (!this.nom.match(this.NomPattern1)) {
+      this.verifNom = 'Donner un nom valide';
     } else {
       this.verifNom = '';
       this.exactNom = true;
@@ -57,9 +63,13 @@ export class BienPerduRetrouveComponent implements OnInit {
   verifCarateristiqueFonction() {
     this.exactCaracteristique = false;
     if (this.caracteristique == '') {
-      this.verifCaracteristique = 'Veuillez renseigner le Caracteristique';
+      this.verifCaracteristique = '';
     } else if (this.caracteristique.length < 5) {
       this.verifCaracteristique = 'Le Carateristique du produit est trop court';
+    } else if (!isNaN(this.caracteristique)) {
+      this.verifCaracteristique = 'Le nom ne doit pas etre des numeriques';
+    } else if (!this.caracteristique.match(this.NomPattern1)) {
+      this.verifCaracteristique = 'Donner une caracteristique valide';
     } else {
       this.verifCaracteristique = '';
       this.exactCaracteristique = true;

@@ -35,12 +35,16 @@ export class MaketplaceComponent implements OnInit {
     private router: Router,
     private produitService: ProduitService
   ) {}
+
+  NomPattern1 = /^[a-zA-Z ]+$/;
   verifNom_produitFonction() {
     this.exactNom_produit = false;
     if (this.nom_produit == '') {
-      this.verifNom_produit = 'Veuillez renseigner le du Nom_produit';
+      this.verifNom_produit = '';
     } else if (this.nom_produit.length < 2) {
-      this.verifNom_produit = 'Le Nom du produit est trop court';
+      this.verifNom_produit = 'Le Nom  est trop court';
+    } else if (!this.nom_produit.match(this.NomPattern1)) {
+      this.verifNom_produit = 'Donner un nom valide';
     } else {
       this.verifNom_produit = '';
       this.exactNom_produit = true;
@@ -49,9 +53,9 @@ export class MaketplaceComponent implements OnInit {
   verifPrixFonction() {
     this.exactPrix = false;
     if (this.prix == '') {
-      this.verifPrix = 'Veuillez donner un Prix';
+      this.verifPrix = '';
     } else if (this.prix <= 0 || isNaN(this.prix)) {
-      this.verifPrix = 'Le prix doit etre positif';
+      this.verifPrix = 'Le format est invalide';
     } else {
       this.verifPrix = '';
       this.exactPrix = true;
@@ -62,7 +66,7 @@ export class MaketplaceComponent implements OnInit {
     // const indiaRegex = /^\+221\d{9}$/;
     this.exactContact = false;
     if (this.contact == '') {
-      this.verifContact = 'Veuillez donner un Contact';
+      this.verifContact = '';
     } else if (isNaN(this.contact)) {
       this.verifContact = 'Le Contact doit etre numerique';
     }
@@ -81,7 +85,7 @@ export class MaketplaceComponent implements OnInit {
   verifImageFonction() {
     this.exactImage = false;
     if (this.image == '') {
-      this.verifImage = 'Veuillez donner une Image';
+      this.verifImage = '';
     } else {
       this.verifImage = '';
       this.exactImage = true;
@@ -133,12 +137,12 @@ export class MaketplaceComponent implements OnInit {
       if (response.status_code === 200) {
         this.viderChamp();
         this.getAllProduits();
-        this.ngOnInit();// Actualise la page
+        this.ngOnInit(); // Actualise la page
       } else {
         this.produitService.verifierChamp(
           '!!!!',
           response.status_message,
-          'error',
+          'error'
         );
       }
     });

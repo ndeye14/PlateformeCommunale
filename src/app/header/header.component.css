@@ -18,6 +18,9 @@
 .bg-custom{
   background-color: beige;
 }
+.dropdown-item{
+  cursor: pointer;
+}
 .dropdown-item a{
   color: white;
 }

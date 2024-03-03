@@ -24,6 +24,9 @@ export class DashboardComponent implements OnInit {
   loggedIn: any;
   loggedOut: any;
 
+  userToken: any;
+  userId: any;
+
   constructor(
     private http: HttpClient,
     private userService: UserService,
@@ -41,8 +44,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.listerNews();
+    this.userId = localStorage.getItem('userIdConnect');
+    this.userToken = localStorage.getItem('userConnect');
 
-    if (localStorage.getItem('userConnect.user.id') != null) {
+    if (this.userToken != null) {
       this.loggedIn = true;
       this.loggedOut = false;
     } else {
@@ -145,4 +150,28 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+
+  // Fonction pour obtenir le timestamp du local storage
+  isUserActive(user: any): boolean {
+    const storedTimestampString = localStorage.getItem(
+      `lastActivity-${user.id}`
+    );
+    console.log('teste', storedTimestampString);
+
+    if (storedTimestampString === null) {
+      return false;
+    }
+
+    const storedTimestamp = parseInt(storedTimestampString, 10);
+    const now = Date.now();
+
+    // Define your inactivity threshold in milliseconds (e.g., 30 minutes)
+    const inactivityThreshold = 30 * 60 * 1000;
+
+    return now - storedTimestamp < inactivityThreshold;
+  }
+
+ 
+
+
 }

@@ -4,7 +4,7 @@
 </div>
 
 <div class="container text-center">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-sm-12 col-lg-4">
       <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Rechercher un produit" aria-label="Rechercher"
@@ -13,7 +13,7 @@
       </div>
 
     </div>
-    <div class="col-sm-12 col-lg-4 ms-auto">
+    <div class="col-sm-12 col-lg-4 ms-auto ">
       <button type="button" class="btn btn-custom btn-md" data-bs-toggle="modal"
       data-bs-target="#exampleModal">Ajouter un produit</button>
     </div>
@@ -85,7 +85,7 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Ajout produit</h1>
@@ -98,61 +98,67 @@
       </div>
       <form action="">
         <div class="modal-body">
-          <div class="form-group">
-            <label for="description">Nom</label>
-            <input
-              type="text"
-              class="form-control"
-              id="nom"
-              placeholder=""
-              name="nom_produit"
-              [(ngModel)]="nom_produit" (input)="verifNom_produitFonction()"
-            />
-             <p class="text-danger" *ngIf="!exactNom_produit">{{verifNom_produit}}</p>
-                <p class="text-success" *ngIf="exactNom_produit"><i class="bi bi-check2-all"></i> Exact !</p>
+          <div class="row">
+              <div class="form-group col-md-6">
+                <label for="description">Nom</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nom"
+                  placeholder=""
+                  name="nom_produit"
+                  [(ngModel)]="nom_produit" (input)="verifNom_produitFonction()"
+                />
+                <p class="text-danger" *ngIf="!exactNom_produit">{{verifNom_produit}}</p>
+                    <p class="text-success" *ngIf="exactNom_produit"><i class="bi bi-check2-all"></i> Exact !</p>
 
-          </div>
-          <div class="form-group">
-            <label for="date">Prix</label>
-            <input
-              type="text"
-              class="form-control"
-              id="adress"
-              placeholder=""
-              name="prix"
-              [(ngModel)]="prix"  (input)="verifPrixFonction()"
-            />
-            <p class="text-danger" *ngIf="!exactPrix">{{verifPrix}}</p>
-                <p class="text-success" *ngIf="exactPrix"><i class="bi bi-check2-all"></i> Exact !</p>
-
-          </div>
-          <div class="form-group">
-            <label for="lieu">Contact</label>
-            <input
-              type="text"
-              class="form-control"
-              id="contact"
-              placeholder="Contact"
-              name="contact"
-              [(ngModel)]="contact"  (input)="verifContactFonction()"
-            />
-            <p class="text-danger" *ngIf="!exactContact">{{verifContact}}</p>
-                <p class="text-success" *ngIf="exactContact"><i class="bi bi-check2-all"></i> Exact !</p>
-
-          </div>
-           <div class="form-group">
-            <label for="image">Image</label>
-            <input
-              type="file"
-              class="form-control"
-              id="image"
-              placeholder=""
-              name="image"
-              (change)="getFile($event)" (input)="verifImageFonction()"
-            />
-          </div>
-          <p class="text-danger" *ngIf="!exactImage">{{verifImage}}</p>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="image">Image</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  placeholder=""
+                  name="image"
+                  (change)="getFile($event)" (input)="verifImageFonction()"
+                />
+                <p class="text-danger" *ngIf="!exactImage">{{verifImage}}</p>
                 <p class="text-success" *ngIf="exactImage"><i class="bi bi-check2-all"></i> Exact !</p>
+
+              </div>
+          </div>
+          <div class="row">
+              <div class="form-group col-md-6">
+                <label for="date">Prix</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="adress"
+                  placeholder=""
+                  name="prix"
+                  [(ngModel)]="prix"  (input)="verifPrixFonction()"
+                />
+                <p class="text-danger" *ngIf="!exactPrix">{{verifPrix}}</p>
+                    <p class="text-success" *ngIf="exactPrix"><i class="bi bi-check2-all"></i> Exact !</p>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="lieu">Contact</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="contact"
+                  placeholder="Contact"
+                  name="contact"
+                  [(ngModel)]="contact"  (input)="verifContactFonction()"
+                />
+                <p class="text-danger" *ngIf="!exactContact">{{verifContact}}</p>
+                    <p class="text-success" *ngIf="exactContact"><i class="bi bi-check2-all"></i> Exact !</p>
+              </div>
+          </div>
+
+
+
 
         </div>
       </form>

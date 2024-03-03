@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
-import { User } from 'src/app/models/User.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -50,9 +49,33 @@ export class LoginComponent implements OnInit {
   // Variables Si les valeurs sont exactes
   exactEmailCon: boolean = false;
   exactPasswordCon: boolean = false;
+  userId: any;
+  // Fonction pour obtenir le timestamp actuel
+  getTimestamp = (): number => {
+    return Date.now();
+  };
+
+  // Exemple d'utilisation
+  timestamp = this.getTimestamp();
+  loggedIn: any;
+  loggedOut: any;
 
   constructor(private authService: UserService, private route: Router) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem('userConnect') != null) {
+      this.loggedIn = true;
+      this.loggedOut = false;
+    } else {
+      this.loggedIn = false;
+      this.loggedOut = true;
+    }
+    this.userId = localStorage.getItem('userIdConnect');
+    // Stockez le timestamp avec l'ID de l'utilisateur
+    localStorage.setItem(
+      `lastActivity-${this.userId}`,
+      this.timestamp.toString()
+    );
+  }
 
   // Méthode pour changer la valeur de showForm1
   toggleForm() {
@@ -229,14 +252,16 @@ export class LoginComponent implements OnInit {
               icon: 'success',
               title: '',
               text: 'connexion reussi',
-              showConfirmButton: true,
+              showConfirmButton: false,
               timer: 1500,
             });
-
+            this.notifyTokenExpiration();
             this.route.navigate(['/dash']); // Redirection vers le dashbord concerné
 
             // On stocke les info de la requete dans notre localstorage
             localStorage.setItem('userConnect', response.token);
+            // On stocke les info de la requete dans notre localstorage
+            localStorage.setItem('userIdConnect', response.user.id);
           } else if (response.user.role == 'user') {
             Swal.fire({
               position: 'center',
@@ -246,12 +271,15 @@ export class LoginComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500,
             });
+            this.notifyTokenExpiration();
 
             this.route.navigate(['/acceuil']); // Redirection vers l accueil
             // this.authService.isAuthenticated = true; // Définit la variable isAuthicated à true pour la guard
 
-            // On stocke les info de la requete dans notre localstorage
+            // On stocke le token requete dans notre localstorage
             localStorage.setItem('userConnect', response.token);
+            // On stocke les info de la requete dans notre localstorage
+            localStorage.setItem('userIdConnect', response.user.id);
 
             // this.iscorrectValues = true; //Les données fournies sont correctes
           } else {
@@ -315,26 +343,28 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  moficPassword() {
-    // this.authService.modifPassword().subscribe((rep) => {});
-  }
-
-  // afficherMotDePasse(
-  //   passwordInput: HTMLInputElement,
-  //   toggleButton: HTMLButtonElement
-  // ) {
-  //   if (passwordInput.type === 'password') {
-  //     passwordInput.type = 'text';
-  //     toggleButton.textContent = 'Masquer';
-  //   } else {
-  //     passwordInput.type = 'password';
-  //     toggleButton.textContent = 'Afficher';
-  //   }
-  // }
-
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
+
+  notifyTokenExpiration() {
+    // Définir le délai de notification (1h en millisecondes)
+    const notificationDelay = 3600000;
+
+    // Fonction pour afficher la notification
+    const showNotification = () => {
+      // Affichage d'une notification visuelle et/ou sonore
+      // Exemple : toast, notification native du navigateur, etc.
+      alert("Votre token est sur le point d'expirer ! Veuillez vous reconnecter.");
+
+      this.route.navigate(['/login']);
+    };
+
+    // Définir un intervalle pour répéter la notification
+    setInterval(showNotification, notificationDelay);
+  }
+
+
 }
 
 

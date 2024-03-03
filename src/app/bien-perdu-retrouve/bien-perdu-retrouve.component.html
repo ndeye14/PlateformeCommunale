@@ -76,7 +76,7 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Ajout bien</h1>
@@ -89,7 +89,8 @@
       </div>
       <form action="">
         <div class="modal-body">
-          <div class="form-group">
+          <div class="row">
+             <div class="form-group col-md-6">
             <label for="nom">Nom</label>
             <input
               type="text"
@@ -103,35 +104,7 @@
                 <p class="text-success" *ngIf="exactNom"><i class="bi bi-check2-all"></i> Exact !</p>
 
           </div>
-          <div class="form-group">
-            <label for="date">Caracteristique</label>
-            <input
-              type="text"
-              class="form-control"
-              id="caracteristique"
-              placeholder="Caracteristique"
-              name="caracteristique"
-              [(ngModel)]="caracteristique" (input)="verifCarateristiqueFonction()"
-            />
-            <p class="text-danger" *ngIf="!exactCaracteristique">{{verifCaracteristique}}</p>
-                <p class="text-success" *ngIf="exactCaracteristique"><i class="bi bi-check2-all"></i> Exact !</p>
-
-          </div>
-          <div class="form-group">
-            <label for="contact">Contact</label>
-            <input
-              type="text"
-              class="form-control"
-              id="contact"
-              placeholder="Contact"
-              name="contact"
-              [(ngModel)]="contact" (input)="verifContactFonction()"
-            />
-            <p class="text-danger" *ngIf="!exactContact">{{verifContact}}</p>
-                <p class="text-success" *ngIf="exactContact"><i class="bi bi-check2-all"></i> Exact !</p>
-
-          </div>
-           <div class="form-group mb-2">
+             <div class="form-group col-md-6">
             <label for="image">Image</label>
             <input
               type="file"
@@ -145,16 +118,44 @@
                 <p class="text-success" *ngIf="exactImage"><i class="bi bi-check2-all"></i> Exact !</p>
 
           </div>
-          <div class="form-group me-4">
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+            <label for="contact">Contact</label>
+            <input
+              type="text"
+              class="form-control"
+              id="contact"
+              placeholder="Contact"
+              name="contact"
+              [(ngModel)]="contact" (input)="verifContactFonction()"
+            />
+            <p class="text-danger" *ngIf="!exactContact">{{verifContact}}</p>
+                <p class="text-success" *ngIf="exactContact"><i class="bi bi-check2-all"></i> Exact !</p>
+
+          </div>
+          <div class="form-group  col-md-6">
             <label for="date">Status</label>
-            <select [(ngModel)]="statut" name="statut" class="w-100" (input)="verifStatutFonction()">
+            <select [(ngModel)]="statut" name="statut" class="w-100 h-50" (input)="verifStatutFonction()">
               <option value="perdu">perdu</option>
               <option value="retrouver">retrouver</option>
             </select>
             <p class="text-danger" *ngIf="!exactStatut">{{verifStatut}}</p>
                 <p class="text-success" *ngIf="exactStatut"><i class="bi bi-check2-all"></i> Exact !</p>
-
           </div>
+        </div>
+        <div class="form-group">
+            <label for="date">Caracteristique</label>
+            <textarea  type="text"
+              class="form-control"
+              id="caracteristique"
+              placeholder="Caracteristique"
+              name="caracteristique"
+              [(ngModel)]="caracteristique" (input)="verifCarateristiqueFonction()"></textarea>
+            <p class="text-danger" *ngIf="!exactCaracteristique">{{verifCaracteristique}}</p>
+                <p class="text-success" *ngIf="exactCaracteristique"><i class="bi bi-check2-all"></i> Exact !</p>
+
+        </div>
         </div>
       </form>
       <div class="modal-footer">

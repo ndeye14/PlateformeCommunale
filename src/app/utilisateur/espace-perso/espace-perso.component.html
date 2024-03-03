@@ -1,8 +1,44 @@
-<div class="sidebar-opener" (click)="sidebarShow = !sidebarShow">
-	  Click me to open/close the sidebar
+
+<!-- <app-header></app-header> -->
+<div class="row">
+  <div class="col-md-2">
+    <div class="sidebar-opener mx-5 py-3 " (click)="sidebarShow = !sidebarShow">
+  <i class="bi bi-list " style="font-size:30px"></i>
 </div>
 
-<div class="sidebar-slider" [class.sidebar-slide-in]="sidebarShow">
+  </div>
+  
+</div>
+
+
+
+
+
+
+<div class="container text-center">
+  <div class="row mb-3">
+    <div class="col-sm-12 col-lg-4">
+      <div class="input-group mb-3">
+        <!-- <input type="text" class="form-control" placeholder="Rechercher un produit" aria-label="Rechercher"
+          aria-describedby="button-addon2" [(ngModel)]="filterValue" (keyup)="onSearch()">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fa-solid fa-magnifying-glass" style="color: #FF9700;"></i></button>
+-->
+      </div>
+
+    </div>
+    <div class="col-sm-12 col-lg-4 ms-auto ">
+      <button type="button" class="btn btn-custom btn-md" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">Ajouter un produit</button>
+    </div>
+  </div>
+
+
+
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <div class="sidebar-slider " [class.sidebar-slide-in]="sidebarShow">
     <div
         class="sidebar-close"
         (click)="sidebarShow = !sidebarShow"
@@ -10,15 +46,74 @@
         X
     </div>
 	  <div class="sidebar-content">
-        <h2>Sidebar</h2>
-        <div>Home Page</div>
-        <div>About Us</div>
-        <div>Services</div>
+        <div></div>
+        <div>Accueil</div>
+        <div>Produit</div>
+        <div>Bien</div>
         <div>Prices</div>
-        <div>Downloads</div>
-        <div>Contact Us</div>
 	  </div>
 </div>
+
+  </div>
+  <div class="col-md-7">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="image"></div>
+      <div class="content">
+        <a href="#">
+          <span class="title">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </span>
+        </a>
+
+        <p class="desc">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
+          dolores, possimus pariatur animi temporibus nesciunt praesentium
+        </p>
+
+        <a class="action" href="#">
+          Find out more
+          <span aria-hidden="true">
+            →
+          </span>
+        </a>
+      </div>
+    </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="image"></div>
+      <div class="content">
+        <a href="#">
+          <span class="title">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </span>
+        </a>
+
+        <p class="desc">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
+          dolores, possimus pariatur animi temporibus nesciunt praesentium
+        </p>
+
+        <a class="action" href="#">
+          Find out more
+          <span aria-hidden="true">
+            →
+          </span>
+        </a>
+      </div>
+    </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
 
 
 
